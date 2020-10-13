@@ -31,6 +31,6 @@ Ensure you have command line tools setup within Xcode by:
 - Xcode > Preference > Locations
 - Select the first option within the `Command Line Tools` dropdown
 
-Run `npm start` 
+Run `npm start` <br/>
 Enter `i` to open iOS simulator
 
