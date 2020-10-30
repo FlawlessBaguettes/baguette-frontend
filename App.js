@@ -1,21 +1,18 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, SafeAreaView } from 'react-native';
+import React from "react";
+import { StyleSheet } from "react-native";
+import ListPostsScreen from "./ListPostsScreen";
 
-export default function App() {
+export default App = () => {
   return (
-    <SafeAreaView style={styles.container}>
-      <Text>Ice on my neck, flawless baguettes</Text>
-      <StatusBar style="auto" />
-    </SafeAreaView>
+    <ListPostsScreen
+      baseUrl={"http://127.0.0.1:5000/baguette/api/v1.0/posts"}
+    />
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    padding: 24,
   },
 });
