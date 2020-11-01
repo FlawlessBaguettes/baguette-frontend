@@ -1,12 +1,24 @@
 import React from "react";
 import { StyleSheet } from "react-native";
-import ListPostsScreen from "./ListPostsScreen";
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
+import ListPostsScreen from "./app/components/ListPostsScreen";
+import PostCamera from "./app/components/PostCamera"; 
+
+const Stack = createStackNavigator();
 
 export default App = () => {
   return (
-    <ListPostsScreen
-      baseUrl={"http://127.0.0.1:5000/baguette/api/v1.0/posts"}
-    />
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="ListPostsScreen">
+        <Stack.Screen name="PostCamera" component={PostCamera} />
+        <Stack.Screen 
+          name="ListPostsScreen" 
+          component={ListPostsScreen} 
+          initialParams={{ baseUrl: "http://127.0.0.1:5000/baguette/api/v1.0/posts"}} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 
