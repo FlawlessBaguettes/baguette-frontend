@@ -4,19 +4,25 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import ListPostsScreen from "./app/components/ListPostsScreen";
-import PostCamera from "./app/components/PostCamera"; 
+import CameraView from "./app/components/CameraView"; 
 
 const Stack = createStackNavigator();
 
 export default App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="ListPostsScreen">
-        <Stack.Screen name="PostCamera" component={PostCamera} />
+      <Stack.Navigator 
+        initialRouteName="CameraView"
+        // screenOptions={{
+        //   headerShown: false
+        // }}
+      >
         <Stack.Screen 
           name="ListPostsScreen" 
           component={ListPostsScreen} 
-          initialParams={{ baseUrl: "http://127.0.0.1:5000/baguette/api/v1.0/posts"}} />
+          initialParams={{ baseUrl: "http://127.0.0.1:5000/baguette/api/v1.0/posts"}} 
+        />
+        <Stack.Screen name="CameraView" component={CameraView} />
       </Stack.Navigator>
     </NavigationContainer>
   );

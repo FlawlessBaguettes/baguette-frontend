@@ -82,7 +82,7 @@ const ListPostsScreen = ({ route, navigation }) => {
               <Button 
                 title="Reply" 
                 style={styles.button} 
-                onPress={() => {navigation.navigate('PostCamera')}}
+                onPress={() => {navigation.navigate('CameraView')}}
               />
             </View>
           </View>
