@@ -20,6 +20,12 @@ or if you already have node then
 `npm i -g expo-cli`
 
 
+### Install Latest Packages
+
+All dependencies are listed out in the `package.json` file. Run the following command to download latest dependencies
+
+`npm install`
+
 # Running App
 
 ### iOS 
