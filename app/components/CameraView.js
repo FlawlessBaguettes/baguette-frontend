@@ -1,9 +1,13 @@
-import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, { Component } from 'react'
+import { StyleSheet, SafeAreaView, Text, TouchableHighlight, View } from 'react-native'
+import { Camera } from 'expo-camera'
+import { StatusBar } from 'expo-status-bar'
 import PostCamera from './PostCamera'
-import { Camera } from 'expo-camera';
+import PostPreview from './PostPreview'
 
 class CameraView extends Component{
+
+	_isMounted = false;
 
 	constructor(){
 		super()
@@ -13,18 +17,23 @@ class CameraView extends Component{
 			showCamera: true,
 			video: null
 		}
-		this.innerRef = React.createRef()
-		this.camera = null
+		this.cameraRef = React.createRef()
 	}
 
 	async componentDidMount() {
+		this._isMounted = true
     	this.getCameraPermissions()
   	}
 
-  	componentDidUpdate(){
-  		if(this.innerRef){
-  			this.camera = this.innerRef.current
-  		}
+  	componentWillUnmount() {
+    	this._isMounted = false;
+  	}
+
+  	cancelPreview(){
+  		this.setState({
+  			showCamera: true,
+  			video: null
+  		})
   	}
 
 	async getCameraPermissions(){
@@ -36,21 +45,27 @@ class CameraView extends Component{
 		}
 	}
 
+	goBack(){
+		this.props.navigation.goBack()
+	}
+
 	async startRecording(){
-		if (this.camera) {
+		if (this.cameraRef.current) {
 	  		this.setState({ recording: true }, async () => {
-		    	const video = await this.camera.recordAsync();
-		    	this.setState({ video });
+		    	let video = await this.cameraRef.current.recordAsync();
+		    	if (this._isMounted){
+		    		await this.setState({ 
+		    			video, 
+		    			showCamera: false
+		    		});
+		    	}
 		  	});
 		}
 	};
 
 	async stopRecording() {
 		this.setState({ recording: false }, async () => {
-		  await this.camera.stopRecording()
-		  if (this.state.video != null){
-		    console.log(this.state.video)
-		  }
+			await this.cameraRef.current.stopRecording()
 		});
 	};
 
@@ -61,7 +76,8 @@ class CameraView extends Component{
 		if(showCamera){
 			return (
 				<PostCamera 
-				innerRef={this.innerRef}
+				cameraRef={this.cameraRef}
+				goBack={this.goBack.bind(this)}
 				toggleRecording={this.toggleRecording.bind(this)}
 				/>
 			)
@@ -70,20 +86,32 @@ class CameraView extends Component{
 		}
 	}
 
+	renderPreview(){
+		const { showCamera, video } = this.state
+		if(!showCamera && video){
+			return (
+				<PostPreview 
+					cancelPreview={this.cancelPreview.bind(this)}
+					uri={video.uri}
+				/>
+			)
+		}else{
+			return null;
+		}
+	}
+
 	toggleRecording() {
-    const { recording } = this.state;
-    if (recording) {
-      this.stopRecording();
-    } else {
-      this.startRecording();
-    }
-  };
-
-
+    	const { recording } = this.state;
+    	if (recording) {
+      		this.stopRecording();
+		} else {
+      		this.startRecording();
+    	}
+  	};
 
 	render(){
 		if (this.state.hasCameraPermissions === null) {
-	      return <View />;
+	      return <SafeAreaView />;
 	    }
 
 	    if (this.state.hasCameraPermissions === false) {
@@ -92,7 +120,9 @@ class CameraView extends Component{
 
 		return(
 			<View style={styles.container}>
+				<StatusBar hidden='true' translucent='true' />
 				{this.renderCamera()}
+				{this.renderPreview()}
 			</View>
 		)
 	}

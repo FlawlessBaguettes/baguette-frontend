@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
-import axios from "axios";
 import { Camera } from 'expo-camera';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import axios from "axios";
 import CaptureButton from './CaptureButton'
+import CameraStyle from '../styles/CameraStyle'
 
 class PostCamera extends Component {
 
@@ -12,13 +13,6 @@ class PostCamera extends Component {
     this.state = {
       type: Camera.Constants.Type.front,      
     }
-  }
-
-  refresh(){
-    console.log('back')
-    this.setState({
-      video: null
-    })
   }
 
   setCameraType(){
@@ -34,11 +28,12 @@ class PostCamera extends Component {
   }
 
   render(){
+    console.log(CameraStyle)
     return (
         <Camera 
-          style={styles.camera} 
+          style={styles.container} 
           type={this.state.type} 
-          ref={this.props.innerRef}
+          ref={this.props.cameraRef}
         >
           <View
             style={{
@@ -46,16 +41,26 @@ class PostCamera extends Component {
               backgroundColor: 'transparent',
               flexDirection: 'row',
             }}>
+            
             <TouchableHighlight
               activeOpacity={0.6}
               style={{
                 flex: 0.15,
-                alignSelf: 'flex-top',
-                alignItems: 'center',
+                end: 10,
+                position: 'absolute',
+                justifyContent: "center",
               }}
-              onPress={() => { this.setCameraType()}}
+              onPress={() => {this.setCameraType()}}
             >
-              <MaterialCommunityIcons name="camera-switch" style={styles.flip}/>
+              <MaterialCommunityIcons name="camera-switch" style={CameraStyle.button}/>
+            </TouchableHighlight>
+
+            <TouchableHighlight
+              activeOpacity={0.6}
+              style={CameraStyle.buttonArea}
+              onPress={() => {this.props.goBack}}
+            >
+              <MaterialCommunityIcons name="keyboard-backspace" style={CameraStyle.button}/>
             </TouchableHighlight>
 
             <CaptureButton 
@@ -69,22 +74,13 @@ class PostCamera extends Component {
 }
 
 const styles = StyleSheet.create({
-  camera:{
+  container:{
     flex: 1
   },
-  flip: {
-    fontSize: 32, 
-    marginTop: 10,
-    marginLeft: 5, 
-    color: 'white'
-  },
-  topLeftButton: {
-
-  }
 });
 
 export default React.forwardRef((props, ref) => 
   <PostCamera 
-    innerRef={ref} {...props}
+    cameraRef={ref} {...props}
   />
 );

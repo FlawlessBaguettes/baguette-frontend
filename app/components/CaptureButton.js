@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { StyleSheet, TouchableHighlight, View } from 'react-native';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 class CaptureButton extends Component{
 
