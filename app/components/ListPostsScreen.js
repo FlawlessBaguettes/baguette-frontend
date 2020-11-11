@@ -65,7 +65,7 @@ const ListPostsScreen = ({ route, navigation }) => {
                       if (item.number_of_replies) {
                         navigation.push(
                           'ListPostsScreen', {
-                            baseUrl: "http://127.0.0.1:5000/baguette/api/v1.0/posts/replies/" + item.id,
+                            baseUrl: "http://bc05027d767e.ngrok.io/baguette/api/v1.0/posts/replies/" + item.id,
                           } 
                         )
                       }

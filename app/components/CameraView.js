@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { StyleSheet, SafeAreaView, Text, TouchableHighlight, View } from 'react-native'
 import { Camera } from 'expo-camera'
 import { StatusBar } from 'expo-status-bar'
+import axios from "axios"
+import CameraControls from './CameraControls'
 import PostCamera from './PostCamera'
 import PostPreview from './PostPreview'
 
@@ -15,6 +17,7 @@ class CameraView extends Component{
 			hasCameraPermissions: null,
 			recording: false,
 			showCamera: true,
+			type: Camera.Constants.Type.front,
 			video: null
 		}
 		this.cameraRef = React.createRef()
@@ -49,6 +52,18 @@ class CameraView extends Component{
 		this.props.navigation.goBack()
 	}
 
+	setCameraType(){
+		if (this.state.type === Camera.Constants.Type.back) {
+		  this.setState({
+		    type: Camera.Constants.Type.front
+		  })
+		} else{
+		  this.setState({
+		    type: Camera.Constants.Type.back
+		  })
+		}
+	}
+
 	async startRecording(){
 		if (this.cameraRef.current) {
 	  		this.setState({ recording: true }, async () => {
@@ -69,16 +84,31 @@ class CameraView extends Component{
 		});
 	};
 
+	renderCameraControls(){
+		const { showCamera, recording } = this.state
 
-	renderCamera(){
-		const { showCamera } = this.state
+		if(showCamera && !recording){
+			return(
+				<CameraControls 
+					goBack={this.goBack.bind(this)}
+					setCameraType={this.setCameraType.bind(this)}
+				/>
+			)
+		}
+		else{
+			return null
+		}
+	}
+
+	renderPostCamera(){
+		const { showCamera, type } = this.state
 
 		if(showCamera){
 			return (
-				<PostCamera 
-				cameraRef={this.cameraRef}
-				goBack={this.goBack.bind(this)}
-				toggleRecording={this.toggleRecording.bind(this)}
+				<PostCamera
+					cameraRef={this.cameraRef}
+					toggleRecording={this.toggleRecording.bind(this)}
+					type={type}
 				/>
 			)
 		}else{
@@ -86,12 +116,13 @@ class CameraView extends Component{
 		}
 	}
 
-	renderPreview(){
+	renderPostPreview(){
 		const { showCamera, video } = this.state
 		if(!showCamera && video){
 			return (
 				<PostPreview 
 					cancelPreview={this.cancelPreview.bind(this)}
+					submitVideo={this.submitVideo.bind(this)}
 					uri={video.uri}
 				/>
 			)
@@ -99,6 +130,38 @@ class CameraView extends Component{
 			return null;
 		}
 	}
+
+	submitVideo() {
+		const { video } = this.state
+		var uri = video.uri.replace('file://', '')
+	 	const uriParts = uri.split('.');
+ 		const fileType = uriParts[uriParts.length - 1];
+
+      	const bodyFormData = new FormData();
+	    bodyFormData.append('video', {
+	      uri: uri,
+	      name: 'test.mov',
+	      type: `video/${fileType}`,
+	    });
+
+  		const headers = { 
+  			'Content-Type': 'multipart/form-data',
+  		}
+  		var config = {
+		  method: 'post',
+		  url: 'http://dc5f2c30bdf6.ngrok.io/baguette/api/v1.0/posts',
+		  headers: headers,
+		  data : bodyFormData
+		};
+
+		axios(config)
+		.then(function (response) {
+			console.log(response);
+		})
+		.catch(function (response) {
+			console.log(response);
+		});
+  	}
 
 	toggleRecording() {
     	const { recording } = this.state;
@@ -121,8 +184,9 @@ class CameraView extends Component{
 		return(
 			<View style={styles.container}>
 				<StatusBar hidden='true' translucent='true' />
-				{this.renderCamera()}
-				{this.renderPreview()}
+				{this.renderPostCamera()}
+				{this.renderCameraControls()}
+				{this.renderPostPreview()}
 			</View>
 		)
 	}
@@ -131,7 +195,7 @@ class CameraView extends Component{
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
 });
 

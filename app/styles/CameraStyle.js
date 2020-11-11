@@ -4,9 +4,7 @@ import { StyleSheet } from 'react-native';
 const CameraStyle = StyleSheet.create({
 
   buttonArea:{
-  	flex: 0.15,
   	position: "absolute",
-	justifyContent: "center",
   },
 
   button: {
@@ -18,7 +16,8 @@ const CameraStyle = StyleSheet.create({
   },
 
   topRightButton: {
-  	end: 10
+  	left: 100,
+    position: 'absolute',
   }
 });
 

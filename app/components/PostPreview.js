@@ -10,35 +10,6 @@ class PostPreview extends Component {
 		super()
 	}
 
-	// submitVideo() {
- //    console.log(this.state)
- //    if (this.state.video) {
- //      var uri = this.state.video.uri
- //      var uriParts = uri.split('/')
- //      var filename = uriParts[uriParts.length - 1]
-
- //      var bodyFormData = new FormData();
- //      bodyFormData.append('video', uri); 
-
- //      // axios({
- //      //   method: 'post',
- //      //   url: 'http://127.0.0.1:5000/baguette/api/v1.0/posts',
- //      //   data: bodyFormData,
- //      //   headers: {'Content-Type': 'multipart/form-data' }
- //      //   })
- //      // .then(function (response) {
- //      //   console.log(response);
- //      // })
- //      // .catch(function (response) {
- //      //   console.log(response);
- //      // });
-
- //      this.setState({ 
- //        video: null
- //      });
- //    }
- //  }
-
 	render() {
 		var { uri } = this.props
 
@@ -60,8 +31,15 @@ class PostPreview extends Component {
   				<TouchableHighlight
 		                style={CameraStyle.buttonArea}
 	                	onPress={this.props.cancelPreview}
-	          		>
-        			<MaterialCommunityIcons name='close' style={CameraStyle.button} />
+          		>
+    				<MaterialCommunityIcons name='close' style={CameraStyle.button} />
+  				</TouchableHighlight>
+
+  				<TouchableHighlight
+		                style={CameraStyle.topRightButton}
+	                	onPress={this.props.submitVideo}
+          		>
+    				<Text style={CameraStyle.button}>Post</Text>
   				</TouchableHighlight>
 			</View>
 		);
