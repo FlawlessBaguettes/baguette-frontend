@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
-import { StyleSheet, TouchableHighlight, View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
+
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+
 import CameraStyle from '../styles/CameraStyle'
 
 class CameraControls extends Component{
@@ -10,34 +12,24 @@ class CameraControls extends Component{
 
 	render(){
 		return(
-			<View style={styles.container}>
-				<TouchableHighlight
-	              activeOpacity={0.6}
-	              style={CameraStyle.topRightButton}
-	              onPress={() => {
-	              	this.props.setCameraType()
-	              }}
-	            >
-	              <MaterialCommunityIcons name="camera-switch" style={CameraStyle.button}/>
-	            </TouchableHighlight>
+			<View style={CameraStyle.container}>
 
-	            <TouchableHighlight
-	              activeOpacity={0.6}
+	            <TouchableOpacity
 	              style={CameraStyle.buttonArea}
-	              onPress={() => {this.props.goBack()}}
+	              onPress={this.props.goBack}
 	            >
-	              <MaterialCommunityIcons name="keyboard-backspace" style={CameraStyle.button}/>
-	            </TouchableHighlight>
+					<MaterialCommunityIcons name="keyboard-backspace" style={CameraStyle.button}/>
+            	</TouchableOpacity>
+
+            	<TouchableOpacity
+	              style={CameraStyle.topRightButton}
+	              onPress={this.props.setCameraType}
+	            >
+					<MaterialCommunityIcons name="camera-switch" style={CameraStyle.button}/>
+	            </TouchableOpacity>
             </View>
 		)
 	}
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    position: 'absolute'
-  },
-});
 
 export default CameraControls

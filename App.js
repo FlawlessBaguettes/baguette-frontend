@@ -14,7 +14,7 @@ export default App = () => {
       <Stack.Navigator 
         initialRouteName="CameraView"
         screenOptions={{
-          // headerShown: false
+          headerShown: false
         }}
       >
         <Stack.Screen 

@@ -1,11 +1,15 @@
 import React, { Component } from 'react'
-import { StyleSheet, SafeAreaView, Text, TouchableHighlight, View } from 'react-native'
+import { SafeAreaView, StyleSheet, Text, TouchableHighlight, View } from 'react-native'
+
 import { Camera } from 'expo-camera'
 import { StatusBar } from 'expo-status-bar'
+
 import axios from "axios"
+
 import CameraControls from './CameraControls'
 import PostCamera from './PostCamera'
 import PostPreview from './PostPreview'
+import PostPreviewControls from './PostPreviewControls'
 
 class CameraView extends Component{
 
@@ -121,9 +125,21 @@ class CameraView extends Component{
 		if(!showCamera && video){
 			return (
 				<PostPreview 
+					uri={video.uri}
+				/>
+			)
+		}else{
+			return null;
+		}
+	}
+
+	renderPostPreviewControls(){
+		const { showCamera, video } = this.state
+		if(!showCamera && video){
+			return (
+				<PostPreviewControls 
 					cancelPreview={this.cancelPreview.bind(this)}
 					submitVideo={this.submitVideo.bind(this)}
-					uri={video.uri}
 				/>
 			)
 		}else{
@@ -133,14 +149,16 @@ class CameraView extends Component{
 
 	submitVideo() {
 		const { video } = this.state
-		var uri = video.uri.replace('file://', '')
-	 	const uriParts = uri.split('.');
- 		const fileType = uriParts[uriParts.length - 1];
+		const uri = video.uri.replace('file://', '')
+		const uriParts = uri.split('/')
+		const fileName = uriParts[uriParts.length - 1]
+	 	const fileNameParts = fileName.split('.');
+ 		const fileType = fileName[fileName.length - 1];
 
       	const bodyFormData = new FormData();
 	    bodyFormData.append('video', {
 	      uri: uri,
-	      name: 'test.mov',
+	      name: fileName,
 	      type: `video/${fileType}`,
 	    });
 
@@ -149,17 +167,19 @@ class CameraView extends Component{
   		}
   		var config = {
 		  method: 'post',
-		  url: 'http://dc5f2c30bdf6.ngrok.io/baguette/api/v1.0/posts',
+		  url: 'http://4a3034da310d.ngrok.io/baguette/api/v1.0/posts',
 		  headers: headers,
 		  data : bodyFormData
 		};
 
 		axios(config)
 		.then(function (response) {
-			console.log(response);
+			console.log('success')
+			// console.log(response);
 		})
 		.catch(function (response) {
-			console.log(response);
+			console.log('failure')
+			// console.log(response);
 		});
   	}
 
@@ -187,6 +207,7 @@ class CameraView extends Component{
 				{this.renderPostCamera()}
 				{this.renderCameraControls()}
 				{this.renderPostPreview()}
+				{this.renderPostPreviewControls()}
 			</View>
 		)
 	}

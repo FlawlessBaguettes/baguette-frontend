@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
+
 import { Camera } from 'expo-camera';
+
 import axios from "axios";
+
 import CaptureButton from './CaptureButton'
 import CameraStyle from '../styles/CameraStyle'
 

@@ -28,19 +28,6 @@ class PostPreview extends Component {
 					isLooping={true}
 				    style={styles.container}
  				/>
-  				<TouchableHighlight
-		                style={CameraStyle.buttonArea}
-	                	onPress={this.props.cancelPreview}
-          		>
-    				<MaterialCommunityIcons name='close' style={CameraStyle.button} />
-  				</TouchableHighlight>
-
-  				<TouchableHighlight
-		                style={CameraStyle.topRightButton}
-	                	onPress={this.props.submitVideo}
-          		>
-    				<Text style={CameraStyle.button}>Post</Text>
-  				</TouchableHighlight>
 			</View>
 		);
 	}
