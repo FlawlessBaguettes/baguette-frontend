@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import useFetch from "../utils/useFetch";
+import React, { useState, useEffect } from 'react'
 import {
   FlatList,
   View,
@@ -8,7 +7,11 @@ import {
   Text,
   Button,
   ActivityIndicator,
-} from "react-native";
+} from 'react-native'
+
+import { GET_REPLIES_ENDPOINT } from "../api/constants"
+
+import useFetch from '../utils/useFetch'
 
 const ListPostsScreen = ({ route, navigation }) => {
   const baseUrl = route.params.baseUrl;
@@ -65,7 +68,7 @@ const ListPostsScreen = ({ route, navigation }) => {
                       if (item.number_of_replies) {
                         navigation.push(
                           'ListPostsScreen', {
-                            baseUrl: "http://bc05027d767e.ngrok.io/baguette/api/v1.0/posts/replies/" + item.id,
+                            baseUrl: GET_REPLIES_ENDPOINT + '/' + item.id,
                           } 
                         )
                       }

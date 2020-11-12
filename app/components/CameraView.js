@@ -11,6 +11,8 @@ import PostCamera from './PostCamera'
 import PostPreview from './PostPreview'
 import PostPreviewControls from './PostPreviewControls'
 
+import { POST_POSTS_ENDPOINT } from "../api/constants" 
+
 class CameraView extends Component{
 
 	_isMounted = false;
@@ -167,7 +169,7 @@ class CameraView extends Component{
   		}
   		var config = {
 		  method: 'post',
-		  url: 'http://ee4175e96eed.ngrok.io/baguette/api/v1.0/posts',
+		  url: POST_POSTS_ENDPOINT,
 		  headers: headers,
 		  data : bodyFormData
 		};
