@@ -12,7 +12,6 @@ import { GET_POSTS_ENDPOINT } from "./app/api/constants"
 const Stack = createStackNavigator();
 
 export default App = () => {
-  console.log(GET_POSTS_ENDPOINT)
   return (
     <SafeAreaProvider>
       <NavigationContainer>
