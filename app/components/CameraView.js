@@ -167,7 +167,7 @@ class CameraView extends Component{
   		}
   		var config = {
 		  method: 'post',
-		  url: 'http://4a3034da310d.ngrok.io/baguette/api/v1.0/posts',
+		  url: 'http://ee4175e96eed.ngrok.io/baguette/api/v1.0/posts',
 		  headers: headers,
 		  data : bodyFormData
 		};

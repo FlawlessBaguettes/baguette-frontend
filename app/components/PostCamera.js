@@ -37,7 +37,6 @@ class PostCamera extends Component {
           <View
             style={{
               flex: 1,
-              backgroundColor: 'transparent',
               flexDirection: 'row',
             }}>
 
@@ -53,7 +52,7 @@ class PostCamera extends Component {
 
 const styles = StyleSheet.create({
   container:{
-    flex: 1
+    flex: 1,
   },
 });
 

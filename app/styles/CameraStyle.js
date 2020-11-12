@@ -3,27 +3,35 @@ import { StyleSheet } from 'react-native';
 
 const CameraStyle = StyleSheet.create({
 
-  container:{
-    flex: 1,
+  safeAreaView:{
     flexDirection: 'row',
     position: 'absolute',
   },
 
-  buttonArea:{
-  	position: "absolute",
+  container:{
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
 
-  button: {
+  topLeftButton:{
+    paddingLeft: 15,
+  },
+
+  iconButton: {
   	color: 'white',
   	textAlign: 'center',
   	fontSize: 32, 
-    marginTop: 10,
-    marginLeft: 5,
+  },
+
+  textButton: {
+    color: 'white',
+    textAlign: 'center',
+    fontSize: 24, 
   },
 
   topRightButton: {
-  	left: 330,
-    position: 'absolute',
+    paddingRight: 15,
   }
 });
 

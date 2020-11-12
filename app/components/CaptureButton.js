@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, TouchableHighlight, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
 class CaptureButton extends Component{
 
@@ -35,23 +35,22 @@ class CaptureButton extends Component{
 	render(){
 		return(
 			<View
-			style={{
-	              flex: 1,
-	              alignSelf: 'flex-end',
-	              alignItems: 'center',
+                style={{
+                    flex: 1,
+                    alignSelf: 'flex-end',
+                    alignItems: 'center',
 	            }}
 			>
-				<TouchableHighlight
-		            onPress={this.onPress.bind(this)}
-	            >
-	            	<View style={styles.captureButtonOuter} >
-	            		<View style={this.captureButtonInnerStyle()} />
-	            	</View>
-	          	</TouchableHighlight>
-          	</View>
-          )
-      }
-
+				<TouchableOpacity
+                    onPress={this.onPress.bind(this)}
+                >
+                    <View style={styles.captureButtonOuter} >
+                        <View style={this.captureButtonInnerStyle()} />
+                    </View>
+	           </TouchableOpacity>
+  	         </View>
+        )
+  }
 };
 
 const styles = StyleSheet.create({
@@ -64,13 +63,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     alignItems: 'center',
     justifyContent: 'center'
-  },
-
-  captureButtonInner: {
-    height: 55, 
-    width: 55,
-    borderRadius: 50,
-  },
+  }
 });
 
 export default CaptureButton;
