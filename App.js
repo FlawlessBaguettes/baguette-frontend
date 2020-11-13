@@ -17,16 +17,19 @@ export default App = () => {
       <NavigationContainer>
         <Stack.Navigator 
           initialRouteName="ListPostsScreen"
-          screenOptions={{
-            headerShown: false
-          }}
         >
           <Stack.Screen 
             name="ListPostsScreen" 
             component={ListPostsScreen} 
             initialParams={{ baseUrl: GET_POSTS_ENDPOINT}} 
           />
-          <Stack.Screen name="CameraView" component={CameraView} />
+          <Stack.Screen 
+            name="CameraView" 
+            component={CameraView}
+            options={{
+              headerShown: false
+            }} 
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
