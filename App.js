@@ -22,6 +22,9 @@ export default App = () => {
             name="ListPostsScreen" 
             component={ListPostsScreen} 
             initialParams={{ baseUrl: GET_POSTS_ENDPOINT}} 
+            options={{
+              title: 'Home'
+            }}
           />
           <Stack.Screen 
             name="CameraView" 
