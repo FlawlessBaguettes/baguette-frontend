@@ -17,8 +17,8 @@ class CameraView extends Component{
 
 	_isMounted = false;
 
-	constructor(){
-		super()
+	constructor(props){
+		super(props)
 		this.state = {
 			hasCameraPermissions: null,
 			recording: false,
@@ -38,7 +38,7 @@ class CameraView extends Component{
     	this._isMounted = false;
   	}
 
-  	cancelPreview(){
+  	cancelPreview = () =>{
   		this.setState({
   			showCamera: true,
   			video: null
@@ -54,11 +54,11 @@ class CameraView extends Component{
 		}
 	}
 
-	goBack(){
+	goBack = () =>{
 		this.props.navigation.goBack()
 	}
 
-	setCameraType(){
+	toggleCameraType = () => {
 		if (this.state.type === Camera.Constants.Type.back) {
 		  this.setState({
 		    type: Camera.Constants.Type.front
@@ -96,8 +96,8 @@ class CameraView extends Component{
 		if(showCamera && !recording){
 			return(
 				<CameraControls 
-					goBack={this.goBack.bind(this)}
-					setCameraType={this.setCameraType.bind(this)}
+					goBack={this.goBack}
+					toggleCameraType={this.toggleCameraType}
 				/>
 			)
 		}
@@ -113,7 +113,7 @@ class CameraView extends Component{
 			return (
 				<PostCamera
 					cameraRef={this.cameraRef}
-					toggleRecording={this.toggleRecording.bind(this)}
+					toggleRecording={this.toggleRecording}
 					type={type}
 				/>
 			)
@@ -140,8 +140,8 @@ class CameraView extends Component{
 		if(!showCamera && video){
 			return (
 				<PostPreviewControls 
-					cancelPreview={this.cancelPreview.bind(this)}
-					submitVideo={this.submitVideo.bind(this)}
+					cancelPreview={this.cancelPreview}
+					submitVideo={this.submitVideo}
 				/>
 			)
 		}else{
@@ -149,7 +149,7 @@ class CameraView extends Component{
 		}
 	}
 
-	submitVideo() {
+	submitVideo = () => {
 		const { video } = this.state
 		const uri = video.uri.replace('file://', '')
 		const uriParts = uri.split('/')
@@ -185,7 +185,7 @@ class CameraView extends Component{
 		});
   	}
 
-	toggleRecording() {
+	toggleRecording = () => {
     	const { recording } = this.state;
     	if (recording) {
       		this.stopRecording();

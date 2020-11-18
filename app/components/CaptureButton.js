@@ -25,7 +25,7 @@ class CaptureButton extends Component{
   		}
   	}
 
-	onPress(){
+	onPress = () => {
 		this.props.onPress()
 		this.setState({
 			recording: !this.state.recording
@@ -42,7 +42,7 @@ class CaptureButton extends Component{
 	            }}
 			>
 				<TouchableOpacity
-                    onPress={this.onPress.bind(this)}
+                    onPress={this.onPress}
                 >
                     <View style={styles.captureButtonOuter} >
                         <View style={this.captureButtonInnerStyle()} />
