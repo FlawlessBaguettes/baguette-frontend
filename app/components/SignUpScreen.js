@@ -3,23 +3,25 @@ import { SafeAreaView, StyleSheet, Text, TextInput, TouchableHighlight, View } f
 
 import FormTextInput from './FormTextInput'
 
+import FormStyle from '../styles/FormStyle'
+
 class SignUpScreen extends Component{
 	constructor(){
 		super()
 		this.state = {
-			first_name: null,
-			last_name: null,
-			email: null,
-			username: null,
+			firstName: '',
+			lastName: '',
+			email: '',
+			username: '',
 		}
 	}
 
 	handleFirstName = (text) => {
-		this.setState({ first_name: text })
+		this.setState({ firstName: text })
 	}
 
 	handleLastName = (text) => {
-		this.setState({ last_name: text })
+		this.setState({ lastName: text })
 	}
 
 	handleEmail = (text) => {
@@ -30,28 +32,74 @@ class SignUpScreen extends Component{
 		this.setState({ username: text })
 	}
 
+	validateFirstName = (text) =>{
+		if (text == '') {
+			return "Please enter a first name"
+		}
+		return true
+	}
+
+	validateLastName = (text) =>{
+		if (text == '') {
+			return "Please enter a last name"
+		}
+		return true
+	}
+
+	validateEmail = (text) =>{
+		if (text == '') {
+			return "Please enter an email address"
+		}
+
+		var mailformat = /^\S+@\S+\.\S+$/
+		if (!text.match(mailformat)){
+			return "Please enter a valid email address"
+		}
+		return true
+	}
+
+	validateUsername = (text) =>{
+		if (text == '') {
+			return "Please enter a username"
+		}
+		return true
+	}
+
 	render(){
+		const { firstNameErrorMessage } = this.state
 		return(
-			<View style={styles.container}>
-				<Text>Sign Up</Text>
-				<Text>First Name</Text>
+			<View style={FormStyle.container}>
 				<FormTextInput
-			      onChangeText={this.handleFirstName}
+					autoCapitalize={false}
+					autoCorrect={false}					
+					autoFocus={true}
+					header={'First Name'}
+					onChangeText={this.handleFirstName}
+					validateInput={this.validateFirstName}
 			    />
 
-			    <Text>Last Name</Text>
 				<FormTextInput
-			      onChangeText={this.handleLastName}
+					autoCapitalize={false}
+					autoCorrect={false}
+					header={'Last Name'}
+					onChangeText={this.handleLastName}
+					validateInput={this.validateLastName}
 			    />
 
-			    <Text>Email</Text>
 				<FormTextInput
-			      onChangeText={this.handleEmail}
+					autoCapitalize={false}
+					autoCorrect={false}
+					header={'Email'}
+					onChangeText={this.handleEmail}
+					validateInput={this.validateEmail}
 			    />
 
-			    <Text>Username</Text>
 				<FormTextInput
-			      onChangeText={this.handleUsername}
+					autoCapitalize={false}
+					autoCorrect={false}
+					header={'Username'}
+					onChangeText={this.handleUsername}
+					validateInput={this.validateUsername}
 			    />
 			</View>
 		)
@@ -59,10 +107,7 @@ class SignUpScreen extends Component{
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "white",
-  	},
-  })
+	
+})
 
 export default SignUpScreen
