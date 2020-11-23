@@ -1,19 +1,33 @@
 import React, { Component } from 'react'
-import { SafeAreaView, StyleSheet, Text, TextInput, TouchableHighlight, View } from 'react-native'
+import { View } from 'react-native'
 
 import FormTextInput from './FormTextInput'
+import PrimaryButton from './PrimaryButton'
+import SecondaryButton from './SecondaryButton'
 
 import FormStyle from '../styles/FormStyle'
 
+import { validateEmail, validateFirstName, validateLastName, validatePasswordStrong, validateUsername } from '../utils/FormValidation'
+
 class SignUpScreen extends Component{
-	constructor(){
-		super()
+	constructor(props){
+		super(props)
 		this.state = {
+			email: '',
 			firstName: '',
 			lastName: '',
-			email: '',
+			password: '',
+			signUpButtonDisabled: true,
 			username: '',
 		}
+	}
+
+	componentDidUpdate(){
+		this.updateSignUpButton()
+	}
+
+	handleEmail = (text) => {
+		this.setState({ email: text })
 	}
 
 	handleFirstName = (text) => {
@@ -24,90 +38,117 @@ class SignUpScreen extends Component{
 		this.setState({ lastName: text })
 	}
 
-	handleEmail = (text) => {
-		this.setState({ email: text })
+	handlePassword = (text) => {
+		this.setState({ password: text })
 	}
 
 	handleUsername = (text) => {
 		this.setState({ username: text })
 	}
 
-	validateFirstName = (text) =>{
-		if (text == '') {
-			return "Please enter a first name"
-		}
-		return true
+	onPressLogin = () =>{
+		this.props.navigation.navigate('LoginScreen')
 	}
 
-	validateLastName = (text) =>{
-		if (text == '') {
-			return "Please enter a last name"
+	onPressSignUp = () =>{
+		const formValidation = this.validateForm()
+		
+		if(formValidation){
+			true
 		}
-		return true
 	}
 
-	validateEmail = (text) =>{
-		if (text == '') {
-			return "Please enter an email address"
+	updateSignUpButton(){
+		const { signUpButtonDisabled } = this.state
+		const formValidation = this.validateForm()
+		
+		if (signUpButtonDisabled == true && formValidation){
+			this.setState({
+				signUpButtonDisabled: false
+			})
+		}else if(signUpButtonDisabled == false && !formValidation) {
+			this.setState({
+				signUpButtonDisabled: true
+			})
 		}
-
-		var mailformat = /^\S+@\S+\.\S+$/
-		if (!text.match(mailformat)){
-			return "Please enter a valid email address"
-		}
-		return true
 	}
 
-	validateUsername = (text) =>{
-		if (text == '') {
-			return "Please enter a username"
-		}
-		return true
+	validateForm(){
+		const { email, firstName, lastName, password, signUpButtonDisabled, username } = this.state
+		return (
+			validateEmail(email) == true &&
+			validateFirstName(firstName) == true &&
+			validateLastName(lastName) == true &&
+			validatePasswordStrong(password) == true &&
+			validateUsername(username) == true
+		)
 	}
 
 	render(){
-		const { firstNameErrorMessage } = this.state
+		const { signUpButtonDisabled } = this.state
 		return(
 			<View style={FormStyle.container}>
 				<FormTextInput
 					autoCapitalize={false}
 					autoCorrect={false}					
 					autoFocus={true}
+					clearTextOnFocus={false}
 					header={'First Name'}
 					onChangeText={this.handleFirstName}
-					validateInput={this.validateFirstName}
+					validateInput={validateFirstName}
 			    />
 
 				<FormTextInput
 					autoCapitalize={false}
 					autoCorrect={false}
+					clearTextOnFocus={false}
 					header={'Last Name'}
 					onChangeText={this.handleLastName}
-					validateInput={this.validateLastName}
+					validateInput={validateLastName}
 			    />
 
 				<FormTextInput
 					autoCapitalize={false}
 					autoCorrect={false}
+					clearTextOnFocus={false}
 					header={'Email'}
 					onChangeText={this.handleEmail}
-					validateInput={this.validateEmail}
+					validateInput={validateEmail}
 			    />
 
 				<FormTextInput
 					autoCapitalize={false}
 					autoCorrect={false}
+					clearTextOnFocus={false}
 					header={'Username'}
 					onChangeText={this.handleUsername}
-					validateInput={this.validateUsername}
+					validateInput={validateUsername}
 			    />
+
+			    <FormTextInput
+					autoCapitalize={false}
+					autoCorrect={false}
+					clearTextOnFocus={false}
+					header={'Password'}
+					onChangeText={this.handlePassword}
+					secureTextEntry={true}
+					validateInput={validatePasswordStrong}
+			    />
+
+		    	<PrimaryButton
+		    		disabled={signUpButtonDisabled} 
+		    		onPress={this.onPressSignUp}
+		    		title={"Sign Up"}
+		    	/>
+
+		    	<SecondaryButton 
+		    		onPress={this.onPressLogin}
+		    		title={"Login"}
+		    	/>
+
 			</View>
 		)
 	}
 }
-
-const styles = StyleSheet.create({
-	
-})
 
 export default SignUpScreen

@@ -6,6 +6,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 import CameraView from './app/components/CameraView'
 import ListPostsScreen from './app/components/ListPostsScreen'
+import LoginScreen from './app/components/LoginScreen'
 import SignUpScreen from './app/components/SignUpScreen'
 
 import { GET_POSTS_ENDPOINT } from "./app/api/constants" 
@@ -39,6 +40,13 @@ export default App = () => {
             component={SignUpScreen} 
             options={{
               title: 'Sign Up'
+            }}
+          />
+          <Stack.Screen 
+            name="LoginScreen" 
+            component={LoginScreen} 
+            options={{
+              title: 'Login'
             }}
           />
         </Stack.Navigator>

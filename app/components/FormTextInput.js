@@ -1,14 +1,25 @@
 import React, { Component } from 'react'
-import { Text, TextInput, View } from 'react-native'
+import { Text, TextInput, TouchableHighlight, View } from 'react-native'
+
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import FormStyle from '../styles/FormStyle'
 
 class FormTextInput extends Component{
 	constructor(props){
 		super(props)
+
+		var hideSecureText = false
+		var secureTextIcon = "eye-off"
+		if (this.props.secureTextEntry == true){
+			hideSecureText = true
+			secureTextIcon = "eye"
+		}
 		this.state = {
+			errorMessage: '',
+			hideSecureText: hideSecureText,
+			secureTextIcon: secureTextIcon,
 			textInputStyle: FormStyle.textInput,
-			errorMessage: ''
 		}
 	}
 
@@ -33,21 +44,49 @@ class FormTextInput extends Component{
 		this.setState({ textInputStyle: FormStyle.textInputFocused })
 	}
 
+	toggleShowSecureText = () => {
+		const { hideSecureText } = this.state
+		if(hideSecureText){
+			this.setState({
+				hideSecureText: false,
+				secureTextIcon: "eye-off"
+			})
+		} else{
+			this.setState({
+				hideSecureText: true,
+				secureTextIcon: "eye"
+			})
+		}
+	}
+
 	render(){
-		const {autoCapitalize, autoCorrect, autoFocus, header, onChangeText} = this.props
-		const { errorMessage } = this.state
+		const {autoCapitalize, autoCorrect, autoFocus, clearTextOnFocus, header, secureTextEntry, onChangeText} = this.props
+		const { errorMessage, hideSecureText, secureTextIcon, textInputStyle } = this.state
 		return(
 			<View style={FormStyle.inputHeader}>
 				<Text>{header}</Text>
-				<TextInput
-		      		style={this.state.textInputStyle}
-		      		autoCapitalize={autoCapitalize}
-		      		autoCorrect={autoCorrect}
-		      		autoFocus={autoFocus}
-		      		onChangeText={text => onChangeText(text)}
-		      		onBlur={e => this.onBlur(e)}
-		      		onFocus={this.onFocus}
-			    />
+				<View style={FormStyle.inputContainer}>
+					<TextInput
+			      		style={textInputStyle}
+			      		autoCapitalize={autoCapitalize}
+			      		autoCorrect={autoCorrect}
+			      		autoFocus={autoFocus}
+			      		clearTextOnFocus={clearTextOnFocus}
+			      		onChangeText={text => onChangeText(text)}
+			      		onBlur={e => this.onBlur(e)}
+			      		onFocus={this.onFocus}
+			      		secureTextEntry={hideSecureText}
+				    />
+				    { 
+				    	secureTextEntry && 
+				    	<TouchableHighlight
+				    		style={FormStyle.iconContainer}
+				    		onPress={this.toggleShowSecureText}
+				    	>
+				    		<MaterialCommunityIcons name={secureTextIcon} style={FormStyle.secureTextIcon}/>
+				    	</TouchableHighlight>
+				    }
+			    </View>
 			    <Text style={FormStyle.errorMessage}>{errorMessage}</Text>
 		    </View>
 
