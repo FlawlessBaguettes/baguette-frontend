@@ -51,9 +51,9 @@ class SignUpScreen extends Component{
 	}
 
 	onPressSignUp = () =>{
-		const formValidation = this.validateForm()
+		const validForm = this.validateForm()
 		
-		if(formValidation){
+		if(validForm){
 			true
 		}
 	}

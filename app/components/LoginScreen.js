@@ -33,7 +33,11 @@ class LoginScreen extends Component{
 	}
 
 	onPressLogin = () =>{
-		true
+		const validForm = this.validateForm()
+
+		if(validForm){
+			true
+		}
 	}
 
 	onPressSignUp = () =>{
@@ -42,13 +46,13 @@ class LoginScreen extends Component{
 
 	updateLoginButton(){
 		const { loginButtonDisabled } = this.state
-		const formValidation = this.validateForm()
+		const validForm = this.validateForm()
 
-		if (loginButtonDisabled == true && formValidation){
+		if (loginButtonDisabled == true && validForm){
 			this.setState({
 				loginButtonDisabled: false
 			})
-		}else if(loginButtonDisabled == false && !formValidation) {
+		}else if(loginButtonDisabled == false && !validForm) {
 			this.setState({
 				loginButtonDisabled: true
 			})
