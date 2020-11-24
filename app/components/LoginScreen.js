@@ -77,7 +77,7 @@ class LoginScreen extends Component{
 		return(
 			<View style={FormStyle.container}>
 				<FormTextInput
-					autoCapitalize={false}
+					autoCapitalize={'none'}
 					autoCorrect={false}
 					clearTextOnFocus={false}
 					header={'Email'}
@@ -86,7 +86,7 @@ class LoginScreen extends Component{
 			    />
 
 			    <FormTextInput
-					autoCapitalize={false}
+					autoCapitalize={'none'}
 					autoCorrect={false}
 					clearTextOnFocus={false}
 					header={'Password'}

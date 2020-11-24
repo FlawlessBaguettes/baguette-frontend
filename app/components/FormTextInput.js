@@ -40,6 +40,13 @@ class FormTextInput extends Component{
 		})
 	}
 
+	onChangeText = (text) =>{
+		this.props.onChangeText(text)
+		this.setState({
+			errorMessage: ''
+		})
+	}
+
 	onFocus = () => {
 		this.setState({ textInputStyle: FormStyle.textInputFocused })
 	}
@@ -60,7 +67,7 @@ class FormTextInput extends Component{
 	}
 
 	render(){
-		const {autoCapitalize, autoCorrect, autoFocus, clearTextOnFocus, header, secureTextEntry, onChangeText} = this.props
+		const {autoCapitalize, autoCorrect, autoFocus, clearTextOnFocus, header, secureTextEntry } = this.props
 		const { errorMessage, hideSecureText, secureTextIcon, textInputStyle } = this.state
 		return(
 			<View style={FormStyle.inputHeader}>
@@ -72,7 +79,7 @@ class FormTextInput extends Component{
 			      		autoCorrect={autoCorrect}
 			      		autoFocus={autoFocus}
 			      		clearTextOnFocus={clearTextOnFocus}
-			      		onChangeText={text => onChangeText(text)}
+			      		onChangeText={text => this.onChangeText(text)}
 			      		onBlur={e => this.onBlur(e)}
 			      		onFocus={this.onFocus}
 			      		secureTextEntry={hideSecureText}

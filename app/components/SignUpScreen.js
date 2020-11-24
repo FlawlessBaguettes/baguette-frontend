@@ -89,7 +89,7 @@ class SignUpScreen extends Component{
 		return(
 			<View style={FormStyle.container}>
 				<FormTextInput
-					autoCapitalize={false}
+					autoCapitalize={'none'}
 					autoCorrect={false}					
 					autoFocus={true}
 					clearTextOnFocus={false}
@@ -99,7 +99,7 @@ class SignUpScreen extends Component{
 			    />
 
 				<FormTextInput
-					autoCapitalize={false}
+					autoCapitalize={'none'}
 					autoCorrect={false}
 					clearTextOnFocus={false}
 					header={'Last Name'}
@@ -108,7 +108,7 @@ class SignUpScreen extends Component{
 			    />
 
 				<FormTextInput
-					autoCapitalize={false}
+					autoCapitalize={'none'}
 					autoCorrect={false}
 					clearTextOnFocus={false}
 					header={'Email'}
@@ -117,7 +117,7 @@ class SignUpScreen extends Component{
 			    />
 
 				<FormTextInput
-					autoCapitalize={false}
+					autoCapitalize={'none'}
 					autoCorrect={false}
 					clearTextOnFocus={false}
 					header={'Username'}
@@ -126,7 +126,7 @@ class SignUpScreen extends Component{
 			    />
 
 			    <FormTextInput
-					autoCapitalize={false}
+					autoCapitalize={'none'}
 					autoCorrect={false}
 					clearTextOnFocus={false}
 					header={'Password'}
