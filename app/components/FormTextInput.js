@@ -70,9 +70,9 @@ class FormTextInput extends Component{
 		const {autoCapitalize, autoCorrect, autoFocus, clearTextOnFocus, header, secureTextEntry } = this.props
 		const { errorMessage, hideSecureText, secureTextIcon, textInputStyle } = this.state
 		return(
-			<View style={FormStyle.inputHeader}>
+			<View style={FormStyle.inputContainerLarge}>
 				<Text>{header}</Text>
-				<View style={FormStyle.inputContainer}>
+				<View style={FormStyle.formTextInputContainer}>
 					<TextInput
 			      		style={textInputStyle}
 			      		autoCapitalize={autoCapitalize}

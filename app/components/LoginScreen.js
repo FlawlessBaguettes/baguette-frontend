@@ -15,7 +15,7 @@ class LoginScreen extends Component{
 		super(props)
 		this.state = {
 			email: '',
-			loginButtonDisabled: true,
+			isLoginButtonDisabled: true,
 			password: ''
 		}
 	}
@@ -45,16 +45,16 @@ class LoginScreen extends Component{
 	}
 
 	updateLoginButton(){
-		const { loginButtonDisabled } = this.state
+		const { isLoginButtonDisabled } = this.state
 		const validForm = this.validateForm()
 
-		if (loginButtonDisabled == true && validForm){
+		if (isLoginButtonDisabled == true && validForm){
 			this.setState({
-				loginButtonDisabled: false
+				isLoginButtonDisabled: false
 			})
-		}else if(loginButtonDisabled == false && !validForm) {
+		}else if(isLoginButtonDisabled == false && !validForm) {
 			this.setState({
-				loginButtonDisabled: true
+				isLoginButtonDisabled: true
 			})
 		}
 	}
@@ -72,39 +72,43 @@ class LoginScreen extends Component{
 
 
 	render(){
-		const { loginButtonDisabled } = this.state
+		const { isLoginButtonDisabled } = this.state
 
 		return(
 			<View style={FormStyle.container}>
-				<FormTextInput
-					autoCapitalize={'none'}
-					autoCorrect={false}
-					clearTextOnFocus={false}
-					header={'Email'}
-					onChangeText={this.handleEmail}
-					validateInput={validateEmail}
-			    />
+				<View style={FormStyle.formsContainer}>
+					<FormTextInput
+						autoCapitalize={'none'}
+						autoCorrect={false}
+						clearTextOnFocus={false}
+						header={'Email'}
+						onChangeText={this.handleEmail}
+						validateInput={validateEmail}
+				    />
 
-			    <FormTextInput
-					autoCapitalize={'none'}
-					autoCorrect={false}
-					clearTextOnFocus={false}
-					header={'Password'}
-					onChangeText={this.handlePassword}
-					secureTextEntry={true}
-					validateInput={validatePasswordWeak}
-			    />
+				    <FormTextInput
+						autoCapitalize={'none'}
+						autoCorrect={false}
+						clearTextOnFocus={false}
+						header={'Password'}
+						onChangeText={this.handlePassword}
+						secureTextEntry={true}
+						validateInput={validatePasswordWeak}
+				    />
+			    </View>
 
-			    <PrimaryButton
-		    		disabled={loginButtonDisabled} 
-		    		onPress={this.onPressLogin}
-		    		title={"Login"}
-		    	/>
+			    <View style={FormStyle.buttonsContainer}>
+				    <PrimaryButton
+			    		disabled={isLoginButtonDisabled} 
+			    		onPress={this.onPressLogin}
+			    		title={"Login"}
+			    	/>
 
-		    	<SecondaryButton 
-		    		onPress={this.onPressSignUp}
-		    		title={"Sign Up"}
-		    	/>
+			    	<SecondaryButton 
+			    		onPress={this.onPressSignUp}
+			    		title={"Sign Up"}
+			    	/>
+		    	</View>
 	    	</View>
 		)
 	}

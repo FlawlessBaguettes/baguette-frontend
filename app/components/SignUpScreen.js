@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
 
+import DateInput from './DateInput'
 import FormTextInput from './FormTextInput'
 import PrimaryButton from './PrimaryButton'
 import SecondaryButton from './SecondaryButton'
@@ -13,11 +14,12 @@ class SignUpScreen extends Component{
 	constructor(props){
 		super(props)
 		this.state = {
+			dateOfBirth: '',
 			email: '',
 			firstName: '',
+			isSignUpButtonDisabled: true,
 			lastName: '',
 			password: '',
-			signUpButtonDisabled: true,
 			username: '',
 		}
 	}
@@ -28,6 +30,10 @@ class SignUpScreen extends Component{
 
 	handleEmail = (text) => {
 		this.setState({ email: text })
+	}
+
+	handleDateOfBirth = (date) => {
+		this.setState({ dateOfBirth: date })
 	}
 
 	handleFirstName = (text) => {
@@ -59,22 +65,22 @@ class SignUpScreen extends Component{
 	}
 
 	updateSignUpButton(){
-		const { signUpButtonDisabled } = this.state
+		const { isSignUpButtonDisabled } = this.state
 		const formValidation = this.validateForm()
 		
-		if (signUpButtonDisabled == true && formValidation){
+		if (isSignUpButtonDisabled == true && formValidation){
 			this.setState({
-				signUpButtonDisabled: false
+				isSignUpButtonDisabled: false
 			})
-		}else if(signUpButtonDisabled == false && !formValidation) {
+		}else if(isSignUpButtonDisabled == false && !formValidation) {
 			this.setState({
-				signUpButtonDisabled: true
+				isSignUpButtonDisabled: true
 			})
 		}
 	}
 
 	validateForm(){
-		const { email, firstName, lastName, password, signUpButtonDisabled, username } = this.state
+		const { email, firstName, lastName, password, isSignUpButtonDisabled, username } = this.state
 		return (
 			validateEmail(email) == true &&
 			validateFirstName(firstName) == true &&
@@ -85,66 +91,76 @@ class SignUpScreen extends Component{
 	}
 
 	render(){
-		const { signUpButtonDisabled } = this.state
+		const { dateOfBirth, isSignUpButtonDisabled } = this.state
 		return(
 			<View style={FormStyle.container}>
-				<FormTextInput
-					autoCapitalize={'none'}
-					autoCorrect={false}					
-					autoFocus={true}
-					clearTextOnFocus={false}
-					header={'First Name'}
-					onChangeText={this.handleFirstName}
-					validateInput={validateFirstName}
-			    />
+				<View style={FormStyle.formsContainer}>
+					<FormTextInput
+						autoCapitalize={'none'}
+						autoCorrect={false}					
+						autoFocus={true}
+						clearTextOnFocus={false}
+						header={'First Name'}
+						onChangeText={this.handleFirstName}
+						validateInput={validateFirstName}
+				    />
 
-				<FormTextInput
-					autoCapitalize={'none'}
-					autoCorrect={false}
-					clearTextOnFocus={false}
-					header={'Last Name'}
-					onChangeText={this.handleLastName}
-					validateInput={validateLastName}
-			    />
+					<FormTextInput
+						autoCapitalize={'none'}
+						autoCorrect={false}
+						clearTextOnFocus={false}
+						header={'Last Name'}
+						onChangeText={this.handleLastName}
+						validateInput={validateLastName}
+				    />
 
-				<FormTextInput
-					autoCapitalize={'none'}
-					autoCorrect={false}
-					clearTextOnFocus={false}
-					header={'Email'}
-					onChangeText={this.handleEmail}
-					validateInput={validateEmail}
-			    />
+					<FormTextInput
+						autoCapitalize={'none'}
+						autoCorrect={false}
+						clearTextOnFocus={false}
+						header={'Email'}
+						onChangeText={this.handleEmail}
+						validateInput={validateEmail}
+				    />
 
-				<FormTextInput
-					autoCapitalize={'none'}
-					autoCorrect={false}
-					clearTextOnFocus={false}
-					header={'Username'}
-					onChangeText={this.handleUsername}
-					validateInput={validateUsername}
-			    />
+					<FormTextInput
+						autoCapitalize={'none'}
+						autoCorrect={false}
+						clearTextOnFocus={false}
+						header={'Username'}
+						onChangeText={this.handleUsername}
+						validateInput={validateUsername}
+				    />
 
-			    <FormTextInput
-					autoCapitalize={'none'}
-					autoCorrect={false}
-					clearTextOnFocus={false}
-					header={'Password'}
-					onChangeText={this.handlePassword}
-					secureTextEntry={true}
-					validateInput={validatePasswordStrong}
-			    />
+				    <FormTextInput
+						autoCapitalize={'none'}
+						autoCorrect={false}
+						clearTextOnFocus={false}
+						header={'Password'}
+						onChangeText={this.handlePassword}
+						secureTextEntry={true}
+						validateInput={validatePasswordStrong}
+				    />
 
-		    	<PrimaryButton
-		    		disabled={signUpButtonDisabled} 
-		    		onPress={this.onPressSignUp}
-		    		title={"Sign Up"}
-		    	/>
+				    <DateInput 
+				    	handleConfirm={this.handleDateOfBirth}
+				    	header={'Date of Birth'}
+				    	value={dateOfBirth}
+				    />
+			    </View>
 
-		    	<SecondaryButton 
-		    		onPress={this.onPressLogin}
-		    		title={"Login"}
-		    	/>
+			    <View style={FormStyle.buttonsContainer}>
+			    	<PrimaryButton
+			    		disabled={isSignUpButtonDisabled} 
+			    		onPress={this.onPressSignUp}
+			    		title={"Sign Up"}
+			    	/>
+
+			    	<SecondaryButton 
+			    		onPress={this.onPressLogin}
+			    		title={"Login"}
+			    	/>
+		    	</View>
 
 			</View>
 		)
