@@ -14,28 +14,26 @@ class PostPreview extends Component {
 		var { uri } = this.props
 
 		return(
-			<View
-				style={styles.container}
-			>		
+			<View style={styles.container}>		
 				<StatusBar hidden='true' translucent='true' />
-     			<Video
- 					source={{uri: uri}}
-	 				rate={1.0}
+   				<Video
+	 					source={{uri: uri}}
+		 				rate={1.0}
 				  	volume={1.0}
-					isMuted={false}
-					resizeMode={Video.RESIZE_MODE_COVER}
-					shouldPlay={true}
-					isLooping={true}
+						isMuted={false}
+						resizeMode={Video.RESIZE_MODE_COVER}
+						shouldPlay={true}
+						isLooping={true}
 				    style={styles.container}
- 				/>
+					/>
 			</View>
 		);
 	}
 }
 
 const styles = StyleSheet.create({
-  container:{
-  	flex: 1
+	container:{
+		flex: 1
   },
 });
 

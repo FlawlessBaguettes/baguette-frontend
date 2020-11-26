@@ -15,21 +15,21 @@ class CameraControls extends Component{
 		return(
 			<SafeAreaView style={CameraStyle.safeAreaView}>
 				<View style={CameraStyle.container}>
-		            <TouchableOpacity
-		              style={CameraStyle.topLeftButton}
-		              onPress={this.props.goBack}
-		            >
+	 				<TouchableOpacity
+						style={CameraStyle.topLeftButton}
+          	onPress={this.props.goBack}
+          >
 						<MaterialCommunityIcons name="keyboard-backspace" style={CameraStyle.iconButton}/>
-	            	</TouchableOpacity>
+      		</TouchableOpacity>
 
-	            	<TouchableOpacity
-		              style={CameraStyle.topRightButton}
-		              onPress={this.props.setCameraType}
-		            >
+        	<TouchableOpacity
+          	style={CameraStyle.topRightButton}
+            onPress={this.props.setCameraType}
+          >
 						<MaterialCommunityIcons name="camera-switch" style={CameraStyle.iconButton}/>
-		            </TouchableOpacity>
-	            </View>
-            </SafeAreaView>
+          </TouchableOpacity>
+      	</View>
+    	</SafeAreaView>
 		)
 	}
 }

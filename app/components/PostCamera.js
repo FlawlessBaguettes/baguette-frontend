@@ -28,29 +28,27 @@ class PostCamera extends Component {
 
   render(){
     return (
-        <Camera 
-          style={styles.container} 
-          type={this.state.type} 
-          ref={this.props.cameraRef}
-          handleChange={this.handleChange()}
-        >
-          <View
-            style={{
-              flex: 1,
-              flexDirection: 'row',
-            }}>
-
-            <CaptureButton 
-              onPress={this.props.toggleRecording}
-            />
-
-          </View>
-        </Camera>
+      <Camera 
+        style={styles.container} 
+        type={this.state.type} 
+        ref={this.props.cameraRef}
+        handleChange={this.handleChange()}
+      >
+        <View style={styles.captureButtonContainer}>
+          <CaptureButton onPress={this.props.toggleRecording} />
+        </View>
+      </Camera>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  
+  captureButtonContainer: {
+    flex: 1,
+    flexDirection: 'row',
+  },
+
   container:{
     flex: 1,
   },
