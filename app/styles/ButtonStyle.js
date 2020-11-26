@@ -3,49 +3,49 @@ import { StyleSheet } from 'react-native';
 
 const ButtonStyle = StyleSheet.create({
 
-    container: {
-        backgroundColor: "white",
-        flex: 1,
-        alignItems: 'center'
-    },
+  container: {
+    backgroundColor: "white",
+    flex: 1,
+    alignItems: 'center'
+  },
 
-    primaryButton: {
-        backgroundColor: '#0079FF',
-        borderRadius: 5, 
-        paddingTop: 5,
-        paddingBottom: 5,
-        width: '50%'
-    },
+  primaryButton: {
+    backgroundColor: '#0079FF',
+    borderRadius: 5, 
+    paddingTop: 5,
+    paddingBottom: 5,
+    width: '50%'
+  },
 
-    primaryButtonDisabled: {
-        opacity: 0.25
-    },
+  primaryButtonDisabled: {
+    opacity: 0.25
+  },
 
-    primaryButtonEnabled: {
-        opacity: 1
-    },
+  primaryButtonEnabled: {
+    opacity: 1
+  },
 
-    primaryButtonText: {
-        alignSelf: 'center',
-        color: 'white',
-        fontSize: 24,
-    },
+  primaryButtonText: {
+    alignSelf: 'center',
+    color: 'white',
+    fontSize: 24,
+  },
 
-    secondaryButton: {
+  secondaryButton: {
 
-    },
+  },
 
-    secondaryButtonDisabled: {
+  secondaryButtonDisabled: {
 
-    },
+  },
 
-    secondaryButtonEnabled: {
+  secondaryButtonEnabled: {
 
-    },
+  },
 
-    secondaryButtonText: {
-        fontSize: 12,
-    },
+  secondaryButtonText: {
+    fontSize: 12,
+  },
 
   
 });
