@@ -9,35 +9,35 @@ class CaptureButton extends Component{
     super();
     this.state = {
       recording: false
-  	}
-	}
+    }
+  }
 
   captureButtonInnerStyle(){
-		var captureButtonInnerColor = 'white';
-		if (!this.state.recording){
-			captureButtonInnerColor = 'white'
-		} else{
-			captureButtonInnerColor = 'red'
-		}
-		return{
-			height: 55, 
-	    width: 55,
-	    borderRadius: 50,
-	    backgroundColor: captureButtonInnerColor
-		}
-	}
+    var captureButtonInnerColor = 'white';
+    if (!this.state.recording){
+      captureButtonInnerColor = 'white'
+    } else{
+      captureButtonInnerColor = 'red'
+    }
+    return{
+      height: 55, 
+      width: 55,
+      borderRadius: 50,
+      backgroundColor: captureButtonInnerColor
+    }
+  }
 
-	onPress(){
+  onPress(){
     this.props.onPress()
-		this.setState({
-			recording: !this.state.recording
-		})
-	}
+    this.setState({
+      recording: !this.state.recording
+    })
+  }
 
   render(){
     return(
       <View style={styles.container}>
-		    <TouchableOpacity onPress={this.onPress.bind(this)} >
+        <TouchableOpacity onPress={this.onPress.bind(this)} >
           <View style={CameraStyle.captureButtonOuter} >
             <View style={this.captureButtonInnerStyle()} />
           </View>

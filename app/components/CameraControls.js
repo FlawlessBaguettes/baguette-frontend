@@ -7,31 +7,31 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import CameraStyle from '../styles/CameraStyle'
 
 class CameraControls extends Component{
-	constructor(){
-		super()
-	}
+  constructor(){
+    super()
+  }
 
-	render(){
-		return(
-			<SafeAreaView style={CameraStyle.safeAreaView}>
-				<View style={CameraStyle.container}>
-	 				<TouchableOpacity
-						style={CameraStyle.topLeftButton}
-          	onPress={this.props.goBack}
+  render(){
+    return(
+      <SafeAreaView style={CameraStyle.safeAreaView}>
+        <View style={CameraStyle.container}>
+          <TouchableOpacity
+            style={CameraStyle.topLeftButton}
+            onPress={this.props.goBack}
           >
-						<MaterialCommunityIcons name="keyboard-backspace" style={CameraStyle.iconButton}/>
-      		</TouchableOpacity>
+            <MaterialCommunityIcons name="keyboard-backspace" style={CameraStyle.iconButton}/>
+          </TouchableOpacity>
 
-        	<TouchableOpacity
-          	style={CameraStyle.topRightButton}
+          <TouchableOpacity
+            style={CameraStyle.topRightButton}
             onPress={this.props.setCameraType}
           >
-						<MaterialCommunityIcons name="camera-switch" style={CameraStyle.iconButton}/>
+            <MaterialCommunityIcons name="camera-switch" style={CameraStyle.iconButton}/>
           </TouchableOpacity>
-      	</View>
-    	</SafeAreaView>
-		)
-	}
+        </View>
+      </SafeAreaView>
+    )
+  }
 }
 
 export default CameraControls
