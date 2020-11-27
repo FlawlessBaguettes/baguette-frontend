@@ -93,6 +93,7 @@ class FormTextInput extends Component{
                 <MaterialCommunityIcons name={secureTextIcon} style={FormStyle.secureTextIcon}/>
               </TouchableHighlight>
             }
+          </TextInput>
         </View>
         <Text style={FormStyle.errorMessage}>{errorMessage}</Text>
       </View>
