@@ -1,86 +1,101 @@
-import React, { Component } from 'react'
-import { View } from 'react-native'
+import React, { Component } from "react";
+import { View } from "react-native";
 
-import DateInput from './DateInput'
-import FormTextInput from './FormTextInput'
-import PrimaryButton from './PrimaryButton'
-import SecondaryButton from './SecondaryButton'
+import DateInput from "./DateInput";
+import FormTextInput from "./FormTextInput";
+import PrimaryButton from "./PrimaryButton";
+import SecondaryButton from "./SecondaryButton";
 
-import FormStyle from '../styles/FormStyle'
+import FormStyle from "../styles/FormStyle";
 
-import { validateDateOfBirth, validateEmail, validateFirstName, validateLastName, validatePasswordStrong, validateUsername } from '../utils/FormValidation'
+import {
+  validateDateOfBirth,
+  validateEmail,
+  validateFirstName,
+  validateLastName,
+  validatePasswordStrong,
+  validateUsername,
+} from "../utils/FormValidation";
 
-class SignUpScreen extends Component{
-  constructor(props){
-    super(props)
+class SignUpScreen extends Component {
+  constructor(props) {
+    super(props);
     this.state = {
       dateOfBirth: null,
-      email: '',
-      firstName: '',
+      email: "",
+      firstName: "",
       isSignUpButtonDisabled: true,
-      lastName: '',
-      password: '',
-      username: '',
-    }
+      lastName: "",
+      password: "",
+      username: "",
+    };
   }
 
-  componentDidUpdate(){
-    this.updateSignUpButton()
+  componentDidUpdate() {
+    this.updateSignUpButton();
   }
 
   handleEmail = (text) => {
-    this.setState({ email: text })
-  }
+    this.setState({ email: text });
+  };
 
   handleDateOfBirth = (date) => {
-    this.setState({ dateOfBirth: date })
-  }
+    this.setState({ dateOfBirth: date });
+  };
 
   handleFirstName = (text) => {
-    this.setState({ firstName: text })
-  }
+    this.setState({ firstName: text });
+  };
 
   handleLastName = (text) => {
-    this.setState({ lastName: text })
-  }
+    this.setState({ lastName: text });
+  };
 
   handlePassword = (text) => {
-    this.setState({ password: text })
-  }
+    this.setState({ password: text });
+  };
 
   handleUsername = (text) => {
-    this.setState({ username: text })
-  }
+    this.setState({ username: text });
+  };
 
-  onPressLogin = () =>{
-    this.props.navigation.navigate('LoginScreen')
-  }
+  onPressLogin = () => {
+    this.props.navigation.navigate("LoginScreen");
+  };
 
-  onPressSignUp = () =>{
-    const validForm = this.validateForm()
-    
-    if(validForm){
-      true
+  onPressSignUp = () => {
+    const validForm = this.validateForm();
+
+    if (validForm) {
+      true;
+    }
+  };
+
+  updateSignUpButton() {
+    const { isSignUpButtonDisabled } = this.state;
+    const formValidation = this.validateForm();
+
+    if (isSignUpButtonDisabled == true && formValidation) {
+      this.setState({
+        isSignUpButtonDisabled: false,
+      });
+    } else if (isSignUpButtonDisabled == false && !formValidation) {
+      this.setState({
+        isSignUpButtonDisabled: true,
+      });
     }
   }
 
-  updateSignUpButton(){
-    const { isSignUpButtonDisabled } = this.state
-    const formValidation = this.validateForm()
-    
-    if (isSignUpButtonDisabled == true && formValidation){
-      this.setState({
-        isSignUpButtonDisabled: false
-      })
-    }else if(isSignUpButtonDisabled == false && !formValidation) {
-      this.setState({
-        isSignUpButtonDisabled: true
-      })
-    }
-  }
-
-  validateForm(){
-    const { dateOfBirth, email, firstName, lastName, password, isSignUpButtonDisabled, username } = this.state
+  validateForm() {
+    const {
+      dateOfBirth,
+      email,
+      firstName,
+      lastName,
+      password,
+      isSignUpButtonDisabled,
+      username,
+    } = this.state;
     return (
       validateDateOfBirth(dateOfBirth) == true &&
       validateEmail(email) == true &&
@@ -88,85 +103,81 @@ class SignUpScreen extends Component{
       validateLastName(lastName) == true &&
       validatePasswordStrong(password) == true &&
       validateUsername(username) == true
-    )
+    );
   }
 
-  render(){
-    const { dateOfBirth, isSignUpButtonDisabled } = this.state
-    return(
+  render() {
+    const { dateOfBirth, isSignUpButtonDisabled } = this.state;
+    return (
       <View style={FormStyle.container}>
         <View style={FormStyle.formsContainer}>
           <FormTextInput
-            autoCapitalize={'none'}
-            autoCorrect={false}         
+            autoCapitalize={"none"}
+            autoCorrect={false}
             autoFocus={true}
             clearTextOnFocus={false}
-            header={'First Name'}
+            header={"First Name"}
             onChangeText={this.handleFirstName}
             validateInput={validateFirstName}
           />
 
           <FormTextInput
-            autoCapitalize={'none'}
+            autoCapitalize={"none"}
             autoCorrect={false}
             clearTextOnFocus={false}
-            header={'Last Name'}
+            header={"Last Name"}
             onChangeText={this.handleLastName}
             validateInput={validateLastName}
           />
 
           <FormTextInput
-            autoCapitalize={'none'}
+            autoCapitalize={"none"}
             autoCorrect={false}
             clearTextOnFocus={false}
-            header={'Email'}
+            header={"Email"}
             onChangeText={this.handleEmail}
             validateInput={validateEmail}
           />
 
           <FormTextInput
-            autoCapitalize={'none'}
+            autoCapitalize={"none"}
             autoCorrect={false}
             clearTextOnFocus={false}
-            header={'Username'}
+            header={"Username"}
             onChangeText={this.handleUsername}
             validateInput={validateUsername}
           />
 
           <FormTextInput
-            autoCapitalize={'none'}
+            autoCapitalize={"none"}
             autoCorrect={false}
             clearTextOnFocus={false}
-            header={'Password'}
+            header={"Password"}
             onChangeText={this.handlePassword}
             secureTextEntry={true}
             validateInput={validatePasswordStrong}
           />
 
-          <DateInput 
+          <DateInput
             date={dateOfBirth}
             handleConfirm={this.handleDateOfBirth}
-            header={'Date of Birth'}
+            header={"Date of Birth"}
             validateInput={validateDateOfBirth}
           />
         </View>
 
         <View style={FormStyle.buttonsContainer}>
           <PrimaryButton
-            disabled={isSignUpButtonDisabled} 
+            disabled={isSignUpButtonDisabled}
             onPress={this.onPressSignUp}
             title={"Sign Up"}
           />
 
-          <SecondaryButton 
-            onPress={this.onPressLogin}
-            title={"Login"}
-          />
+          <SecondaryButton onPress={this.onPressLogin} title={"Login"} />
         </View>
-
       </View>
-    )
+    );
   }
 }
 
-export default SignUpScreen
+export default SignUpScreen;

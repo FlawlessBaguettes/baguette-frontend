@@ -1,100 +1,103 @@
-import React, { Component } from 'react'
-import { Text, TouchableWithoutFeedback, View } from 'react-native'
+import React, { Component } from "react";
+import { Text, TouchableWithoutFeedback, View } from "react-native";
 
-import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-import DateTimePickerModal from 'react-native-modal-datetime-picker' 
-import Moment from 'moment'
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+import Moment from "moment";
 
-import FormStyle from '../styles/FormStyle'
+import FormStyle from "../styles/FormStyle";
 
-class DateInput extends Component{
-  constructor(props){
-    super(props)
+class DateInput extends Component {
+  constructor(props) {
+    super(props);
     this.state = {
-      errorMessage: '',
+      errorMessage: "",
       dateOfBirth: undefined,
-      isDatePickerVisible: false
+      isDatePickerVisible: false,
+    };
+  }
+
+  formatDate(date) {
+    if (date != null) {
+      return Moment(date).format("MMM D, YYYY");
     }
+    return "mm/dd/yyyy";
   }
 
-  formatDate(date){
-    if(date != null){
-      return Moment(date).format('MMM D, YYYY')
-    }
-    return 'mm/dd/yyyy'
-  }
+  handleCancel = (date) => {
+    this.hideDatePicker();
+    this.setErrorMessage(date);
+  };
 
-  handleCancel = (date) =>{
-    this.hideDatePicker()
-    this.setErrorMessage(date)
-  }
+  handleConfirm = (date) => {
+    if (date != undefined) {
+      date = this.removeTime(date);
 
-  handleConfirm = (date) =>{
-    if (date != undefined){
-      date = this.removeTime(date)
-      
       this.setState({
-        dateOfBirth: date
-      })
+        dateOfBirth: date,
+      });
 
-      this.props.handleConfirm(date)
+      this.props.handleConfirm(date);
     }
 
-    this.hideDatePicker()
-  }
+    this.hideDatePicker();
+  };
 
-  hideDatePicker = () =>{
-    this.setState({ 
-      isDatePickerVisible: false 
-    })
-  }
-
-  removeTime(date){
-    return new Date(date.getFullYear(), date.getMonth(), date.getDate())
-  }
-
-  showDatePicker = () =>{
+  hideDatePicker = () => {
     this.setState({
-      errorMessage: '', 
-      isDatePickerVisible: true 
-    })
+      isDatePickerVisible: false,
+    });
+  };
+
+  removeTime(date) {
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate());
   }
 
-  setErrorMessage(date){
-    const { validateInput } = this.props
-    const { dateOfBirth } = this.state
-    var errorMessage = '';
+  showDatePicker = () => {
+    this.setState({
+      errorMessage: "",
+      isDatePickerVisible: true,
+    });
+  };
+
+  setErrorMessage(date) {
+    const { validateInput } = this.props;
+    const { dateOfBirth } = this.state;
+    var errorMessage = "";
 
     if (validateInput != undefined && dateOfBirth == undefined) {
-      if (date != undefined){
-        date = this.removeTime(date)
+      if (date != undefined) {
+        date = this.removeTime(date);
       }
-      
-      var validInput = validateInput(date) 
+
+      var validInput = validateInput(date);
       if (validInput != true) {
-        errorMessage = validInput
+        errorMessage = validInput;
       }
     }
 
-    this.setState({ 
+    this.setState({
       errorMessage: errorMessage,
-    })
+    });
   }
 
-  render(){
-    const { header, date } = this.props
-    const { errorMessage, isDatePickerVisible } = this.state
+  render() {
+    const { header, date } = this.props;
+    const { errorMessage, isDatePickerVisible } = this.state;
 
-    const defaultDate = date == null ? undefined : date
+    const defaultDate = date == null ? undefined : date;
 
-    return(
+    return (
       <View style={FormStyle.inputContainerSmall}>
         <Text>{header}</Text>
 
-        <TouchableWithoutFeedback onPress={this.showDatePicker} >
+        <TouchableWithoutFeedback onPress={this.showDatePicker}>
           <View style={FormStyle.dateContainer}>
-            <MaterialCommunityIcons name="calendar" style={FormStyle.calendarIcon}/>
+            <MaterialCommunityIcons
+              name="calendar"
+              style={FormStyle.calendarIcon}
+            />
             <Text style={FormStyle.dateTextField}>{this.formatDate(date)}</Text>
           </View>
         </TouchableWithoutFeedback>
@@ -109,8 +112,8 @@ class DateInput extends Component{
         />
         <Text style={FormStyle.errorMessage}>{errorMessage}</Text>
       </View>
-    )
+    );
   }
 }
 
-export default DateInput
+export default DateInput;

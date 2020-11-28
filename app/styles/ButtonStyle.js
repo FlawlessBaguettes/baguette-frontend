@@ -1,53 +1,43 @@
-import { StyleSheet } from 'react-native';
-
+import { StyleSheet } from "react-native";
 
 const ButtonStyle = StyleSheet.create({
-
   container: {
     backgroundColor: "white",
     flex: 1,
-    alignItems: 'center'
+    alignItems: "center",
   },
 
   primaryButton: {
-    backgroundColor: '#0079FF',
-    borderRadius: 5, 
+    backgroundColor: "#0079FF",
+    borderRadius: 5,
     paddingTop: 5,
     paddingBottom: 5,
-    width: '50%'
+    width: "50%",
   },
 
   primaryButtonDisabled: {
-    opacity: 0.25
+    opacity: 0.25,
   },
 
   primaryButtonEnabled: {
-    opacity: 1
+    opacity: 1,
   },
 
   primaryButtonText: {
-    alignSelf: 'center',
-    color: 'white',
+    alignSelf: "center",
+    color: "white",
     fontSize: 24,
   },
 
-  secondaryButton: {
+  secondaryButton: {},
 
-  },
+  secondaryButtonDisabled: {},
 
-  secondaryButtonDisabled: {
-
-  },
-
-  secondaryButtonEnabled: {
-
-  },
+  secondaryButtonEnabled: {},
 
   secondaryButtonText: {
     fontSize: 12,
   },
-
-  
 });
 
-export default ButtonStyle
+export default ButtonStyle;

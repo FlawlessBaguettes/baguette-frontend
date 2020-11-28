@@ -1,31 +1,29 @@
-import { StyleSheet } from 'react-native';
-
+import { StyleSheet } from "react-native";
 
 const FormStyle = StyleSheet.create({
-
   buttonsContainer: {
-    alignItems: 'center',
-    width: '100%', 
+    alignItems: "center",
+    width: "100%",
   },
 
   calendarIcon: {
-    color: 'black',
+    color: "black",
     padding: 10,
-    fontSize: 24
+    fontSize: 24,
   },
 
   container: {
-      backgroundColor: "white",
-      flex: 1,
-      alignItems: 'flex-start'
+    backgroundColor: "white",
+    flex: 1,
+    alignItems: "flex-start",
   },
 
   dateContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    borderColor: 'gray',
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#fff",
+    borderColor: "gray",
     borderWidth: 1,
     borderRadius: 5,
   },
@@ -39,21 +37,21 @@ const FormStyle = StyleSheet.create({
   },
 
   errorMessage: {
-    color: 'red',
+    color: "red",
     fontSize: 10,
     paddingBottom: 5,
   },
 
   formsContainer: {
-    padding: 10
+    padding: 10,
   },
 
   formTextInputContainer: {
-    flexDirection: 'row'
+    flexDirection: "row",
   },
 
   iconContainer: {
-    borderColor: 'black',
+    borderColor: "black",
     paddingLeft: 10,
     paddingTop: 8,
   },
@@ -71,25 +69,25 @@ const FormStyle = StyleSheet.create({
   },
 
   secureTextIcon: {
-    color: 'black',
-    fontSize: 24, 
+    color: "black",
+    fontSize: 24,
   },
 
   textInput: {
-    borderColor: 'gray', 
+    borderColor: "gray",
     borderRadius: 5,
     borderWidth: 1,
     height: 40,
-    width: "90%"
+    width: "90%",
   },
 
   textInputFocused: {
-    borderColor: 'gray', 
+    borderColor: "gray",
     borderWidth: 2,
     borderRadius: 5,
     height: 40,
-    width: "90%"
+    width: "90%",
   },
 });
 
-export default FormStyle
+export default FormStyle;
