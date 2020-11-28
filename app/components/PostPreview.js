@@ -1,39 +1,41 @@
-import React, { Component } from "react";
-import { StyleSheet, Text, TouchableHighlight, View } from "react-native";
-import { Video } from "expo-av";
-import { StatusBar } from "expo-status-bar";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import CameraStyle from "../styles/CameraStyle";
+import React, { Component } from 'react';
+import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import { Video } from 'expo-av';
+import { StatusBar } from 'expo-status-bar'
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import CameraStyle from '../styles/CameraStyle'
 
 class PostPreview extends Component {
-  constructor() {
-    super();
-  }
+	constructor() {
+		super()
+	}
 
-  render() {
-    var { uri } = this.props;
+	render() {
+		var { uri } = this.props
 
-    return (
-      <View style={styles.container}>
-        <StatusBar hidden="true" translucent="true" />
-        <Video
-          source={{ uri: uri }}
-          rate={1.0}
-          volume={1.0}
-          isMuted={false}
-          resizeMode={Video.RESIZE_MODE_COVER}
-          shouldPlay={true}
-          isLooping={true}
-          style={styles.container}
-        />
-      </View>
-    );
-  }
+		return(
+			<View
+				style={styles.container}
+			>		
+				<StatusBar hidden='true' translucent='true' />
+     			<Video
+ 					source={{uri: uri}}
+	 				rate={1.0}
+				  	volume={1.0}
+					isMuted={false}
+					resizeMode={Video.RESIZE_MODE_COVER}
+					shouldPlay={true}
+					isLooping={true}
+				    style={styles.container}
+ 				/>
+			</View>
+		);
+	}
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  container:{
+  	flex: 1
   },
 });
 
