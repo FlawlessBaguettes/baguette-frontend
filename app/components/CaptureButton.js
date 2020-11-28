@@ -19,7 +19,7 @@ class CaptureButton extends Component{
     } else{
       captureButtonInnerColor = 'red'
     }
-    return{
+    return {
       height: 55, 
       width: 55,
       borderRadius: 50,
