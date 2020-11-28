@@ -1,199 +1,200 @@
-import React, { Component } from 'react'
-import { SafeAreaView, StyleSheet, Text, TouchableHighlight, View } from 'react-native'
+import React, { Component } from "react";
+import {
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TouchableHighlight,
+  View,
+} from "react-native";
 
-import { Camera } from 'expo-camera'
-import { StatusBar } from 'expo-status-bar'
+import { Camera } from "expo-camera";
+import { StatusBar } from "expo-status-bar";
 
-import axios from "axios"
+import axios from "axios";
 
-import CameraControls from './CameraControls'
-import PostCamera from './PostCamera'
-import PostPreview from './PostPreview'
-import PostPreviewControls from './PostPreviewControls'
+import CameraControls from "./CameraControls";
+import PostCamera from "./PostCamera";
+import PostPreview from "./PostPreview";
+import PostPreviewControls from "./PostPreviewControls";
 
-import { POST_POSTS_ENDPOINT } from "../api/constants" 
+import { POST_POSTS_ENDPOINT } from "../api/constants";
 
-class CameraView extends Component{
-
+class CameraView extends Component {
   _isMounted = false;
 
-  constructor(){
-    super()
+  constructor() {
+    super();
     this.state = {
       hasCameraPermissions: null,
       recording: false,
       showCamera: true,
       type: Camera.Constants.Type.front,
-      video: null
-    }
+      video: null,
+    };
 
-    this.cameraRef = React.createRef()
+    this.cameraRef = React.createRef();
   }
 
   async componentDidMount() {
-    this._isMounted = true
-    this.getCameraPermissions()
+    this._isMounted = true;
+    this.getCameraPermissions();
   }
 
   componentWillUnmount() {
     this._isMounted = false;
   }
 
-  cancelPreview(){
+  cancelPreview() {
     this.setState({
       showCamera: true,
-      video: null
-    })
+      video: null,
+    });
   }
 
-  async getCameraPermissions(){
+  async getCameraPermissions() {
     let { status } = await Camera.requestPermissionsAsync();
-    if (status === 'granted'){
+    if (status === "granted") {
       this.setState({
-        hasCameraPermissions: status
-      })
+        hasCameraPermissions: status,
+      });
     }
   }
 
-  goBack(){
-    this.props.navigation.goBack()
+  goBack() {
+    this.props.navigation.goBack();
   }
 
-  setCameraType(){
+  setCameraType() {
     if (this.state.type === Camera.Constants.Type.back) {
       this.setState({
-        type: Camera.Constants.Type.front
-      })
+        type: Camera.Constants.Type.front,
+      });
     } else {
       this.setState({
-        type: Camera.Constants.Type.back
-      })
+        type: Camera.Constants.Type.back,
+      });
     }
   }
 
-  async startRecording(){
+  async startRecording() {
     if (this.cameraRef.current) {
       this.setState({ recording: true }, async () => {
         let video = await this.cameraRef.current.recordAsync();
-        if (this._isMounted){
-          await this.setState({ 
-            video, 
-            showCamera: false
+        if (this._isMounted) {
+          await this.setState({
+            video,
+            showCamera: false,
           });
         }
       });
     }
-  };
+  }
 
   async stopRecording() {
     this.setState({ recording: false }, async () => {
-      await this.cameraRef.current.stopRecording()
+      await this.cameraRef.current.stopRecording();
     });
-  };
+  }
 
-  renderCameraControls(){
-    const { showCamera, recording } = this.state
+  renderCameraControls() {
+    const { showCamera, recording } = this.state;
 
-    if (showCamera && !recording){
-      return(
-        <CameraControls 
+    if (showCamera && !recording) {
+      return (
+        <CameraControls
           goBack={this.goBack.bind(this)}
           setCameraType={this.setCameraType.bind(this)}
         />
-      )
+      );
     } else {
-      return null
+      return null;
     }
   }
 
-  renderPostCamera(){
-    const { showCamera, type } = this.state
+  renderPostCamera() {
+    const { showCamera, type } = this.state;
 
-    if (showCamera){
+    if (showCamera) {
       return (
         <PostCamera
           cameraRef={this.cameraRef}
           toggleRecording={this.toggleRecording.bind(this)}
           type={type}
         />
-      )
+      );
     } else {
       return null;
     }
   }
 
-  renderPostPreview(){
-    const { showCamera, video } = this.state
-    if (!showCamera && video){
-      return (
-        <PostPreview 
-          uri={video.uri}
-        />
-      )
+  renderPostPreview() {
+    const { showCamera, video } = this.state;
+    if (!showCamera && video) {
+      return <PostPreview uri={video.uri} />;
     } else {
       return null;
     }
   }
 
-  renderPostPreviewControls(){
-    const { showCamera, video } = this.state
-    if (!showCamera && video){
+  renderPostPreviewControls() {
+    const { showCamera, video } = this.state;
+    if (!showCamera && video) {
       return (
-        <PostPreviewControls 
+        <PostPreviewControls
           cancelPreview={this.cancelPreview.bind(this)}
           submitVideo={this.submitVideo.bind(this)}
         />
-      )
+      );
     } else {
       return null;
     }
   }
 
   submitVideo() {
-    const { video } = this.state
-    const uri = video.uri.replace('file://', '')
-    const uriParts = uri.split('/')
-    const fileName = uriParts[uriParts.length - 1]
-    const fileNameParts = fileName.split('.');
+    const { video } = this.state;
+    const uri = video.uri.replace("file://", "");
+    const uriParts = uri.split("/");
+    const fileName = uriParts[uriParts.length - 1];
+    const fileNameParts = fileName.split(".");
     const fileType = fileName[fileName.length - 1];
 
     const bodyFormData = new FormData();
-    bodyFormData.append('video', {
+    bodyFormData.append("video", {
       uri: uri,
       name: fileName,
       type: `video/${fileType}`,
     });
 
-    const headers = { 
-      'Content-Type': 'multipart/form-data',
-    }
+    const headers = {
+      "Content-Type": "multipart/form-data",
+    };
 
     var config = {
-      method: 'post',
+      method: "post",
       url: POST_POSTS_ENDPOINT,
       headers: headers,
-      data : bodyFormData
+      data: bodyFormData,
     };
 
     axios(config)
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (response) {
-      console.log(response);
-    });
-  } 
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (response) {
+        console.log(response);
+      });
+  }
 
   toggleRecording() {
-      const { recording } = this.state;
-      if (recording) {
-        this.stopRecording();
-      } else {
-        this.startRecording();
-      }
-  };
+    const { recording } = this.state;
+    if (recording) {
+      this.stopRecording();
+    } else {
+      this.startRecording();
+    }
+  }
 
-  render(){
+  render() {
     if (this.state.hasCameraPermissions === null) {
       return <SafeAreaView />;
     }
@@ -202,17 +203,16 @@ class CameraView extends Component{
       return <Text>No access to camera</Text>;
     }
 
-    return(
+    return (
       <View style={styles.container}>
-        <StatusBar hidden='true' translucent='true' />
+        <StatusBar hidden="true" translucent="true" />
         {this.renderPostCamera()}
         {this.renderCameraControls()}
         {this.renderPostPreview()}
         {this.renderPostPreviewControls()}
       </View>
-    )
+    );
   }
-
 }
 
 const styles = StyleSheet.create({
