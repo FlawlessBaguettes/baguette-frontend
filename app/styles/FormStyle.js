@@ -59,7 +59,7 @@ const FormStyle = StyleSheet.create({
   },
 
   inputContainerSmall: {
-    width: 150,
+    width: 175,
   },
 
   inputContainerMedium: {

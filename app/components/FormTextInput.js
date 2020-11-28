@@ -68,7 +68,7 @@ class FormTextInput extends Component{
 
   render(){
     const {autoCapitalize, autoCorrect, autoFocus, clearTextOnFocus, header, secureTextEntry } = this.props
-    const { errorMessage, hideSecureText, secureTextIcon, textInputStyle } = this.state
+    const { errorMessage, hideSecureText, secureTextIcon, textInputStyle } = this.state    
     return(
       <View style={FormStyle.inputContainerLarge}>
         <Text>{header}</Text>
@@ -83,17 +83,16 @@ class FormTextInput extends Component{
             onBlur={e => this.onBlur(e)}
             onFocus={this.onFocus}
             secureTextEntry={hideSecureText}
-          >
-            { 
-              secureTextEntry && 
-              <TouchableHighlight
-                style={FormStyle.iconContainer}
-                onPress={this.toggleShowSecureText}
-              >
-                <MaterialCommunityIcons name={secureTextIcon} style={FormStyle.secureTextIcon}/>
-              </TouchableHighlight>
-            }
-          </TextInput>
+          />
+          { 
+            secureTextEntry && 
+            <TouchableHighlight
+              style={FormStyle.iconContainer}
+              onPress={this.toggleShowSecureText}
+            >
+              <MaterialCommunityIcons name={secureTextIcon} style={FormStyle.secureTextIcon}/>
+            </TouchableHighlight>
+          }
         </View>
         <Text style={FormStyle.errorMessage}>{errorMessage}</Text>
       </View>

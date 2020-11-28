@@ -13,33 +13,80 @@ class DateInput extends Component{
     super(props)
     this.state = {
       errorMessage: '',
+      dateOfBirth: undefined,
       isDatePickerVisible: false
     }
   }
 
   formatDate(date){
-    if(date != ''){
-      return Moment(date).format('MMM d, YYYY')
+    if(date != null){
+      return Moment(date).format('MMM D, YYYY')
     }
     return 'mm/dd/yyyy'
   }
 
-  handleConfirm = (date) =>{
+  handleCancel = (date) =>{
     this.hideDatePicker()
-    this.props.handleConfirm(date)
+    this.setErrorMessage(date)
+  }
+
+  handleConfirm = (date) =>{
+    if (date != undefined){
+      date = this.removeTime(date)
+      
+      this.setState({
+        dateOfBirth: date
+      })
+
+      this.props.handleConfirm(date)
+    }
+
+    this.hideDatePicker()
   }
 
   hideDatePicker = () =>{
-    this.setState({ isDatePickerVisible: false })
+    this.setState({ 
+      isDatePickerVisible: false 
+    })
+  }
+
+  removeTime(date){
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate())
   }
 
   showDatePicker = () =>{
-    this.setState({ isDatePickerVisible: true })
+    this.setState({
+      errorMessage: '', 
+      isDatePickerVisible: true 
+    })
+  }
+
+  setErrorMessage(date){
+    const { validateInput } = this.props
+    const { dateOfBirth } = this.state
+    var errorMessage = '';
+
+    if (validateInput != undefined && dateOfBirth == undefined) {
+      if (date != undefined){
+        date = this.removeTime(date)
+      }
+      
+      var validInput = validateInput(date) 
+      if (validInput != true) {
+        errorMessage = validInput
+      }
+    }
+
+    this.setState({ 
+      errorMessage: errorMessage,
+    })
   }
 
   render(){
-    const { header, value } = this.props
+    const { header, date } = this.props
     const { errorMessage, isDatePickerVisible } = this.state
+
+    const defaultDate = date == null ? undefined : date
 
     return(
       <View style={FormStyle.inputContainerSmall}>
@@ -48,17 +95,17 @@ class DateInput extends Component{
         <TouchableWithoutFeedback onPress={this.showDatePicker} >
           <View style={FormStyle.dateContainer}>
             <MaterialCommunityIcons name="calendar" style={FormStyle.calendarIcon}/>
-            <Text style={FormStyle.dateTextField}>{this.formatDate(value)}</Text>
+            <Text style={FormStyle.dateTextField}>{this.formatDate(date)}</Text>
           </View>
         </TouchableWithoutFeedback>
 
         <DateTimePickerModal
+          date={defaultDate}
           isDarkModeEnabled={false}
           isVisible={isDatePickerVisible}
           mode="date"
           onConfirm={this.handleConfirm}
-          onCancel={this.hideDatePicker}
-          value={value}
+          onCancel={this.handleCancel}
         />
         <Text style={FormStyle.errorMessage}>{errorMessage}</Text>
       </View>

@@ -1,3 +1,10 @@
+export function validateDateOfBirth(dob){
+	if (dob == undefined){
+		return 'Please enter a valid date of birth'
+	}
+	return true
+}
+
 export function validateEmail(email) {
 	if (email == '') {
 		return "Please enter an email address"

@@ -8,13 +8,13 @@ import SecondaryButton from './SecondaryButton'
 
 import FormStyle from '../styles/FormStyle'
 
-import { validateEmail, validateFirstName, validateLastName, validatePasswordStrong, validateUsername } from '../utils/FormValidation'
+import { validateDateOfBirth, validateEmail, validateFirstName, validateLastName, validatePasswordStrong, validateUsername } from '../utils/FormValidation'
 
 class SignUpScreen extends Component{
   constructor(props){
     super(props)
     this.state = {
-      dateOfBirth: '',
+      dateOfBirth: null,
       email: '',
       firstName: '',
       isSignUpButtonDisabled: true,
@@ -80,8 +80,9 @@ class SignUpScreen extends Component{
   }
 
   validateForm(){
-    const { email, firstName, lastName, password, isSignUpButtonDisabled, username } = this.state
+    const { dateOfBirth, email, firstName, lastName, password, isSignUpButtonDisabled, username } = this.state
     return (
+      validateDateOfBirth(dateOfBirth) == true &&
       validateEmail(email) == true &&
       validateFirstName(firstName) == true &&
       validateLastName(lastName) == true &&
@@ -143,9 +144,10 @@ class SignUpScreen extends Component{
           />
 
           <DateInput 
+            date={dateOfBirth}
             handleConfirm={this.handleDateOfBirth}
             header={'Date of Birth'}
-            value={dateOfBirth}
+            validateInput={validateDateOfBirth}
           />
         </View>
 
