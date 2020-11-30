@@ -32,9 +32,7 @@ const PostCard = ({
               onPress={() => {
                 if (numberOfReplies) {
                   navigation.push("ListPostsScreen", {
-                    baseUrl:
-                      "http://127.0.0.1:5000/baguette/api/v1.0/posts/replies/" +
-                      id,
+                    baseUrl: GET_REPLIES_ENDPOINT + "/" + id,
                   });
                 }
               }}
@@ -47,7 +45,7 @@ const PostCard = ({
           title="Reply"
           style={styles.button}
           onPress={() => {
-            navigation.navigate("PostCamera");
+            navigation.navigate("CameraView");
           }}
         />
       </View>

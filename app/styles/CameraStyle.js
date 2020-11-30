@@ -1,25 +1,47 @@
-import { StyleSheet } from 'react-native';
-
+import { StyleSheet } from "react-native";
 
 const CameraStyle = StyleSheet.create({
-
-  buttonArea:{
-  	flex: 0.15,
-  	position: "absolute",
-	justifyContent: "center",
+  container: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 
-  button: {
-  	color: 'white',
-  	textAlign: 'center',
-  	fontSize: 32, 
-    marginTop: 10,
-    marginLeft: 5,
+  captureButtonOuter: {
+    height: 70,
+    width: 70,
+    borderWidth: 5,
+    borderColor: "white",
+    marginBottom: 20,
+    borderRadius: 50,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  iconButton: {
+    color: "white",
+    textAlign: "center",
+    fontSize: 32,
+  },
+
+  safeAreaView: {
+    flexDirection: "row",
+    position: "absolute",
+  },
+
+  textButton: {
+    color: "white",
+    textAlign: "center",
+    fontSize: 24,
+  },
+
+  topLeftButton: {
+    paddingLeft: 15,
   },
 
   topRightButton: {
-  	end: 10
-  }
+    paddingRight: 15,
+  },
 });
 
-export default CameraStyle
+export default CameraStyle;

@@ -1,75 +1,56 @@
-import React, { Component } from 'react';
-import { StyleSheet, TouchableHighlight, View } from 'react-native';
+import React, { Component } from "react";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
 
-class CaptureButton extends Component{
+import CameraStyle from "../styles/CameraStyle";
 
-	constructor(){
-	    super();
-	    this.state = {
-	      recording: false
-    	}
-  	}
+class CaptureButton extends Component {
+  constructor() {
+    super();
+    this.state = {
+      recording: false,
+    };
+  }
 
-  	captureButtonInnerStyle(){
-  		var captureButtonInnerColor = 'white';
-  		if (!this.state.recording){
-  			captureButtonInnerColor = 'white'
-  		} else{
-  			captureButtonInnerColor = 'red'
-  		}
-  		return{
-  			height: 55, 
-		    width: 55,
-		    borderRadius: 50,
-		    backgroundColor: captureButtonInnerColor
-  		}
-  	}
+  captureButtonInnerStyle() {
+    var captureButtonInnerColor = "white";
+    if (!this.state.recording) {
+      captureButtonInnerColor = "white";
+    } else {
+      captureButtonInnerColor = "red";
+    }
+    return {
+      height: 55,
+      width: 55,
+      borderRadius: 50,
+      backgroundColor: captureButtonInnerColor,
+    };
+  }
 
-	onPress(){
-		this.props.onPress()
-		this.setState({
-			recording: !this.state.recording
-		})
-	}
+  onPress() {
+    this.props.onPress();
+    this.setState({
+      recording: !this.state.recording,
+    });
+  }
 
-	render(){
-		return(
-			<View
-			style={{
-	              flex: 1,
-	              alignSelf: 'flex-end',
-	              alignItems: 'center',
-	            }}
-			>
-				<TouchableHighlight
-		            onPress={this.onPress.bind(this)}
-	            >
-	            	<View style={styles.captureButtonOuter} >
-	            		<View style={this.captureButtonInnerStyle()} />
-	            	</View>
-	          	</TouchableHighlight>
-          	</View>
-          )
-      }
-
-};
+  render() {
+    return (
+      <View style={styles.container}>
+        <TouchableOpacity onPress={this.onPress.bind(this)}>
+          <View style={CameraStyle.captureButtonOuter}>
+            <View style={this.captureButtonInnerStyle()} />
+          </View>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
-  captureButtonOuter: {
-    height: 70, 
-    width: 70,
-    borderWidth: 5,
-    borderColor: 'white',
-    marginBottom: 20,
-    borderRadius: 50,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-
-  captureButtonInner: {
-    height: 55, 
-    width: 55,
-    borderRadius: 50,
+  container: {
+    flex: 1,
+    alignSelf: "flex-end",
+    alignItems: "center",
   },
 });
 
