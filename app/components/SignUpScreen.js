@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View } from "react-native";
+import { ScrollView, View } from "react-native";
 
 import DateInput from "./DateInput";
 import FormTextInput from "./FormTextInput";
@@ -110,71 +110,73 @@ class SignUpScreen extends Component {
     const { dateOfBirth, isSignUpButtonDisabled } = this.state;
     return (
       <View style={FormStyle.container}>
-        <View style={FormStyle.formsContainer}>
-          <FormTextInput
-            autoCapitalize={"none"}
-            autoCorrect={false}
-            autoFocus={true}
-            clearTextOnFocus={false}
-            header={"First Name"}
-            onChangeText={this.handleFirstName}
-            validateInput={validateFirstName}
-          />
+        <ScrollView>
+          <View style={FormStyle.formsContainer}>
+            <FormTextInput
+              autoCapitalize={"none"}
+              autoCorrect={false}
+              autoFocus={true}
+              clearTextOnFocus={false}
+              header={"First Name"}
+              onChangeText={this.handleFirstName}
+              validateInput={validateFirstName}
+            />
 
-          <FormTextInput
-            autoCapitalize={"none"}
-            autoCorrect={false}
-            clearTextOnFocus={false}
-            header={"Last Name"}
-            onChangeText={this.handleLastName}
-            validateInput={validateLastName}
-          />
+            <FormTextInput
+              autoCapitalize={"none"}
+              autoCorrect={false}
+              clearTextOnFocus={false}
+              header={"Last Name"}
+              onChangeText={this.handleLastName}
+              validateInput={validateLastName}
+            />
 
-          <FormTextInput
-            autoCapitalize={"none"}
-            autoCorrect={false}
-            clearTextOnFocus={false}
-            header={"Email"}
-            onChangeText={this.handleEmail}
-            validateInput={validateEmail}
-          />
+            <FormTextInput
+              autoCapitalize={"none"}
+              autoCorrect={false}
+              clearTextOnFocus={false}
+              header={"Email"}
+              onChangeText={this.handleEmail}
+              validateInput={validateEmail}
+            />
 
-          <FormTextInput
-            autoCapitalize={"none"}
-            autoCorrect={false}
-            clearTextOnFocus={false}
-            header={"Username"}
-            onChangeText={this.handleUsername}
-            validateInput={validateUsername}
-          />
+            <FormTextInput
+              autoCapitalize={"none"}
+              autoCorrect={false}
+              clearTextOnFocus={false}
+              header={"Username"}
+              onChangeText={this.handleUsername}
+              validateInput={validateUsername}
+            />
 
-          <FormTextInput
-            autoCapitalize={"none"}
-            autoCorrect={false}
-            clearTextOnFocus={false}
-            header={"Password"}
-            onChangeText={this.handlePassword}
-            secureTextEntry={true}
-            validateInput={validatePasswordStrong}
-          />
+            <FormTextInput
+              autoCapitalize={"none"}
+              autoCorrect={false}
+              clearTextOnFocus={false}
+              header={"Password"}
+              onChangeText={this.handlePassword}
+              secureTextEntry={true}
+              validateInput={validatePasswordStrong}
+            />
 
-          <DateInput
-            date={dateOfBirth}
-            handleConfirm={this.handleDateOfBirth}
-            header={"Date of Birth"}
-            validateInput={validateDateOfBirth}
-          />
-        </View>
+            <DateInput
+              date={dateOfBirth}
+              handleConfirm={this.handleDateOfBirth}
+              header={"Date of Birth"}
+              validateInput={validateDateOfBirth}
+            />
+          </View>
 
-        <View style={FormStyle.buttonsContainer}>
-          <PrimaryButton
-            disabled={isSignUpButtonDisabled}
-            onPress={this.onPressSignUp}
-            title={"Sign Up"}
-          />
+          <View style={FormStyle.buttonsContainer}>
+            <PrimaryButton
+              disabled={isSignUpButtonDisabled}
+              onPress={this.onPressSignUp}
+              title={"Sign Up"}
+            />
 
-          <SecondaryButton onPress={this.onPressLogin} title={"Login"} />
-        </View>
+            <SecondaryButton onPress={this.onPressLogin} title={"Login"} />
+          </View>
+        </ScrollView>
       </View>
     );
   }

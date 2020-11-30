@@ -10,8 +10,9 @@ const ButtonStyle = StyleSheet.create({
   primaryButton: {
     backgroundColor: "#0079FF",
     borderRadius: 5,
-    paddingTop: 5,
+    marginBottom: 10,
     paddingBottom: 5,
+    paddingTop: 5,
     width: "50%",
   },
 
@@ -36,7 +37,7 @@ const ButtonStyle = StyleSheet.create({
   secondaryButtonEnabled: {},
 
   secondaryButtonText: {
-    fontSize: 12,
+    fontSize: 16,
   },
 });
 

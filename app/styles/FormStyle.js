@@ -15,7 +15,6 @@ const FormStyle = StyleSheet.create({
   container: {
     backgroundColor: "white",
     flex: 1,
-    alignItems: "flex-start",
   },
 
   dateContainer: {

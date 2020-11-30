@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View } from "react-native";
+import { ScrollView, View } from "react-native";
 
 import FormTextInput from "./FormTextInput";
 import PrimaryButton from "./PrimaryButton";
@@ -70,36 +70,38 @@ class LoginScreen extends Component {
 
     return (
       <View style={FormStyle.container}>
-        <View style={FormStyle.formsContainer}>
-          <FormTextInput
-            autoCapitalize={"none"}
-            autoCorrect={false}
-            clearTextOnFocus={false}
-            header={"Email"}
-            onChangeText={this.handleEmail}
-            validateInput={validateEmail}
-          />
+        <ScrollView>
+          <View style={FormStyle.formsContainer}>
+            <FormTextInput
+              autoCapitalize={"none"}
+              autoCorrect={false}
+              clearTextOnFocus={false}
+              header={"Email"}
+              onChangeText={this.handleEmail}
+              validateInput={validateEmail}
+            />
 
-          <FormTextInput
-            autoCapitalize={"none"}
-            autoCorrect={false}
-            clearTextOnFocus={false}
-            header={"Password"}
-            onChangeText={this.handlePassword}
-            secureTextEntry={true}
-            validateInput={validatePasswordWeak}
-          />
-        </View>
+            <FormTextInput
+              autoCapitalize={"none"}
+              autoCorrect={false}
+              clearTextOnFocus={false}
+              header={"Password"}
+              onChangeText={this.handlePassword}
+              secureTextEntry={true}
+              validateInput={validatePasswordWeak}
+            />
+          </View>
 
-        <View style={FormStyle.buttonsContainer}>
-          <PrimaryButton
-            disabled={isLoginButtonDisabled}
-            onPress={this.onPressLogin}
-            title={"Login"}
-          />
+          <View style={FormStyle.buttonsContainer}>
+            <PrimaryButton
+              disabled={isLoginButtonDisabled}
+              onPress={this.onPressLogin}
+              title={"Login"}
+            />
 
-          <SecondaryButton onPress={this.onPressSignUp} title={"Sign Up"} />
-        </View>
+            <SecondaryButton onPress={this.onPressSignUp} title={"Sign Up"} />
+          </View>
+        </ScrollView>
       </View>
     );
   }
