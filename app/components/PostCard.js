@@ -1,5 +1,6 @@
-import { View, Button, StyleSheet, Text } from "react-native";
 import React from "react";
+import { View, Button, StyleSheet, Text } from "react-native";
+import { GET_REPLIES_ENDPOINT } from "../api/constants";
 
 const PostCard = ({
   title,
