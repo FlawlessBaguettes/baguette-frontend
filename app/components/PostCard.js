@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Button, StyleSheet, Text } from "react-native";
 import { GET_REPLIES_ENDPOINT } from "../api/constants";
+import { WebView } from "react-native-webview";
 
 const PostCard = ({
   title,
@@ -11,6 +12,16 @@ const PostCard = ({
   id,
   navigation,
 }) => {
+  const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+  const match = contentUrl.match(regExp);
+  const videoId = match && match[7].length == 11 ? match[7] : false;
+
+  if (!videoId) {
+    <SafeAreaView>
+      <Text>Error: Can't parse video url</Text>
+    </SafeAreaView>;
+  }
+
   return (
     <View style={styles.posts}>
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
@@ -21,7 +32,14 @@ const PostCard = ({
       <Text style={styles.userFullName}>{userFullName}</Text>
 
       <View style={styles.video}>
-        <Text>{contentUrl}</Text>
+        <WebView
+          javaScriptEnabled={true}
+          domStorageEnabled={true}
+          allowsFullscreenVideo={true}
+          source={{
+            uri: "https://www.youtube.com/embed/" + videoId,
+          }}
+        />
       </View>
 
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
@@ -73,8 +91,10 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   video: {
-    paddingTop: "20%",
-    paddingBottom: "20%",
+    height: 250,
+    width: "100%",
+    paddingTop: 5,
+    paddingBottom: 10,
   },
   button: {},
 });
