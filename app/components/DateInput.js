@@ -90,7 +90,7 @@ class DateInput extends Component {
 
     return (
       <View style={FormStyle.inputContainerSmall}>
-        <Text>{header}</Text>
+        <Text style={FormStyle.inputHeader}>{header}</Text>
 
         <TouchableWithoutFeedback onPress={this.showDatePicker}>
           <View style={FormStyle.dateContainer}>

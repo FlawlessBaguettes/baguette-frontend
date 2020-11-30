@@ -24,7 +24,10 @@ const FormStyle = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#fff",
     borderColor: "gray",
-    borderWidth: 1,
+    borderBottomWidth: 1,
+    borderEndWidth: 0,
+    borderStartWidth: 0,
+    borderTopWidth: 0,
     borderRadius: 5,
   },
 
@@ -38,8 +41,10 @@ const FormStyle = StyleSheet.create({
 
   errorMessage: {
     color: "red",
-    fontSize: 10,
-    paddingBottom: 5,
+    fontSize: 12,
+    paddingBottom: 7,
+    paddingLeft: 3,
+    paddingTop: 3,
   },
 
   formsContainer: {
@@ -57,7 +62,7 @@ const FormStyle = StyleSheet.create({
   },
 
   inputContainerSmall: {
-    width: 175,
+    width: 200,
   },
 
   inputContainerMedium: {
@@ -65,7 +70,11 @@ const FormStyle = StyleSheet.create({
   },
 
   inputContainerLarge: {
-    width: 325,
+    width: 300,
+  },
+
+  inputHeader: {
+    fontSize: 14,
   },
 
   secureTextIcon: {
@@ -75,15 +84,21 @@ const FormStyle = StyleSheet.create({
 
   textInput: {
     borderColor: "gray",
+    borderBottomWidth: 1,
+    borderEndWidth: 0,
+    borderStartWidth: 0,
+    borderTopWidth: 0,
     borderRadius: 5,
-    borderWidth: 1,
     height: 40,
     width: "90%",
   },
 
   textInputFocused: {
     borderColor: "gray",
-    borderWidth: 2,
+    borderBottomWidth: 2,
+    borderEndWidth: 0,
+    borderStartWidth: 0,
+    borderTopWidth: 0,
     borderRadius: 5,
     height: 40,
     width: "90%",
