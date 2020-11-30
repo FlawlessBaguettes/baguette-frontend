@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState, useCallback, useRef } from "react";
 import { View, Button, StyleSheet, Text } from "react-native";
 import { GET_REPLIES_ENDPOINT } from "../api/constants";
-import { WebView } from "react-native-webview";
+import YoutubePlayer from "react-native-youtube-iframe";
 
 const PostCard = ({
   title,
@@ -12,6 +12,8 @@ const PostCard = ({
   id,
   navigation,
 }) => {
+  const [playing, setPlaying] = useState(false);
+
   const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
   const match = contentUrl.match(regExp);
   const videoId = match && match[7].length == 11 ? match[7] : false;
@@ -21,6 +23,12 @@ const PostCard = ({
       <Text>Error: Can't parse video url</Text>
     </SafeAreaView>;
   }
+
+  const onStateChange = useCallback((state) => {
+    if (state === "ended") {
+      setPlaying(false);
+    }
+  }, []);
 
   return (
     <View style={styles.posts}>
@@ -32,22 +40,21 @@ const PostCard = ({
       <Text style={styles.userFullName}>{userFullName}</Text>
 
       <View style={styles.video}>
-        <WebView
-          javaScriptEnabled={true}
-          domStorageEnabled={true}
-          allowsFullscreenVideo={true}
-          source={{
-            uri: "https://www.youtube.com/embed/" + videoId,
-          }}
+        <YoutubePlayer
+          height={300}
+          play={playing}
+          videoId={videoId}
+          initialPlayerParams={{ loop: true, modestbranding: true }}
+          onChangeState={onStateChange}
         />
       </View>
 
-      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+      <View style={styles.buttonsFooter}>
         <View>
           {numberOfReplies ? (
             <Button
               title={"See " + numberOfReplies + " Replies"}
-              style={styles.button}
+              style={styles.seeRepliesButton}
               onPress={() => {
                 if (numberOfReplies) {
                   navigation.push("ListPostsScreen", {
@@ -57,12 +64,16 @@ const PostCard = ({
               }}
             />
           ) : (
-            <Button title="0 Replies" style={styles.button} disabled={true} />
+            <Button
+              title="0 Replies"
+              style={styles.seeRepliesButton}
+              disabled={true}
+            />
           )}
         </View>
         <Button
           title="Reply"
-          style={styles.button}
+          style={styles.replybutton}
           onPress={() => {
             navigation.navigate("CameraView");
           }}
@@ -75,14 +86,16 @@ const PostCard = ({
 const styles = StyleSheet.create({
   posts: {
     paddingVertical: 10,
-    paddingHorizontal: 10,
-    marginVertical: 5,
+    paddingHorizontal: 5,
+    marginVertical: 3,
+    marginHorizontal: 3,
     backgroundColor: "white",
     borderBottomWidth: 1,
     borderColor: "white",
   },
   title: {
-    fontSize: 15,
+    fontSize: 18,
+    fontWeight: "bold",
   },
   contentPostedTime: {
     fontSize: 12,
@@ -91,12 +104,18 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   video: {
-    height: 250,
-    width: "100%",
-    paddingTop: 5,
-    paddingBottom: 10,
+    paddingVertical: 5,
+    paddingHorizontal: 1,
+    height: 222,
   },
-  button: {},
+  buttonsFooter: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingHorizontal: 1,
+    paddingTop: 5,
+  },
+  seeRepliesButton: {},
+  replyButton: {},
 });
 
 export default PostCard;
