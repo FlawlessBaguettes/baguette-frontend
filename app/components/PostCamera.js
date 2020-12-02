@@ -31,6 +31,7 @@ class PostCamera extends Component {
         ref={this.props.cameraRef}
         style={styles.container}
         type={this.state.type}
+        useCamera2Api={true}
       >
         <View style={styles.captureButtonContainer}>
           <CaptureButton onPress={this.props.toggleRecording} />
