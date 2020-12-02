@@ -1,4 +1,4 @@
-export const DOMAIN = "http://5091a4c5bd0a.ngrok.io/baguette/api/v1.0";
+export const DOMAIN = "http://00388663cde4.ngrok.io/baguette/api/v1.0";
 
 export const GET_POSTS_ENDPOINT = DOMAIN + "/posts";
 

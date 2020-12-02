@@ -15,7 +15,7 @@ class PostPreview extends Component {
 
     return (
       <View style={styles.container}>
-        <StatusBar hidden="true" translucent="true" />
+        <StatusBar hidden={true} translucent={true} />
         <Video
           source={{ uri: uri }}
           rate={1.0}

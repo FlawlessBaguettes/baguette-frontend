@@ -26,10 +26,12 @@ class PostCamera extends Component {
   render() {
     return (
       <Camera
+        handleChange={this.handleChange()}
+        ratio={"16:9"}
+        ref={this.props.cameraRef}
         style={styles.container}
         type={this.state.type}
-        ref={this.props.cameraRef}
-        handleChange={this.handleChange()}
+        useCamera2Api={true}
       >
         <View style={styles.captureButtonContainer}>
           <CaptureButton onPress={this.props.toggleRecording} />
@@ -50,6 +52,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default React.forwardRef((props, ref) => (
-  <PostCamera cameraRef={ref} {...props} />
-));
+export default PostCamera;

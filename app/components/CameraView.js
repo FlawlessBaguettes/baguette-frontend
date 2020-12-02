@@ -7,6 +7,7 @@ import {
   View,
 } from "react-native";
 
+import { Audio } from "expo-av";
 import { Camera } from "expo-camera";
 import { StatusBar } from "expo-status-bar";
 
@@ -25,6 +26,7 @@ class CameraView extends Component {
   constructor() {
     super();
     this.state = {
+      hasAudioPermissions: null,
       hasCameraPermissions: null,
       recording: false,
       showCamera: true,
@@ -38,6 +40,7 @@ class CameraView extends Component {
   async componentDidMount() {
     this._isMounted = true;
     this.getCameraPermissions();
+    this.getAudioPermissions();
   }
 
   componentWillUnmount() {
@@ -49,6 +52,15 @@ class CameraView extends Component {
       showCamera: true,
       video: null,
     });
+  }
+
+  async getAudioPermissions() {
+    let { status } = await Audio.requestPermissionsAsync();
+    if (status === "granted") {
+      this.setState({
+        hasAudioPermissions: status,
+      });
+    }
   }
 
   async getCameraPermissions() {
@@ -152,7 +164,7 @@ class CameraView extends Component {
 
   submitVideo() {
     const { video } = this.state;
-    const uri = video.uri.replace("file://", "");
+    const uri = video.uri;
     const uriParts = uri.split("/");
     const fileName = uriParts[uriParts.length - 1];
     const fileNameParts = fileName.split(".");
@@ -195,17 +207,22 @@ class CameraView extends Component {
   }
 
   render() {
-    if (this.state.hasCameraPermissions === null) {
+    const { hasAudioPermissions, hasCameraPermissions } = this.state;
+    if (hasCameraPermissions === null || hasAudioPermissions === null) {
       return <SafeAreaView />;
     }
 
-    if (this.state.hasCameraPermissions === false) {
+    if (hasCameraPermissions === false) {
       return <Text>No access to camera</Text>;
+    }
+
+    if (hasAudioPermissions === false) {
+      return <Text>No access to audio</Text>;
     }
 
     return (
       <View style={styles.container}>
-        <StatusBar hidden="true" translucent="true" />
+        <StatusBar hidden={true} translucent={true} />
         {this.renderPostCamera()}
         {this.renderCameraControls()}
         {this.renderPostPreview()}
