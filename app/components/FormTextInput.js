@@ -16,7 +16,7 @@ class FormTextInput extends Component {
       secureTextIcon = "eye";
     }
     this.state = {
-      errorMessage: "",
+      errorMessage: null,
       hideSecureText: hideSecureText,
       secureTextIcon: secureTextIcon,
       textInputStyle: FormStyle.textInput,
@@ -25,7 +25,7 @@ class FormTextInput extends Component {
 
   onBlur = (e) => {
     const { validateInput } = this.props;
-    var errorMessage = "";
+    var errorMessage = null;
 
     if (validateInput != undefined) {
       var validInput = validateInput(e.nativeEvent.text);
@@ -43,7 +43,7 @@ class FormTextInput extends Component {
   onChangeText = (text) => {
     this.props.onChangeText(text);
     this.setState({
-      errorMessage: "",
+      errorMessage: null,
     });
   };
 

@@ -13,9 +13,9 @@ class LoginScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "",
+      email: null,
       isLoginButtonDisabled: true,
-      password: "",
+      password: null,
     };
   }
 

@@ -12,7 +12,7 @@ class DateInput extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      errorMessage: "",
+      errorMessage: null,
       dateOfBirth: undefined,
       isDatePickerVisible: false,
     };
@@ -56,7 +56,7 @@ class DateInput extends Component {
 
   showDatePicker = () => {
     this.setState({
-      errorMessage: "",
+      errorMessage: null,
       isDatePickerVisible: true,
     });
   };
@@ -64,9 +64,9 @@ class DateInput extends Component {
   setErrorMessage(date) {
     const { validateInput } = this.props;
     const { dateOfBirth } = this.state;
-    var errorMessage = "";
+    var errorMessage = null;
 
-    if (validateInput != undefined && dateOfBirth == undefined) {
+    if (validateInput != undefined && !dateOfBirth) {
       if (date != undefined) {
         date = this.removeTime(date);
       }
