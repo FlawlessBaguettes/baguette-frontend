@@ -22,12 +22,12 @@ class SignUpScreen extends Component {
     super(props);
     this.state = {
       dateOfBirth: null,
-      email: "",
-      firstName: "",
+      email: null,
+      firstName: null,
       isSignUpButtonDisabled: true,
-      lastName: "",
-      password: "",
-      username: "",
+      lastName: null,
+      password: null,
+      username: null,
     };
   }
 
