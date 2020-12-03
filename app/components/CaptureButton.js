@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 
+import CameraStyle from "../styles/CameraStyle";
+
 class CaptureButton extends Component {
   constructor() {
     super();
@@ -24,24 +26,18 @@ class CaptureButton extends Component {
     };
   }
 
-  onPress = () => {
+  onPress() {
     this.props.onPress();
     this.setState({
       recording: !this.state.recording,
     });
-  };
+  }
 
   render() {
     return (
-      <View
-        style={{
-          flex: 1,
-          alignSelf: "flex-end",
-          alignItems: "center",
-        }}
-      >
-        <TouchableOpacity onPress={this.onPress}>
-          <View style={styles.captureButtonOuter}>
+      <View style={styles.container}>
+        <TouchableOpacity onPress={this.onPress.bind(this)}>
+          <View style={CameraStyle.captureButtonOuter}>
             <View style={this.captureButtonInnerStyle()} />
           </View>
         </TouchableOpacity>
@@ -51,15 +47,10 @@ class CaptureButton extends Component {
 }
 
 const styles = StyleSheet.create({
-  captureButtonOuter: {
-    height: 70,
-    width: 70,
-    borderWidth: 5,
-    borderColor: "white",
-    marginBottom: 20,
-    borderRadius: 50,
+  container: {
+    flex: 1,
+    alignSelf: "flex-end",
     alignItems: "center",
-    justifyContent: "center",
   },
 });
 
