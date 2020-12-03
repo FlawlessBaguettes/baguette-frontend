@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import useFetch from "./useFetch";
+import React, { useState, useEffect } from 'react'
 import {
   FlatList,
   View,
@@ -8,9 +7,14 @@ import {
   Text,
   Button,
   ActivityIndicator,
-} from "react-native";
+} from 'react-native'
 
-const ListPostsScreen = ({ baseUrl }) => {
+import { GET_REPLIES_ENDPOINT } from "../api/constants"
+
+import useFetch from '../utils/useFetch'
+
+const ListPostsScreen = ({ route, navigation }) => {
+  const baseUrl = route.params.baseUrl;
   const [url, setUrl] = useState(baseUrl);
   const [response, loading, hasError] = useFetch(url);
 
@@ -62,10 +66,11 @@ const ListPostsScreen = ({ baseUrl }) => {
                     style={styles.button}
                     onPress={() => {
                       if (item.number_of_replies) {
-                        setUrl(
-                          "http://127.0.0.1:5000/baguette/api/v1.0/posts/replies/" +
-                            item.id
-                        );
+                        navigation.push(
+                          'ListPostsScreen', {
+                            baseUrl: GET_REPLIES_ENDPOINT + '/' + item.id,
+                          } 
+                        )
                       }
                     }}
                   />
@@ -77,33 +82,14 @@ const ListPostsScreen = ({ baseUrl }) => {
                   />
                 )}
               </View>
-              <Button title="Reply" style={styles.button} />
+              <Button 
+                title="Reply" 
+                style={styles.button} 
+                onPress={() => {navigation.navigate('CameraView')}}
+              />
             </View>
-            {/* temporary */}
-            <View>
-              {item.parent_id ? (
-                <Button
-                  title="See Parent Post"
-                  onPress={() => {
-                    if (item.parent_id) {
-                      setUrl(
-                        "http://127.0.0.1:5000/baguette/api/v1.0/posts/" +
-                          item.parent_id
-                      );
-                    }
-                  }}
-                />
-              ) : null}
-            </View>
-            {/* temporary */}
           </View>
         )}
-      />
-      <Button
-        title="Home"
-        onPress={() => {
-          setUrl("http://127.0.0.1:5000/baguette/api/v1.0/posts");
-        }}
       />
     </SafeAreaView>
   );
