@@ -47,12 +47,12 @@ class CameraView extends Component {
     this._isMounted = false;
   }
 
-  cancelPreview() {
+  cancelPreview = () => {
     this.setState({
       showCamera: true,
       video: null,
     });
-  }
+  };
 
   async getAudioPermissions() {
     let { status } = await Audio.requestPermissionsAsync();
@@ -150,7 +150,7 @@ class CameraView extends Component {
     });
   }
 
-  submitVideo() {
+  submitVideo = () => {
     const { video } = this.state;
     const uri = video.uri;
     const uriParts = uri.split("/");
@@ -183,7 +183,7 @@ class CameraView extends Component {
       .catch(function (response) {
         console.log(response);
       });
-  }
+  };
 
   toggleCameraType = () => {
     if (this.state.type === Camera.Constants.Type.back) {

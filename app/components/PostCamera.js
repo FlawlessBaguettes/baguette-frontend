@@ -1,32 +1,31 @@
-import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, { Component } from "react";
+import { StyleSheet, View } from "react-native";
 
-import { Camera } from 'expo-camera';
+import { Camera } from "expo-camera";
 
 import axios from "axios";
 
-import CaptureButton from './CaptureButton'
-import CameraStyle from '../styles/CameraStyle'
+import CaptureButton from "./CaptureButton";
+import CameraStyle from "../styles/CameraStyle";
 
 class PostCamera extends Component {
-
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
-      type: props.type
-    }
+      type: props.type,
+    };
   }
 
-  handleChange(event){
-    const { type } = this.state
-    if(type != this.props.type){
+  handleChange(event) {
+    const { type } = this.state;
+    if (type != this.props.type) {
       this.setState({
-        type: this.props.type
-      })
+        type: this.props.type,
+      });
     }
   }
 
-  render(){
+  render() {
     return (
       <Camera
         handleChange={this.handleChange()}
@@ -36,7 +35,7 @@ class PostCamera extends Component {
         type={this.state.type}
         useCamera2Api={true}
       >
-        <View style={styles.captureButtonContainer}>
+        <View style={CameraStyle.captureButtonContainer}>
           <CaptureButton onPress={this.props.toggleRecording} />
         </View>
       </Camera>
@@ -45,7 +44,7 @@ class PostCamera extends Component {
 }
 
 const styles = StyleSheet.create({
-  container:{
+  container: {
     flex: 1,
   },
 });
