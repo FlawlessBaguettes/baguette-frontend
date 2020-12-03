@@ -75,11 +75,11 @@ class SignUpScreen extends Component {
     const { isSignUpButtonDisabled } = this.state;
     const formValidation = this.validateForm();
 
-    if (isSignUpButtonDisabled == true && formValidation) {
+    if (isSignUpButtonDisabled === true && formValidation) {
       this.setState({
         isSignUpButtonDisabled: false,
       });
-    } else if (isSignUpButtonDisabled == false && !formValidation) {
+    } else if (isSignUpButtonDisabled === false && !formValidation) {
       this.setState({
         isSignUpButtonDisabled: true,
       });
@@ -97,12 +97,12 @@ class SignUpScreen extends Component {
       username,
     } = this.state;
     return (
-      validateDateOfBirth(dateOfBirth) == true &&
-      validateEmail(email) == true &&
-      validateFirstName(firstName) == true &&
-      validateLastName(lastName) == true &&
-      validatePasswordStrong(password) == true &&
-      validateUsername(username) == true
+      validateDateOfBirth(dateOfBirth) === true &&
+      validateEmail(email) === true &&
+      validateFirstName(firstName) === true &&
+      validateLastName(lastName) === true &&
+      validatePasswordStrong(password) === true &&
+      validateUsername(username) === true
     );
   }
 

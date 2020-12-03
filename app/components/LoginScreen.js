@@ -47,11 +47,11 @@ class LoginScreen extends Component {
     const { isLoginButtonDisabled } = this.state;
     const validForm = this.validateForm();
 
-    if (isLoginButtonDisabled == true && validForm) {
+    if (isLoginButtonDisabled === true && validForm) {
       this.setState({
         isLoginButtonDisabled: false,
       });
-    } else if (isLoginButtonDisabled == false && !validForm) {
+    } else if (isLoginButtonDisabled === false && !validForm) {
       this.setState({
         isLoginButtonDisabled: true,
       });
@@ -61,7 +61,7 @@ class LoginScreen extends Component {
   validateForm() {
     const { email, password } = this.state;
     return (
-      validateEmail(email) == true && validatePasswordWeak(password) == true
+      validateEmail(email) === true && validatePasswordWeak(password) === true
     );
   }
 

@@ -32,7 +32,7 @@ export function validateLastName(lastName) {
 }
 
 export function validatePasswordStrong(password) {
-  if (password.length < 8) {
+  if (!password || password.length < 8) {
     return "Please enter a password of at least 8 characters";
   }
 
@@ -40,7 +40,7 @@ export function validatePasswordStrong(password) {
 }
 
 export function validatePasswordWeak(password) {
-  if (password.length === 0) {
+  if (!password || password.length === 0) {
     return "Please enter your password";
   }
 
