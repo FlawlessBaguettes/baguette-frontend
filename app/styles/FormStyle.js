@@ -23,8 +23,8 @@ const FormStyle = StyleSheet.create({
   container: {
     backgroundColor: "white",
     flexGrow: 1,
-    flexDirection: 'column', 
-    justifyContent: 'space-between'
+    flexDirection: "column",
+    justifyContent: "space-between",
   },
 
   dateContainer: {

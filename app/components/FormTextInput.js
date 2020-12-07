@@ -26,7 +26,7 @@ class FormTextInput extends Component {
   onBlur = (e) => {
     const { validateInput } = this.props;
     var errorMessage = null;
-
+    
     if (validateInput != undefined) {
       var validInput = validateInput(e.nativeEvent.text);
       if (validInput != true) {
@@ -92,7 +92,7 @@ class FormTextInput extends Component {
             autoFocus={autoFocus}
             clearTextOnFocus={clearTextOnFocus}
             onChangeText={(text) => this.onChangeText(text)}
-            onBlur={(e) => this.onBlur(e)}
+            onEndEditing={(e) => this.onBlur(e)}
             onFocus={this.onFocus}
             secureTextEntry={hideSecureText}
           />
