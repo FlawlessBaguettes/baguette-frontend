@@ -11,6 +11,7 @@ import {
 const FormStyle = StyleSheet.create({
   buttonsContainer: {
     alignItems: "center",
+    marginBottom: 36,
     width: "100%",
   },
 
@@ -21,7 +22,9 @@ const FormStyle = StyleSheet.create({
 
   container: {
     backgroundColor: "white",
-    flex: 1,
+    flexGrow: 1,
+    flexDirection: 'column', 
+    justifyContent: 'space-between'
   },
 
   dateContainer: {
