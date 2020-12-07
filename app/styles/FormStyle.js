@@ -64,9 +64,8 @@ const FormStyle = StyleSheet.create({
   },
 
   iconContainer: {
-    borderColor: "black",
     paddingLeft: 10,
-    paddingTop: 8,
+    paddingTop: 10,
   },
 
   inputContainerSmall: {
@@ -84,6 +83,7 @@ const FormStyle = StyleSheet.create({
   inputHeaderText: {
     fontFamily: fontFamilyRegular,
     fontSize: fontSizeMedium,
+    marginBottom: 3,
   },
 
   secureTextIcon: {

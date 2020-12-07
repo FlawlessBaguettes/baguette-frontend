@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, TextInput, TouchableHighlight, View } from "react-native";
+import { Text, TextInput, TouchableWithoutFeedback, View } from "react-native";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -97,15 +97,14 @@ class FormTextInput extends Component {
             secureTextEntry={hideSecureText}
           />
           {secureTextEntry && (
-            <TouchableHighlight
-              style={FormStyle.iconContainer}
-              onPress={this.toggleShowSecureText}
-            >
-              <MaterialCommunityIcons
-                name={secureTextIcon}
-                style={FormStyle.secureTextIcon}
-              />
-            </TouchableHighlight>
+            <TouchableWithoutFeedback onPress={this.toggleShowSecureText}>
+              <View style={FormStyle.iconContainer}>
+                <MaterialCommunityIcons
+                  name={secureTextIcon}
+                  style={FormStyle.secureTextIcon}
+                />
+              </View>
+            </TouchableWithoutFeedback>
           )}
         </View>
         <Text style={FormStyle.errorMessage}>{errorMessage}</Text>
