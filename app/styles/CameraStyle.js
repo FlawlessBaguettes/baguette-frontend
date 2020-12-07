@@ -7,14 +7,14 @@ const CameraStyle = StyleSheet.create({
   },
 
   captureButtonOuter: {
-    height: 70,
-    width: 70,
-    borderWidth: 5,
-    borderColor: "white",
-    marginBottom: 20,
-    borderRadius: 50,
     alignItems: "center",
+    borderColor: "white",
+    borderRadius: 50,
+    borderWidth: 5,
     justifyContent: "center",
+    height: 70,
+    marginBottom: 20,
+    width: 70,
   },
 
   container: {
@@ -25,8 +25,8 @@ const CameraStyle = StyleSheet.create({
 
   iconButton: {
     color: "white",
-    textAlign: "center",
     fontSize: 32,
+    textAlign: "center",
   },
 
   safeAreaView: {
@@ -36,8 +36,8 @@ const CameraStyle = StyleSheet.create({
 
   textButton: {
     color: "white",
-    textAlign: "center",
     fontSize: 24,
+    textAlign: "center",
   },
 
   topLeftButton: {

@@ -1,5 +1,13 @@
 import { StyleSheet } from "react-native";
 
+import {
+  focusedInputColor,
+  fontFamilyRegular,
+  fontSizeMedium,
+  fontSizeSmall,
+  unfocusedInputColor,
+} from "./constants.js";
+
 const FormStyle = StyleSheet.create({
   buttonsContainer: {
     alignItems: "center",
@@ -7,7 +15,6 @@ const FormStyle = StyleSheet.create({
   },
 
   calendarIcon: {
-    color: "black",
     padding: 10,
     fontSize: 24,
   },
@@ -18,20 +25,18 @@ const FormStyle = StyleSheet.create({
   },
 
   dateContainer: {
+    alignItems: "center",
+    backgroundColor: unfocusedInputColor,
+    borderRadius: 5,
+    borderWidth: 0,
     flexDirection: "row",
     justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#fff",
-    borderColor: "gray",
-    borderBottomWidth: 1,
-    borderEndWidth: 0,
-    borderStartWidth: 0,
-    borderTopWidth: 0,
-    borderRadius: 5,
   },
 
   dateTextField: {
     flex: 1,
+    fontFamily: fontFamilyRegular,
+    fontSize: fontSizeMedium,
     paddingTop: 10,
     paddingRight: 10,
     paddingBottom: 10,
@@ -40,8 +45,9 @@ const FormStyle = StyleSheet.create({
 
   errorMessage: {
     color: "red",
-    fontSize: 12,
-    paddingBottom: 7,
+    fontFamily: fontFamilyRegular,
+    fontSize: fontSizeSmall,
+    marginBottom: 7,
     paddingLeft: 3,
     paddingTop: 3,
   },
@@ -72,34 +78,34 @@ const FormStyle = StyleSheet.create({
     width: 300,
   },
 
-  inputHeader: {
-    fontSize: 14,
+  inputHeaderText: {
+    fontFamily: fontFamilyRegular,
+    fontSize: fontSizeMedium,
   },
 
   secureTextIcon: {
-    color: "black",
     fontSize: 24,
   },
 
   textInput: {
-    borderColor: "gray",
-    borderBottomWidth: 1,
-    borderEndWidth: 0,
-    borderStartWidth: 0,
-    borderTopWidth: 0,
+    backgroundColor: unfocusedInputColor,
     borderRadius: 5,
+    borderWidth: 0,
+    fontFamily: fontFamilyRegular,
+    fontSize: fontSizeMedium,
     height: 40,
+    paddingLeft: 15,
     width: "90%",
   },
 
   textInputFocused: {
-    borderColor: "gray",
-    borderBottomWidth: 2,
-    borderEndWidth: 0,
-    borderStartWidth: 0,
-    borderTopWidth: 0,
+    backgroundColor: focusedInputColor,
     borderRadius: 5,
+    borderWidth: 0,
+    fontFamily: fontFamilyRegular,
+    fontSize: fontSizeMedium,
     height: 40,
+    paddingLeft: 15,
     width: "90%",
   },
 });

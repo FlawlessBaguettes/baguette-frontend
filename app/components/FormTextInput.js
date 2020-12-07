@@ -83,7 +83,7 @@ class FormTextInput extends Component {
     } = this.state;
     return (
       <View style={FormStyle.inputContainerLarge}>
-        <Text style={FormStyle.inputHeader}>{header}</Text>
+        <Text style={FormStyle.inputHeaderText}>{header}</Text>
         <View style={FormStyle.formTextInputContainer}>
           <TextInput
             style={textInputStyle}

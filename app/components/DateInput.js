@@ -90,7 +90,7 @@ class DateInput extends Component {
 
     return (
       <View style={FormStyle.inputContainerSmall}>
-        <Text style={FormStyle.inputHeader}>{header}</Text>
+        <Text style={FormStyle.inputHeaderText}>{header}</Text>
 
         <TouchableWithoutFeedback onPress={this.showDatePicker}>
           <View style={FormStyle.dateContainer}>
@@ -98,7 +98,9 @@ class DateInput extends Component {
               name="calendar"
               style={FormStyle.calendarIcon}
             />
-            <Text style={FormStyle.dateTextField}>{this.formatDate(date)}</Text>
+            <Text style={FormStyle.dateTextField}>
+              {this.formatDate(date)}
+            </Text>
           </View>
         </TouchableWithoutFeedback>
 
@@ -110,7 +112,9 @@ class DateInput extends Component {
           onConfirm={this.handleConfirm}
           onCancel={this.handleCancel}
         />
-        <Text style={FormStyle.errorMessage}>{errorMessage}</Text>
+        <Text style={FormStyle.errorMessage}>
+          {errorMessage}
+        </Text>
       </View>
     );
   }

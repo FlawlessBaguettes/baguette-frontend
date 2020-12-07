@@ -4,6 +4,11 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
+import {
+  useFonts,
+  Poppins_400Regular,
+} from '@expo-google-fonts/poppins';
+
 import CameraView from "./app/components/CameraView";
 import ListPostsScreen from "./app/components/ListPostsScreen";
 import LoginScreen from "./app/components/LoginScreen";
@@ -14,6 +19,11 @@ import { GET_POSTS_ENDPOINT } from "./app/api/constants";
 const Stack = createStackNavigator();
 
 export default App = () => {
+
+  let [fontsLoaded] = useFonts({
+    Poppins_400Regular,
+  });
+
   return (
     <SafeAreaProvider>
       <NavigationContainer>
