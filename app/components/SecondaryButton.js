@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, TouchableHighlight, View } from "react-native";
+import { Text, Pressable, View } from "react-native";
 
 import ButtonStyle from "../styles/ButtonStyle";
 
@@ -43,13 +43,13 @@ class SecondaryButton extends Component {
     const { disabled, title } = this.props;
     const { secondaryButtonStyle } = this.state;
     return (
-      <TouchableHighlight
+      <Pressable
         disabled={disabled}
         onPress={this.onPress}
         style={[ButtonStyle.secondaryButton, secondaryButtonStyle]}
       >
         <Text style={ButtonStyle.secondaryButtonText}>{title}</Text>
-      </TouchableHighlight>
+      </Pressable>
     );
   }
 }

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, TouchableWithoutFeedback, View } from "react-native";
+import { Text, Pressable, View } from "react-native";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -92,17 +92,16 @@ class DateInput extends Component {
       <View style={FormStyle.inputContainerSmall}>
         <Text style={FormStyle.inputHeaderText}>{header}</Text>
 
-        <TouchableWithoutFeedback onPress={this.showDatePicker}>
-          <View style={FormStyle.dateContainer}>
-            <MaterialCommunityIcons
-              name="calendar"
-              style={FormStyle.calendarIcon}
-            />
-            <Text style={FormStyle.dateTextField}>
-              {this.formatDate(date)}
-            </Text>
-          </View>
-        </TouchableWithoutFeedback>
+        <Pressable
+          onPress={this.showDatePicker}
+          style={FormStyle.dateContainer}
+        >
+          <MaterialCommunityIcons
+            name="calendar"
+            style={FormStyle.calendarIcon}
+          />
+          <Text style={FormStyle.dateTextField}>{this.formatDate(date)}</Text>
+        </Pressable>
 
         <DateTimePickerModal
           date={defaultDate}
@@ -112,9 +111,7 @@ class DateInput extends Component {
           onConfirm={this.handleConfirm}
           onCancel={this.handleCancel}
         />
-        <Text style={FormStyle.errorMessage}>
-          {errorMessage}
-        </Text>
+        <Text style={FormStyle.errorMessage}>{errorMessage}</Text>
       </View>
     );
   }

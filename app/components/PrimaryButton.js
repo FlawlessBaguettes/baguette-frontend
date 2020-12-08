@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Text, Pressable, View } from "react-native";
 
 import ButtonStyle from "../styles/ButtonStyle";
+import { pressableButtonRipple } from "../styles/constants";
 
 class PrimaryButton extends Component {
   constructor(props) {
@@ -45,6 +46,7 @@ class PrimaryButton extends Component {
 
     return (
       <Pressable
+        android_ripple={pressableButtonRipple}
         disabled={disabled}
         onPress={this.onPress}
         style={[ButtonStyle.primaryButton, primaryButtonStyle]}

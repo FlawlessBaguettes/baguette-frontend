@@ -1,28 +1,23 @@
-// Colors
+// palette
 
-export const primaryColor = "#f0efeb";
+export const palettePersianRose = "#f72585";
 
-export const color1 = "#cb997e";
+export const palettePurple = "#7209b7";
 
-export const color2 = "#eddcd2";
+export const paletteBlueGem = "#3a0ca3";
 
-export const color3 = "#fff1e6";
+export const paletteRoyalBlue = "#4361ee";
 
-export const color4 = "#f0efeb";
+export const palettePictonBlue = "#4cc9f0";
 
-export const color5 = "#ddbea9";
+export const paletteAlto = "#e0e0e0";
 
-export const color6 = "#a5a58d";
+export const paletteGallery = "#ededed";
 
-export const color7 = "#b7b7a4";
+// color palette https://coolors.co/f72585-7209b7-3a0ca3-4361ee-4cc9f0
+// color names https://chir.ag/projects/name-that-color
 
-export const focusedInputColor = "#e0e0e0";
-
-export const unfocusedInputColor = "#ededed";
-
-// color pallette https://coolors.co/cb997e-eddcd2-fff1e6-f0efeb-ddbea9-a5a58d-b7b7a4
-
-// Fonts & Text
+// fonts
 
 export const fontFamilyRegular = "Poppins_400Regular";
 
@@ -33,3 +28,17 @@ export const fontSizeMedium = 14;
 export const fontSizeLarge = 16;
 
 export const fontSizeExtraLarge = 20;
+
+// functional
+
+export const colorInputUnfocused = paletteAlto;
+
+export const colorInputFocused = paletteGallery;
+
+export const colorPrimaryButton = paletteRoyalBlue;
+
+// misc
+
+export const pressableButtonRipple = {
+	color: paletteBlueGem,
+}

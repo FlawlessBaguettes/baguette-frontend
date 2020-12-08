@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, TextInput, TouchableWithoutFeedback, View } from "react-native";
+import { Text, TextInput, Pressable, View } from "react-native";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -26,7 +26,7 @@ class FormTextInput extends Component {
   onBlur = (e) => {
     const { validateInput } = this.props;
     var errorMessage = null;
-    
+
     if (validateInput != undefined) {
       var validInput = validateInput(e.nativeEvent.text);
       if (validInput != true) {
@@ -97,14 +97,15 @@ class FormTextInput extends Component {
             secureTextEntry={hideSecureText}
           />
           {secureTextEntry && (
-            <TouchableWithoutFeedback onPress={this.toggleShowSecureText}>
-              <View style={FormStyle.iconContainer}>
-                <MaterialCommunityIcons
-                  name={secureTextIcon}
-                  style={FormStyle.secureTextIcon}
-                />
-              </View>
-            </TouchableWithoutFeedback>
+            <Pressable
+              onPress={this.toggleShowSecureText}
+              style={FormStyle.iconContainer}
+            >
+              <MaterialCommunityIcons
+                name={secureTextIcon}
+                style={FormStyle.secureTextIcon}
+              />
+            </Pressable>
           )}
         </View>
         <Text style={FormStyle.errorMessage}>{errorMessage}</Text>

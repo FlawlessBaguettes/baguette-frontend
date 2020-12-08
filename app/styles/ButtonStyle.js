@@ -4,6 +4,7 @@ import {
   fontFamilyRegular,
   fontSizeExtraLarge,
   fontSizeLarge,
+  colorPrimaryButton,
 } from "./constants.js";
 
 const ButtonStyle = StyleSheet.create({
@@ -14,7 +15,7 @@ const ButtonStyle = StyleSheet.create({
   },
 
   primaryButton: {
-    backgroundColor: "#0079FF",
+    backgroundColor: colorPrimaryButton,
     borderRadius: 5,
     marginBottom: 10,
     paddingBottom: 10,

@@ -1,11 +1,11 @@
 import { StyleSheet } from "react-native";
 
 import {
-  focusedInputColor,
+  colorInputFocused,
+  colorInputUnfocused,
   fontFamilyRegular,
   fontSizeMedium,
   fontSizeSmall,
-  unfocusedInputColor,
 } from "./constants.js";
 
 const FormStyle = StyleSheet.create({
@@ -29,7 +29,7 @@ const FormStyle = StyleSheet.create({
 
   dateContainer: {
     alignItems: "center",
-    backgroundColor: unfocusedInputColor,
+    backgroundColor: colorInputFocused,
     borderRadius: 5,
     borderWidth: 0,
     flexDirection: "row",
@@ -91,7 +91,7 @@ const FormStyle = StyleSheet.create({
   },
 
   textInput: {
-    backgroundColor: unfocusedInputColor,
+    backgroundColor: colorInputFocused,
     borderRadius: 5,
     borderWidth: 0,
     fontFamily: fontFamilyRegular,
@@ -102,7 +102,7 @@ const FormStyle = StyleSheet.create({
   },
 
   textInputFocused: {
-    backgroundColor: focusedInputColor,
+    backgroundColor: colorInputUnfocused,
     borderRadius: 5,
     borderWidth: 0,
     fontFamily: fontFamilyRegular,
