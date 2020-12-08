@@ -3,7 +3,6 @@ import {
   SafeAreaView,
   StyleSheet,
   Text,
-  TouchableHighlight,
   View,
 } from "react-native";
 
@@ -26,6 +25,7 @@ class CameraView extends Component {
   constructor() {
     super();
     this.state = {
+      cameraDisabled: true,
       hasAudioPermissions: null,
       hasCameraPermissions: null,
       recording: false,
@@ -41,6 +41,16 @@ class CameraView extends Component {
     this._isMounted = true;
     this.getCameraPermissions();
     this.getAudioPermissions();
+    this.updateCameraDisabled();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      prevState.hasAudioPermissions != this.state.hasAudioPermissions ||
+      prevState.hasCameraPermissions != this.state.hasCameraPermissions
+    ) {
+      this.updateCameraDisabled();
+    }
   }
 
   componentWillUnmount() {
@@ -77,11 +87,12 @@ class CameraView extends Component {
   };
 
   renderCameraControls() {
-    const { showCamera, recording } = this.state;
+    const { cameraDisabled, showCamera, recording } = this.state;
 
     if (showCamera && !recording) {
       return (
         <CameraControls
+          cameraDisabled={cameraDisabled}
           goBack={this.goBack}
           toggleCameraType={this.toggleCameraType}
         />
@@ -92,11 +103,12 @@ class CameraView extends Component {
   }
 
   renderPostCamera() {
-    const { showCamera, type } = this.state;
+    const { cameraDisabled, showCamera, type } = this.state;
 
     if (showCamera) {
       return (
         <PostCamera
+          cameraDisabled={cameraDisabled}
           cameraRef={this.cameraRef}
           toggleRecording={this.toggleRecording}
           type={type}
@@ -206,20 +218,22 @@ class CameraView extends Component {
     }
   };
 
-  render() {
+  updateCameraDisabled() {
     const { hasAudioPermissions, hasCameraPermissions } = this.state;
+    var { cameraDisabled } = this.state;
+
     if (hasCameraPermissions === null || hasAudioPermissions === null) {
-      return <SafeAreaView />;
+      cameraDisabled = true;
+    } else {
+      cameraDisabled = false;
     }
 
-    if (hasCameraPermissions === false) {
-      return <Text>No access to camera</Text>;
-    }
+    this.setState({
+      cameraDisabled: cameraDisabled,
+    });
+  }
 
-    if (hasAudioPermissions === false) {
-      return <Text>No access to audio</Text>;
-    }
-
+  render() {
     return (
       <View style={styles.container}>
         <StatusBar hidden={true} translucent={true} />

@@ -7,7 +7,8 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import {
   useFonts,
   Poppins_400Regular,
-} from '@expo-google-fonts/poppins';
+  Poppins_500Medium,
+} from "@expo-google-fonts/poppins";
 
 import CameraView from "./app/components/CameraView";
 import ListPostsScreen from "./app/components/ListPostsScreen";
@@ -19,9 +20,9 @@ import { GET_POSTS_ENDPOINT } from "./app/api/constants";
 const Stack = createStackNavigator();
 
 export default App = () => {
-
   let [fontsLoaded] = useFonts({
     Poppins_400Regular,
+    Poppins_500Medium,
   });
 
   return (

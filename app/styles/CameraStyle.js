@@ -1,11 +1,15 @@
 import { StyleSheet } from "react-native";
 
-const CameraStyle = StyleSheet.create({
-  captureButtonContainer: {
-    flex: 1,
-    flexDirection: "row",
-  },
+import {
+  colorBackgroundDisabled,
+  colorDescriptionText,
+  fontFamilyMedium,
+  fontFamilyRegular,
+  fontSizeExtraLarge,
+  fontSizeLarge,
+} from "./constants.js";
 
+const CameraStyle = StyleSheet.create({
   captureButtonOuter: {
     alignItems: "center",
     borderColor: "white",
@@ -23,6 +27,19 @@ const CameraStyle = StyleSheet.create({
     justifyContent: "space-between",
   },
 
+  containerEmptyState: {
+    alignItems: "center",
+    backgroundColor: colorBackgroundDisabled,
+    flex: 1,
+    justifyContent: "center",
+    padding: 10,
+  },
+
+  containerCaptureButton: {
+    flex: 1,
+    flexDirection: "row",
+  },
+
   iconButton: {
     color: "white",
     fontSize: 32,
@@ -37,6 +54,21 @@ const CameraStyle = StyleSheet.create({
   textButton: {
     color: "white",
     fontSize: 24,
+    textAlign: "center",
+  },
+
+  textDescriptionEmptyState: {
+    color: colorDescriptionText,
+    fontFamily: fontFamilyRegular,
+    fontSize: fontSizeLarge,
+    textAlign: "center",
+  },
+
+  textHeaderEmptyState: {
+    color: "white",
+    fontFamily: fontFamilyMedium,
+    fontSize: fontSizeExtraLarge,
+    marginBottom: 15,
     textAlign: "center",
   },
 

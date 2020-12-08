@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Pressable, View } from "react-native";
 
 import CameraStyle from "../styles/CameraStyle";
 
@@ -36,11 +36,11 @@ class CaptureButton extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <TouchableOpacity onPress={this.onPress.bind(this)}>
+        <Pressable onPress={this.onPress.bind(this)}>
           <View style={CameraStyle.captureButtonOuter}>
             <View style={this.captureButtonInnerStyle()} />
           </View>
-        </TouchableOpacity>
+        </Pressable>
       </View>
     );
   }
