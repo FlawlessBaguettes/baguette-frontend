@@ -209,7 +209,7 @@ class CameraView extends Component {
     const { hasAudioPermissions, hasCameraPermissions } = this.state;
     var { cameraDisabled } = this.state;
 
-    if (hasCameraPermissions != 'granted' || hasAudioPermissions != 'granted') {
+    if (hasCameraPermissions != "granted" || hasAudioPermissions != "granted") {
       cameraDisabled = true;
     } else {
       cameraDisabled = false;
