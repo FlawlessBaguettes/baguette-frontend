@@ -34,22 +34,9 @@ class CameraView extends Component {
 
   async componentDidMount() {
     this._isMounted = true;
-    this.requestCameraPermissions();
-    this.requestAudioPermissions();
-    console.log("didMount update")
-    this.updateCameraDisabled();
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    this.getPermissions();
-    console.log("cameraDisabled", this.state.cameraDisabled)
-    if (
-      prevState.hasAudioPermissions != this.state.hasAudioPermissions ||
-      prevState.hasCameraPermissions != this.state.hasCameraPermissions
-    ) {
-      console.log("didUpdate update")
-      this.updateCameraDisabled();
-    }
+    await this.requestCameraPermissions();
+    await this.requestAudioPermissions();
+    await this.updateCameraDisabled();
   }
 
   componentWillUnmount() {
@@ -62,28 +49,6 @@ class CameraView extends Component {
       video: null,
     });
   };
-
-  async getPermissions() {
-    let { status: cameraStatus } = await Camera.getPermissionsAsync();
-    let { status: audioStatus } = await Audio.getPermissionsAsync();
-
-    const { hasAudioPermissions, hasCameraPermissions} = this.state
-
-    console.log("hasAudioPermissions", hasAudioPermissions, "hasCameraPermissions", hasCameraPermissions)
-    console.log("audioStatus", audioStatus, "cameraStatus", cameraStatus)
-
-    if (hasAudioPermissions != audioStatus) {
-      this.setState({
-        hasCameraPermissions: audioStatus,
-      });
-    }
-
-    if (hasCameraPermissions != cameraStatus)  {
-      this.setState({
-        hasCameraPermissions: cameraStatus,
-      });
-    }
-  }
 
   goBack = () => {
     this.props.navigation.goBack();
@@ -157,7 +122,6 @@ class CameraView extends Component {
   async requestCameraPermissions() {
     let { status } = await Camera.requestPermissionsAsync();
 
-    console.log('camera permissions', status)
     if (status === "granted") {
       this.setState({
         hasCameraPermissions: status,
