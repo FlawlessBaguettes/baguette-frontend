@@ -28,8 +28,13 @@ class PostCamera extends Component {
   renderEmptyState() {
     return (
       <View style={CameraStyle.containerEmptyState}>
-        <Text style={CameraStyle.textHeaderEmptyState}>Use Baguette's Camera</Text>
-        <Text style={CameraStyle.textDescriptionEmptyState}>Please ensure camera and audio permissions are on for this app in the device settings</Text>
+        <Text style={CameraStyle.textHeaderEmptyState}>
+          Use Baguette's Camera
+        </Text>
+        <Text style={CameraStyle.textDescriptionEmptyState}>
+          Please ensure camera and audio permissions are on for this app in the
+          device settings
+        </Text>
       </View>
     );
   }

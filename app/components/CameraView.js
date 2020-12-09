@@ -1,10 +1,5 @@
 import React, { Component } from "react";
-import {
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 
 import { Audio } from "expo-av";
 import { Camera } from "expo-camera";
@@ -39,16 +34,20 @@ class CameraView extends Component {
 
   async componentDidMount() {
     this._isMounted = true;
-    this.getCameraPermissions();
-    this.getAudioPermissions();
+    this.requestCameraPermissions();
+    this.requestAudioPermissions();
+    console.log("didMount update")
     this.updateCameraDisabled();
   }
 
   componentDidUpdate(prevProps, prevState) {
+    this.getPermissions();
+    console.log("cameraDisabled", this.state.cameraDisabled)
     if (
       prevState.hasAudioPermissions != this.state.hasAudioPermissions ||
       prevState.hasCameraPermissions != this.state.hasCameraPermissions
     ) {
+      console.log("didUpdate update")
       this.updateCameraDisabled();
     }
   }
@@ -64,20 +63,24 @@ class CameraView extends Component {
     });
   };
 
-  async getAudioPermissions() {
-    let { status } = await Audio.requestPermissionsAsync();
-    if (status === "granted") {
+  async getPermissions() {
+    let { status: cameraStatus } = await Camera.getPermissionsAsync();
+    let { status: audioStatus } = await Audio.getPermissionsAsync();
+
+    const { hasAudioPermissions, hasCameraPermissions} = this.state
+
+    console.log("hasAudioPermissions", hasAudioPermissions, "hasCameraPermissions", hasCameraPermissions)
+    console.log("audioStatus", audioStatus, "cameraStatus", cameraStatus)
+
+    if (hasAudioPermissions != audioStatus) {
       this.setState({
-        hasAudioPermissions: status,
+        hasCameraPermissions: audioStatus,
       });
     }
-  }
 
-  async getCameraPermissions() {
-    let { status } = await Camera.requestPermissionsAsync();
-    if (status === "granted") {
+    if (hasCameraPermissions != cameraStatus)  {
       this.setState({
-        hasCameraPermissions: status,
+        hasCameraPermissions: cameraStatus,
       });
     }
   }
@@ -139,6 +142,26 @@ class CameraView extends Component {
       );
     } else {
       return null;
+    }
+  }
+
+  async requestAudioPermissions() {
+    let { status } = await Audio.requestPermissionsAsync();
+    if (status === "granted") {
+      this.setState({
+        hasAudioPermissions: status,
+      });
+    }
+  }
+
+  async requestCameraPermissions() {
+    let { status } = await Camera.requestPermissionsAsync();
+
+    console.log('camera permissions', status)
+    if (status === "granted") {
+      this.setState({
+        hasCameraPermissions: status,
+      });
     }
   }
 
@@ -222,7 +245,7 @@ class CameraView extends Component {
     const { hasAudioPermissions, hasCameraPermissions } = this.state;
     var { cameraDisabled } = this.state;
 
-    if (hasCameraPermissions === null || hasAudioPermissions === null) {
+    if (hasCameraPermissions != 'granted' || hasAudioPermissions != 'granted') {
       cameraDisabled = true;
     } else {
       cameraDisabled = false;
