@@ -13,7 +13,6 @@ import {
 } from "./constants.js";
 
 const CameraStyle = StyleSheet.create({
-
   buttonCaptureInner: {
     height: 55,
     width: 55,

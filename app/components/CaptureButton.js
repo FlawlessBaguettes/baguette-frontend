@@ -12,13 +12,13 @@ class CaptureButton extends Component {
     };
   }
 
-  componentDidMount(){
-    this.setCaptureButtonInnerColor()
+  componentDidMount() {
+    this.setCaptureButtonInnerColor();
   }
 
-  componentDidUpdate(prevProps, prevState){
-    if(prevState.recording != this.state.recording){
-      this.setCaptureButtonInnerColor()
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.recording != this.state.recording) {
+      this.setCaptureButtonInnerColor();
     }
   }
 
@@ -28,31 +28,32 @@ class CaptureButton extends Component {
     this.setState({
       recording: !this.state.recording,
     });
-  }
+  };
 
-  setCaptureButtonInnerColor(){
-    const { recording } = this.state
+  setCaptureButtonInnerColor() {
+    const { recording } = this.state;
 
-    if(recording){
+    if (recording) {
       this.setState({
         captureButtonInnerColor: CameraStyle.buttonCaptureInnerColorRecording,
-      })
-    } else{
+      });
+    } else {
       this.setState({
         captureButtonInnerColor: CameraStyle.buttonCaptureInnerColor,
-      })
+      });
     }
   }
 
   render() {
-
     const { captureButtonInnerColor } = this.state;
 
     return (
       <View style={styles.container}>
         <Pressable onPress={this.onPress}>
           <View style={CameraStyle.buttonCaptureOuter}>
-            <View style={[CameraStyle.buttonCaptureInner, captureButtonInnerColor]} />
+            <View
+              style={[CameraStyle.buttonCaptureInner, captureButtonInnerColor]}
+            />
           </View>
         </Pressable>
       </View>
