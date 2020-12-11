@@ -4,12 +4,14 @@ import {
   colorBackgroundDisabled,
   colorButtonCamera,
   colorButtonCameraRecording,
+  colorTextDark,
   colorTextGrey,
   colorTextWhite,
   fontFamilyMedium,
   fontFamilyRegular,
   fontSizeExtraLarge,
   fontSizeLarge,
+  fontSizeMedium,
 } from "./constants.js";
 
 const CameraStyle = StyleSheet.create({
@@ -45,18 +47,39 @@ const CameraStyle = StyleSheet.create({
     textAlign: "center",
   },
 
-  buttonText: {
-    color: colorButtonCamera,
+  buttonPill: {
+    backgroundColor: colorButtonCamera,
+    borderRadius: 20,
+    paddingBottom: 8,
+    paddingLeft: 8,
+    paddingTop: 8,
+    width: 110,
+  },
+
+  buttonPillContentsContainer: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+
+  buttonPillIconChevron: {
+    color: colorTextDark,
     fontSize: 24,
-    textAlign: "center",
+  },
+
+  buttonPillText: {
+    alignSelf: "center",
+    color: colorTextDark,
+    fontFamily: fontFamilyRegular,
+    fontSize: fontSizeMedium,
   },
 
   buttonTopLeft: {
-    paddingLeft: 15,
+    marginLeft: 15,
   },
 
   buttonTopRight: {
-    paddingRight: 15,
+    marginRight: 15,
   },
 
   container: {

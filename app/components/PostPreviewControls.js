@@ -26,10 +26,17 @@ class PostPreviewControls extends Component {
           </Pressable>
 
           <Pressable
-            style={CameraStyle.buttonTopRight}
+            style={[CameraStyle.buttonPill, CameraStyle.buttonTopRight]}
             onPress={this.props.submitVideo}
           >
-            <Text style={CameraStyle.buttonText}>Post</Text>
+            <View style={CameraStyle.buttonPillContentsContainer}>
+              <Text style={CameraStyle.buttonPillText}>Continue</Text>
+
+              <MaterialCommunityIcons
+                name="chevron-right"
+                style={CameraStyle.buttonPillIconChevron}
+              />
+            </View>
           </Pressable>
         </View>
       </SafeAreaView>

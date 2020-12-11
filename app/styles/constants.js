@@ -13,9 +13,9 @@ export const palettePictonBlue = "#4cc9f0";
 
 // color palette https://coolors.co/f72585-7209b7-3a0ca3-4361ee-4cc9f0
 
-// palette helpers 
+// palette helpers
 
-export const paletteMonza = "#d10812"
+export const paletteMonza = "#d10812";
 
 // palette shades
 
