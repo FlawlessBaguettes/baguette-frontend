@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import ButtonStyle from "../styles/ButtonStyle";
 import { pressableButtonRipple } from "../styles/constants";
 
-class CTAButton extends Component {
+class CustomButton extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -49,21 +49,21 @@ class CTAButton extends Component {
     if (isPrimary) {
       if (disabled) {
         this.setState({
-          buttonEnabledStyle: ButtonStyle.primaryButtonDisabled,
+          buttonEnabledStyle: ButtonStyle.buttonPrimaryDisabled,
         });
       } else {
         this.setState({
-          buttonEnabledStyle: ButtonStyle.primaryButtonEnabled,
+          buttonEnabledStyle: ButtonStyle.buttonPrimaryEnabled,
         });
       }
     } else {
       if (disabled) {
         this.setState({
-          buttonEnabledStyle: ButtonStyle.secondaryButtonDisabled,
+          buttonEnabledStyle: ButtonStyle.buttonSecondaryDisabled,
         });
       } else {
         this.setState({
-          buttonEnabledStyle: ButtonStyle.secondaryButtonEnabled,
+          buttonEnabledStyle: ButtonStyle.buttonSecondaryEnabled,
         });
       }
     }
@@ -74,10 +74,10 @@ class CTAButton extends Component {
 
     if (isPrimary) {
       this.setState({
-        buttonStyle: ButtonStyle.primaryButton,
+        buttonStyle: ButtonStyle.buttonPrimary,
       });
     } else {
-      buttonStyle: ButtonStyle.secondaryButton;
+      buttonStyle: ButtonStyle.buttonSecondary;
     }
   }
 
@@ -86,11 +86,11 @@ class CTAButton extends Component {
 
     if (isPrimary) {
       this.setState({
-        textStyle: ButtonStyle.primaryButtonText,
+        textStyle: ButtonStyle.buttonPrimaryText,
       });
     } else {
       this.setState({
-        textStyle: ButtonStyle.secondaryButtonText,
+        textStyle: ButtonStyle.buttonSecondaryText,
       });
     }
   }
@@ -117,8 +117,8 @@ class CTAButton extends Component {
   }
 }
 
-CTAButton.propTypes = {
+CustomButton.propTypes = {
   isPrimary: PropTypes.bool.isRequired,
 };
 
-export default CTAButton;
+export default CustomButton;

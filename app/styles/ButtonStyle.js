@@ -4,7 +4,8 @@ import {
   fontFamilyRegular,
   fontSizeExtraLarge,
   fontSizeLarge,
-  colorPrimaryButton,
+  colorButtonPrimary,
+  colorTextLight,
 } from "./constants.js";
 
 const ButtonStyle = StyleSheet.create({
@@ -14,8 +15,8 @@ const ButtonStyle = StyleSheet.create({
     alignItems: "center",
   },
 
-  primaryButton: {
-    backgroundColor: colorPrimaryButton,
+  buttonPrimary: {
+    backgroundColor: colorButtonPrimary,
     borderRadius: 5,
     marginBottom: 10,
     paddingBottom: 10,
@@ -23,28 +24,28 @@ const ButtonStyle = StyleSheet.create({
     width: "85%",
   },
 
-  primaryButtonDisabled: {
+  buttonPrimaryDisabled: {
     opacity: 0.25,
   },
 
-  primaryButtonEnabled: {
+  buttonPrimaryEnabled: {
     opacity: 1,
   },
 
-  primaryButtonText: {
+  buttonPrimaryText: {
     alignSelf: "center",
-    color: "white",
+    color: colorTextLight,
     fontFamily: fontFamilyRegular,
     fontSize: fontSizeExtraLarge,
   },
 
-  secondaryButton: {},
+  buttonSecondary: {},
 
-  secondaryButtonDisabled: {},
+  buttonSecondaryDisabled: {},
 
-  secondaryButtonEnabled: {},
+  buttonSecondaryEnabled: {},
 
-  secondaryButtonText: {
+  buttonSecondaryText: {
     fontFamily: fontFamilyRegular,
     fontSize: fontSizeLarge,
   },

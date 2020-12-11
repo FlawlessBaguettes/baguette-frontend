@@ -1,8 +1,11 @@
 import { StyleSheet } from "react-native";
 
 import {
+  colorBackground,
   colorInputFocused,
   colorInputUnfocused,
+  colorTextDark,
+  colorTextError,
   fontFamilyRegular,
   fontSizeMedium,
   fontSizeSmall,
@@ -21,7 +24,7 @@ const FormStyle = StyleSheet.create({
   },
 
   container: {
-    backgroundColor: "white",
+    backgroundColor: colorBackground,
     flexGrow: 1,
     flexDirection: "column",
     justifyContent: "space-between",
@@ -47,7 +50,7 @@ const FormStyle = StyleSheet.create({
   },
 
   errorMessage: {
-    color: "red",
+    color: colorTextError,
     fontFamily: fontFamilyRegular,
     fontSize: fontSizeSmall,
     marginBottom: 7,
@@ -81,6 +84,7 @@ const FormStyle = StyleSheet.create({
   },
 
   inputHeaderText: {
+    color: colorTextDark,
     fontFamily: fontFamilyRegular,
     fontSize: fontSizeMedium,
     marginBottom: 3,

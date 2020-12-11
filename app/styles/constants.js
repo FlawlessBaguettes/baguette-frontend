@@ -1,5 +1,6 @@
 // palette
 
+// palette colors
 export const palettePersianRose = "#f72585";
 
 export const palettePurple = "#7209b7";
@@ -10,13 +11,24 @@ export const paletteRoyalBlue = "#4361ee";
 
 export const palettePictonBlue = "#4cc9f0";
 
+// color palette https://coolors.co/f72585-7209b7-3a0ca3-4361ee-4cc9f0
+
+// palette helpers 
+
+export const paletteMonza = "#d10812"
+
+// palette shades
+
+export const paletteBlack = "black";
+
 export const paletteAlto = "#e0e0e0";
 
 export const paletteGallery = "#ededed";
 
-export const paletteMineShaft = "#3b3b3b"
+export const paletteMineShaft = "#3b3b3b";
 
-// color palette https://coolors.co/f72585-7209b7-3a0ca3-4361ee-4cc9f0
+export const paletteWhite = "white";
+
 // color names https://chir.ag/projects/name-that-color
 
 // fonts
@@ -35,15 +47,25 @@ export const fontSizeExtraLarge = 20;
 
 // functional
 
+export const colorBackground = paletteWhite;
+
+export const colorButtonCamera = paletteWhite;
+
+export const colorButtonPrimary = paletteRoyalBlue;
+
 export const colorBackgroundDisabled = paletteMineShaft;
 
 export const colorInputUnfocused = paletteAlto;
 
 export const colorInputFocused = paletteGallery;
 
-export const colorPrimaryButton = paletteRoyalBlue;
+export const colorTextDark = paletteBlack;
 
-export const colorDescriptionText = paletteGallery;
+export const colorTextGrey = paletteGallery;
+
+export const colorTextError = paletteMonza;
+
+export const colorTextLight = paletteWhite;
 
 // misc
 

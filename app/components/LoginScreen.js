@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { ScrollView, View } from "react-native";
 
 import FormTextInput from "./FormTextInput";
-import CTAButton from "./CTAButton";
+import CustomButton from "./CustomButton";
 
 import FormStyle from "../styles/FormStyle";
 
@@ -92,14 +92,14 @@ class LoginScreen extends Component {
         </View>
 
         <View style={FormStyle.buttonsContainer}>
-          <CTAButton
+          <CustomButton
             disabled={isLoginButtonDisabled}
             isPrimary={true}
             onPress={this.onPressLogin}
             title={"Login"}
           />
 
-          <CTAButton
+          <CustomButton
             isPrimary={false}
             onPress={this.onPressSignUp}
             title={"Sign Up"}

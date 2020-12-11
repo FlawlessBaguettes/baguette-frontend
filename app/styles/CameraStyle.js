@@ -2,7 +2,9 @@ import { StyleSheet } from "react-native";
 
 import {
   colorBackgroundDisabled,
-  colorDescriptionText,
+  colorButtonCamera,
+  colorTextGrey,
+  colorTextWhite,
   fontFamilyMedium,
   fontFamilyRegular,
   fontSizeExtraLarge,
@@ -41,7 +43,7 @@ const CameraStyle = StyleSheet.create({
   },
 
   iconButton: {
-    color: "white",
+    color: colorButtonCamera,
     fontSize: 32,
     textAlign: "center",
   },
@@ -52,20 +54,20 @@ const CameraStyle = StyleSheet.create({
   },
 
   textButton: {
-    color: "white",
+    color: colorButtonCamera,
     fontSize: 24,
     textAlign: "center",
   },
 
   textDescriptionEmptyState: {
-    color: colorDescriptionText,
+    color: colorTextGrey,
     fontFamily: fontFamilyRegular,
     fontSize: fontSizeLarge,
     textAlign: "center",
   },
 
   textHeaderEmptyState: {
-    color: "white",
+    color: colorTextWhite,
     fontFamily: fontFamilyMedium,
     fontSize: fontSizeExtraLarge,
     marginBottom: 15,
