@@ -3,6 +3,7 @@ import { StyleSheet } from "react-native";
 import {
   colorBackgroundDisabled,
   colorButtonCamera,
+  colorButtonCameraRecording,
   colorTextGrey,
   colorTextWhite,
   fontFamilyMedium,
@@ -12,15 +13,51 @@ import {
 } from "./constants.js";
 
 const CameraStyle = StyleSheet.create({
-  captureButtonOuter: {
+
+  buttonCaptureInner: {
+    height: 55,
+    width: 55,
+  },
+
+  buttonCaptureInnerColor: {
+    borderRadius: 50, // need this for android
+    backgroundColor: colorButtonCamera,
+  },
+
+  buttonCaptureInnerColorRecording: {
+    borderRadius: 50, // need this for android
+    backgroundColor: colorButtonCameraRecording,
+  },
+
+  buttonCaptureOuter: {
     alignItems: "center",
-    borderColor: "white",
+    borderColor: colorButtonCamera,
     borderRadius: 50,
     borderWidth: 5,
-    justifyContent: "center",
     height: 70,
+    justifyContent: "center",
     marginBottom: 20,
     width: 70,
+  },
+
+  buttonIcon: {
+    color: colorButtonCamera,
+    fontSize: 32,
+    textAlign: "center",
+  },
+
+  buttonText: {
+    color: colorButtonCamera,
+    fontSize: 24,
+    textAlign: "center",
+  },
+
+  buttonTopLeft: {
+    paddingLeft: 15,
+  },
+
+  buttonTopRight: {
+    paddingRight: 15,
   },
 
   container: {
@@ -42,21 +79,9 @@ const CameraStyle = StyleSheet.create({
     flexDirection: "row",
   },
 
-  iconButton: {
-    color: colorButtonCamera,
-    fontSize: 32,
-    textAlign: "center",
-  },
-
   safeAreaView: {
     flexDirection: "row",
     position: "absolute",
-  },
-
-  textButton: {
-    color: colorButtonCamera,
-    fontSize: 24,
-    textAlign: "center",
   },
 
   textDescriptionEmptyState: {
@@ -72,14 +97,6 @@ const CameraStyle = StyleSheet.create({
     fontSize: fontSizeExtraLarge,
     marginBottom: 15,
     textAlign: "center",
-  },
-
-  topLeftButton: {
-    paddingLeft: 15,
-  },
-
-  topRightButton: {
-    paddingRight: 15,
   },
 });
 

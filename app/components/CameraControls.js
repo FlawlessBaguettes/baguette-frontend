@@ -21,10 +21,10 @@ class CameraControls extends Component {
 
   renderGoBackButton() {
     return (
-      <Pressable style={CameraStyle.topLeftButton} onPress={this.goBack}>
+      <Pressable style={CameraStyle.buttonTopLeft} onPress={this.goBack}>
         <MaterialCommunityIcons
           name="keyboard-backspace"
-          style={CameraStyle.iconButton}
+          style={CameraStyle.buttonIcon}
         />
       </Pressable>
     );
@@ -33,12 +33,12 @@ class CameraControls extends Component {
   renderToggleCameraTypeButton() {
     return (
       <Pressable
-        style={CameraStyle.topRightButton}
+        style={CameraStyle.buttonTopRight}
         onPress={this.toggleCameraType}
       >
         <MaterialCommunityIcons
           name="camera-switch"
-          style={CameraStyle.iconButton}
+          style={CameraStyle.buttonIcon}
         />
       </Pressable>
     );

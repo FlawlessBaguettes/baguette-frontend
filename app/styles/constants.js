@@ -51,6 +51,8 @@ export const colorBackground = paletteWhite;
 
 export const colorButtonCamera = paletteWhite;
 
+export const colorButtonCameraRecording = paletteMonza;
+
 export const colorButtonPrimary = paletteRoyalBlue;
 
 export const colorBackgroundDisabled = paletteMineShaft;
@@ -61,9 +63,9 @@ export const colorInputFocused = paletteGallery;
 
 export const colorTextDark = paletteBlack;
 
-export const colorTextGrey = paletteGallery;
-
 export const colorTextError = paletteMonza;
+
+export const colorTextGrey = paletteGallery;
 
 export const colorTextLight = paletteWhite;
 

@@ -16,20 +16,20 @@ class PostPreviewControls extends Component {
       <SafeAreaView style={CameraStyle.safeAreaView}>
         <View style={CameraStyle.container}>
           <Pressable
-            style={CameraStyle.topLeftButton}
+            style={CameraStyle.buttonTopLeft}
             onPress={this.props.cancelPreview}
           >
             <MaterialCommunityIcons
               name="close"
-              style={CameraStyle.iconButton}
+              style={CameraStyle.buttonIcon}
             />
           </Pressable>
 
           <Pressable
-            style={CameraStyle.topRightButton}
+            style={CameraStyle.buttonTopRight}
             onPress={this.props.submitVideo}
           >
-            <Text style={CameraStyle.textButton}>Post</Text>
+            <Text style={CameraStyle.buttonText}>Post</Text>
           </Pressable>
         </View>
       </SafeAreaView>
