@@ -13,6 +13,7 @@ import {
 import CameraView from "./app/components/CameraView";
 import ListPostsScreen from "./app/components/ListPostsScreen";
 import LoginScreen from "./app/components/LoginScreen";
+import PostSubmit from "./app/components/PostSubmit";
 import SignUpScreen from "./app/components/SignUpScreen";
 
 import { GET_POSTS_ENDPOINT } from "./app/api/constants";
@@ -56,6 +57,13 @@ export default App = () => {
             component={LoginScreen}
             options={{
               title: "Login",
+            }}
+          />
+          <Stack.Screen
+            name="PostSubmit"
+            component={PostSubmit}
+            options={{
+              title: "Post",
             }}
           />
         </Stack.Navigator>

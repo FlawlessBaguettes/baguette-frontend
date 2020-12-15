@@ -47,6 +47,14 @@ export function validatePasswordWeak(password) {
   return true;
 }
 
+export function validatePostTitle(title) {
+  if (!title) {
+    return "Please enter a title";
+  }
+
+  return true;
+}
+
 export function validateUsername(username) {
   if (!username) {
     return "Please enter a username";

@@ -92,7 +92,6 @@ class SignUpScreen extends Component {
       firstName,
       lastName,
       password,
-      isSignUpButtonDisabled,
       username,
     } = this.state;
     return (

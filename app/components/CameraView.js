@@ -5,14 +5,10 @@ import { Audio } from "expo-av";
 import { Camera } from "expo-camera";
 import { StatusBar } from "expo-status-bar";
 
-import axios from "axios";
-
 import CameraControls from "./CameraControls";
 import PostCamera from "./PostCamera";
 import PostPreview from "./PostPreview";
 import PostPreviewControls from "./PostPreviewControls";
-
-import { POST_POSTS_ENDPOINT } from "../api/constants";
 
 class CameraView extends Component {
   _isMounted = false;
@@ -151,37 +147,11 @@ class CameraView extends Component {
 
   submitVideo = () => {
     const { video } = this.state;
-    const uri = video.uri;
-    const uriParts = uri.split("/");
-    const fileName = uriParts[uriParts.length - 1];
-    const fileNameParts = fileName.split(".");
-    const fileType = fileName[fileName.length - 1];
-
-    const bodyFormData = new FormData();
-    bodyFormData.append("video", {
-      uri: uri,
-      name: fileName,
-      type: `video/${fileType}`,
-    });
-
-    const headers = {
-      "Content-Type": "multipart/form-data",
-    };
-
-    var config = {
-      method: "post",
-      url: POST_POSTS_ENDPOINT,
-      headers: headers,
-      data: bodyFormData,
-    };
-
-    axios(config)
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (response) {
-        console.log(response);
+    if (video) {
+      this.props.navigation.navigate("PostSubmit", {
+        video: video,
       });
+    }
   };
 
   toggleCameraType = () => {
