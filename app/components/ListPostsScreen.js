@@ -31,22 +31,21 @@ const ListPostsScreen = ({ route, navigation }) => {
     ? response.replies.replies
     : [];
 
+  const renderItem = ({ item }) => (
+    <PostCard
+      title={item.title}
+      contentPostedTime={item.content.posted_time}
+      userFullName={item.user.full_name}
+      contentUrl={item.content.url}
+      numberOfReplies={item.number_of_replies}
+      id={item.id}
+      navigation={navigation}
+    />
+  );
+
   return (
     <SafeAreaView style={styles.container}>
-      <FlatList
-        data={posts}
-        renderItem={({ item }) => (
-          <PostCard
-            title={item.title}
-            contentPostedTime={item.content.posted_time}
-            userFullName={item.user.full_name}
-            contentUrl={item.content.url}
-            numberOfReplies={item.number_of_replies}
-            id={item.id}
-            navigation={navigation}
-          />
-        )}
-      />
+      <FlatList data={posts} renderItem={renderItem} />
     </SafeAreaView>
   );
 };
