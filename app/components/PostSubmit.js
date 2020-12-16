@@ -52,7 +52,7 @@ class PostSubmit extends Component {
       "Content-Type": "multipart/form-data",
     };
 
-    var config = {
+    let config = {
       method: "post",
       url: POST_POSTS_ENDPOINT,
       headers: headers,
