@@ -64,14 +64,14 @@ class DateInput extends Component {
   setErrorMessage(date) {
     const { validateInput } = this.props;
     const { dateOfBirth } = this.state;
-    var errorMessage = null;
+    let errorMessage = null;
 
     if (validateInput != undefined && !dateOfBirth) {
       if (date != undefined) {
         date = this.removeTime(date);
       }
 
-      var validInput = validateInput(date);
+      let validInput = validateInput(date);
       if (validInput != true) {
         errorMessage = validInput;
       }

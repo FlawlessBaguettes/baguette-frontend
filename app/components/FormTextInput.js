@@ -9,8 +9,8 @@ class FormTextInput extends Component {
   constructor(props) {
     super(props);
 
-    var hideSecureText = false;
-    var secureTextIcon = "eye-off";
+    let hideSecureText = false;
+    let secureTextIcon = "eye-off";
     if (this.props.secureTextEntry == true) {
       hideSecureText = true;
       secureTextIcon = "eye";
@@ -25,10 +25,10 @@ class FormTextInput extends Component {
 
   onBlur = (e) => {
     const { validateInput } = this.props;
-    var errorMessage = null;
+    let errorMessage = null;
 
     if (validateInput != undefined) {
-      var validInput = validateInput(e.nativeEvent.text);
+      let validInput = validateInput(e.nativeEvent.text);
       if (validInput != true) {
         errorMessage = validInput;
       }
