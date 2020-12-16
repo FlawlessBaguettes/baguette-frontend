@@ -10,7 +10,7 @@ export function validateEmail(email) {
     return "Please enter an email address";
   }
 
-  var mailformat = /^\S+@\S+\.\S+$/;
+  let mailformat = /^\S+@\S+\.\S+$/;
   if (!email.match(mailformat)) {
     return "Please enter a valid email address";
   }
