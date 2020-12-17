@@ -7,9 +7,17 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import CameraStyle from "../styles/CameraStyle";
 
 class CameraControls extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
   }
+
+  toggleCameraType = () => {
+    this.props.toggleCameraType();
+  };
+
+  goBack = () => {
+    this.props.goBack();
+  };
 
   render() {
     return (
@@ -17,7 +25,7 @@ class CameraControls extends Component {
         <View style={CameraStyle.container}>
           <TouchableOpacity
             style={CameraStyle.topLeftButton}
-            onPress={this.props.goBack}
+            onPress={this.goBack}
           >
             <MaterialCommunityIcons
               name="keyboard-backspace"
@@ -27,7 +35,7 @@ class CameraControls extends Component {
 
           <TouchableOpacity
             style={CameraStyle.topRightButton}
-            onPress={this.props.setCameraType}
+            onPress={this.toggleCameraType}
           >
             <MaterialCommunityIcons
               name="camera-switch"

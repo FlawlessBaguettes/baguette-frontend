@@ -3,6 +3,8 @@ import { StyleSheet, View } from "react-native";
 
 import { Camera } from "expo-camera";
 
+import axios from "axios";
+
 import CaptureButton from "./CaptureButton";
 import CameraStyle from "../styles/CameraStyle";
 
@@ -33,7 +35,7 @@ class PostCamera extends Component {
         type={this.state.type}
         useCamera2Api={true}
       >
-        <View style={styles.captureButtonContainer}>
+        <View style={CameraStyle.captureButtonContainer}>
           <CaptureButton onPress={this.props.toggleRecording} />
         </View>
       </Camera>
@@ -42,11 +44,6 @@ class PostCamera extends Component {
 }
 
 const styles = StyleSheet.create({
-  captureButtonContainer: {
-    flex: 1,
-    flexDirection: "row",
-  },
-
   container: {
     flex: 1,
   },

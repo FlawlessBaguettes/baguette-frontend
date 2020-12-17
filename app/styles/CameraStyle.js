@@ -1,10 +1,9 @@
 import { StyleSheet } from "react-native";
 
 const CameraStyle = StyleSheet.create({
-  container: {
+  captureButtonContainer: {
     flex: 1,
     flexDirection: "row",
-    justifyContent: "space-between",
   },
 
   captureButtonOuter: {
@@ -16,6 +15,12 @@ const CameraStyle = StyleSheet.create({
     borderRadius: 50,
     alignItems: "center",
     justifyContent: "center",
+  },
+
+  container: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 
   iconButton: {

@@ -47,12 +47,12 @@ class CameraView extends Component {
     this._isMounted = false;
   }
 
-  cancelPreview() {
+  cancelPreview = () => {
     this.setState({
       showCamera: true,
       video: null,
     });
-  }
+  };
 
   async getAudioPermissions() {
     let { status } = await Audio.requestPermissionsAsync();
@@ -72,19 +72,61 @@ class CameraView extends Component {
     }
   }
 
-  goBack() {
+  goBack = () => {
     this.props.navigation.goBack();
+  };
+
+  renderCameraControls() {
+    const { showCamera, recording } = this.state;
+
+    if (showCamera && !recording) {
+      return (
+        <CameraControls
+          goBack={this.goBack}
+          toggleCameraType={this.toggleCameraType}
+        />
+      );
+    } else {
+      return null;
+    }
   }
 
-  setCameraType() {
-    if (this.state.type === Camera.Constants.Type.back) {
-      this.setState({
-        type: Camera.Constants.Type.front,
-      });
+  renderPostCamera() {
+    const { showCamera, type } = this.state;
+
+    if (showCamera) {
+      return (
+        <PostCamera
+          cameraRef={this.cameraRef}
+          toggleRecording={this.toggleRecording}
+          type={type}
+        />
+      );
     } else {
-      this.setState({
-        type: Camera.Constants.Type.back,
-      });
+      return null;
+    }
+  }
+
+  renderPostPreview() {
+    const { showCamera, video } = this.state;
+    if (!showCamera && video) {
+      return <PostPreview uri={video.uri} />;
+    } else {
+      return null;
+    }
+  }
+
+  renderPostPreviewControls() {
+    const { showCamera, video } = this.state;
+    if (!showCamera && video) {
+      return (
+        <PostPreviewControls
+          cancelPreview={this.cancelPreview}
+          submitVideo={this.submitVideo}
+        />
+      );
+    } else {
+      return null;
     }
   }
 
@@ -108,61 +150,7 @@ class CameraView extends Component {
     });
   }
 
-  renderCameraControls() {
-    const { showCamera, recording } = this.state;
-
-    if (showCamera && !recording) {
-      return (
-        <CameraControls
-          goBack={this.goBack.bind(this)}
-          setCameraType={this.setCameraType.bind(this)}
-        />
-      );
-    } else {
-      return null;
-    }
-  }
-
-  renderPostCamera() {
-    const { showCamera, type } = this.state;
-
-    if (showCamera) {
-      return (
-        <PostCamera
-          cameraRef={this.cameraRef}
-          toggleRecording={this.toggleRecording.bind(this)}
-          type={type}
-        />
-      );
-    } else {
-      return null;
-    }
-  }
-
-  renderPostPreview() {
-    const { showCamera, video } = this.state;
-    if (!showCamera && video) {
-      return <PostPreview uri={video.uri} />;
-    } else {
-      return null;
-    }
-  }
-
-  renderPostPreviewControls() {
-    const { showCamera, video } = this.state;
-    if (!showCamera && video) {
-      return (
-        <PostPreviewControls
-          cancelPreview={this.cancelPreview.bind(this)}
-          submitVideo={this.submitVideo.bind(this)}
-        />
-      );
-    } else {
-      return null;
-    }
-  }
-
-  submitVideo() {
+  submitVideo = () => {
     const { video } = this.state;
     const uri = video.uri;
     const uriParts = uri.split("/");
@@ -181,7 +169,7 @@ class CameraView extends Component {
       "Content-Type": "multipart/form-data",
     };
 
-    var config = {
+    let config = {
       method: "post",
       url: POST_POSTS_ENDPOINT,
       headers: headers,
@@ -195,16 +183,28 @@ class CameraView extends Component {
       .catch(function (response) {
         console.log(response);
       });
-  }
+  };
 
-  toggleRecording() {
+  toggleCameraType = () => {
+    if (this.state.type === Camera.Constants.Type.back) {
+      this.setState({
+        type: Camera.Constants.Type.front,
+      });
+    } else {
+      this.setState({
+        type: Camera.Constants.Type.back,
+      });
+    }
+  };
+
+  toggleRecording = () => {
     const { recording } = this.state;
     if (recording) {
       this.stopRecording();
     } else {
       this.startRecording();
     }
-  }
+  };
 
   render() {
     const { hasAudioPermissions, hasCameraPermissions } = this.state;

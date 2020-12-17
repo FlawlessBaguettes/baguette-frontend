@@ -11,8 +11,7 @@ class PostPreview extends Component {
   }
 
   render() {
-    var { uri } = this.props;
-
+    let { uri } = this.props;
     return (
       <View style={styles.container}>
         <StatusBar hidden={true} translucent={true} />
