@@ -37,7 +37,22 @@ const ListPostsScreen = ({ route, navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-    <Text onPress={() => {navigation.navigate('SignUpScreen')}}>Sign Up</Text>
+    <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+        <Text
+          onPress={() => {
+            navigation.navigate("SignUpScreen");
+          }}
+        >
+          Sign Up
+        </Text>
+        <Text
+          onPress={() => {
+            navigation.navigate("LoginScreen");
+          }}
+        >
+          Login
+        </Text>
+      </View>
       <FlatList
         data={posts}
         renderItem={({ item }) => (
