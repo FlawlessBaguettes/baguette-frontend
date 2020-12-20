@@ -45,7 +45,15 @@ const ListPostsScreen = ({ route, navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <FlatList data={posts} renderItem={renderItem} />
+      <FlatList
+        data={posts}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id}
+        windowSize={11} // unit here is 1 viewport height
+        initialNumToRender={3} // items to render in initial batch
+        maxToRenderPerBatch={3} // number of additional items rendered on every scroll
+        updateCellsBatchingPeriod={50} // delay in ms between batch renders, left as default
+      />
     </SafeAreaView>
   );
 };
