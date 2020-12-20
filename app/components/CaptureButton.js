@@ -12,7 +12,7 @@ class CaptureButton extends Component {
   }
 
   captureButtonInnerStyle() {
-    var captureButtonInnerColor = "white";
+    let captureButtonInnerColor = "white";
     if (!this.state.recording) {
       captureButtonInnerColor = "white";
     } else {
