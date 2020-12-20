@@ -12,8 +12,6 @@ const PostCard = ({
   id,
   navigation,
 }) => {
-  const [playing, setPlaying] = useState(false);
-
   const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
   const match = contentUrl.match(regExp);
   const videoId = match && match[7].length == 11 ? match[7] : false;
@@ -23,12 +21,6 @@ const PostCard = ({
       <Text>Error: Can't parse video url</Text>
     </SafeAreaView>;
   }
-
-  const onStateChange = useCallback((state) => {
-    if (state === "ended") {
-      setPlaying(false);
-    }
-  }, []);
 
   return (
     <View style={styles.posts}>
@@ -42,10 +34,8 @@ const PostCard = ({
       <View style={styles.video}>
         <YoutubePlayer
           height={300}
-          play={playing}
           videoId={videoId}
           initialPlayerParams={{ loop: true, modestbranding: true }}
-          onChangeState={onStateChange}
         />
       </View>
 
@@ -87,7 +77,7 @@ const styles = StyleSheet.create({
   posts: {
     paddingVertical: 10,
     paddingHorizontal: 5,
-    marginVertical: 3,
+    marginTop: 3,
     marginHorizontal: 3,
     backgroundColor: "white",
     borderBottomWidth: 1,
