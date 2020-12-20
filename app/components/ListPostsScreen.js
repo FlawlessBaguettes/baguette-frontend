@@ -8,6 +8,7 @@ import {
   StyleSheet,
   Text,
   ActivityIndicator,
+  View,
 } from "react-native";
 
 const ListPostsScreen = ({ route, navigation }) => {
@@ -45,7 +46,7 @@ const ListPostsScreen = ({ route, navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-    <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
         <Text
           onPress={() => {
             navigation.navigate("SignUpScreen");
