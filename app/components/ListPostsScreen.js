@@ -1,13 +1,13 @@
 import React from "react";
-import useFetch from "../utils/useFetch";
 import PostCard from "./PostCard";
+import useFetch from "../utils/useFetch";
 
 import {
+  ActivityIndicator,
   FlatList,
   SafeAreaView,
   StyleSheet,
   Text,
-  ActivityIndicator,
   View,
 } from "react-native";
 
@@ -44,9 +44,10 @@ const ListPostsScreen = ({ route, navigation }) => {
     />
   );
 
+  // const ITEM_HEIGHT = 325;
   return (
     <SafeAreaView style={styles.container}>
-      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+      <View style={styles.SignUpandLoginButtonsHeader}>
         <Text
           onPress={() => {
             navigation.navigate("SignUpScreen");
@@ -66,10 +67,16 @@ const ListPostsScreen = ({ route, navigation }) => {
         data={posts}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
+        // getItemLayout={(data, index) => ({
+        //   length: ITEM_HEIGHT,
+        //   offset: ITEM_HEIGHT * index,
+        //   index,
+        // })}
         windowSize={11} // unit here is 1 viewport height
         initialNumToRender={3} // items to render in initial batch
         maxToRenderPerBatch={3} // number of additional items rendered on every scroll
         updateCellsBatchingPeriod={50} // delay in ms between batch renders, left as default
+        removeClippedSubviews={true} // when set to true it will unmount components off the viewport
       />
     </SafeAreaView>
   );
@@ -79,6 +86,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#DCDCDC",
+  },
+  SignUpandLoginButtonsHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 });
 

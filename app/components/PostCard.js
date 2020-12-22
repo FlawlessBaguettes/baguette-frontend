@@ -1,7 +1,7 @@
-import React, { useState, useCallback, useRef } from "react";
-import { View, Button, StyleSheet, Text } from "react-native";
-import { GET_REPLIES_ENDPOINT } from "../api/constants";
+import React from "react";
+import { Button, StyleSheet, Text, View } from "react-native";
 import YoutubePlayer from "react-native-youtube-iframe";
+import SeeRepliesButton from "./SeeRepliesButton";
 
 const PostCard = ({
   title,
@@ -24,7 +24,7 @@ const PostCard = ({
 
   return (
     <View style={styles.posts}>
-      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+      <View style={styles.titleAndContentPostedTimeHeader}>
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.contentPostedTime}>{contentPostedTime}</Text>
       </View>
@@ -40,27 +40,11 @@ const PostCard = ({
       </View>
 
       <View style={styles.buttonsFooter}>
-        <View>
-          {numberOfReplies ? (
-            <Button
-              title={"See " + numberOfReplies + " Replies"}
-              style={styles.seeRepliesButton}
-              onPress={() => {
-                if (numberOfReplies) {
-                  navigation.push("ListPostsScreen", {
-                    baseUrl: GET_REPLIES_ENDPOINT + "/" + id,
-                  });
-                }
-              }}
-            />
-          ) : (
-            <Button
-              title="0 Replies"
-              style={styles.seeRepliesButton}
-              disabled={true}
-            />
-          )}
-        </View>
+        <SeeRepliesButton
+          numberOfReplies={numberOfReplies}
+          id={id}
+          navigation={navigation}
+        />
         <Button
           title="Reply"
           style={styles.replybutton}
@@ -82,6 +66,11 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderBottomWidth: 1,
     borderColor: "white",
+    // height: 325,
+  },
+  titleAndContentPostedTimeHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   title: {
     fontSize: 18,
@@ -104,7 +93,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 1,
     paddingTop: 5,
   },
-  seeRepliesButton: {},
   replyButton: {},
 });
 
