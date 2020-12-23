@@ -17,11 +17,11 @@ const ButtonStyle = StyleSheet.create({
 
   buttonPrimary: {
     backgroundColor: colorButtonPrimary,
-    borderRadius: 5,
+    borderRadius: 25,
     marginBottom: 10,
     paddingBottom: 10,
     paddingTop: 10,
-    width: "85%",
+    width: "90%",
   },
 
   buttonPrimaryDisabled: {

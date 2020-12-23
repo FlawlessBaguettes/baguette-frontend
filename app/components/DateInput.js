@@ -89,7 +89,7 @@ class DateInput extends Component {
     const defaultDate = date == null ? undefined : date;
 
     return (
-      <View style={FormStyle.inputContainerSmall}>
+      <View style={FormStyle.inputContainerLarge}>
         <Text style={FormStyle.inputHeaderText}>{header}</Text>
 
         <Pressable

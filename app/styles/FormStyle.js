@@ -32,7 +32,7 @@ const FormStyle = StyleSheet.create({
 
   dateContainer: {
     alignItems: "center",
-    backgroundColor: colorInputFocused,
+    backgroundColor: colorInputUnfocused,
     borderRadius: 5,
     borderWidth: 0,
     flexDirection: "row",
@@ -59,28 +59,44 @@ const FormStyle = StyleSheet.create({
   },
 
   formsContainer: {
-    padding: 10,
-  },
-
-  formTextInputContainer: {
-    flexDirection: "row",
-  },
-
-  iconContainer: {
-    paddingLeft: 10,
     paddingTop: 10,
   },
 
+  formTextInputContainer: {
+    flex: 1,
+    flexDirection: "row",
+    borderRadius: 5,
+    borderWidth: 0,
+    height: 40,
+  },
+
+  formTextInputContainerColor: {
+    backgroundColor: colorInputUnfocused,
+  },
+
+  formTextInputContainerColorFocused: {
+    backgroundColor: colorInputFocused,
+  },
+
+  iconContainer: {
+    paddingTop: 10,
+    paddingLeft: 5,
+    paddingRight: 5,
+  },
+
   inputContainerSmall: {
-    width: 200,
+    width: "50%",
+    alignSelf: "center",
   },
 
   inputContainerMedium: {
-    width: 250,
+    width: "75%",
+    alignSelf: "center",
   },
 
   inputContainerLarge: {
-    width: 300,
+    width: "90%",
+    alignSelf: "center",
   },
 
   inputHeaderText: {
@@ -95,25 +111,10 @@ const FormStyle = StyleSheet.create({
   },
 
   textInput: {
-    backgroundColor: colorInputFocused,
-    borderRadius: 5,
-    borderWidth: 0,
+    flex: 1,
     fontFamily: fontFamilyRegular,
     fontSize: fontSizeMedium,
-    height: 40,
-    paddingLeft: 15,
-    width: "90%",
-  },
-
-  textInputFocused: {
-    backgroundColor: colorInputUnfocused,
-    borderRadius: 5,
-    borderWidth: 0,
-    fontFamily: fontFamilyRegular,
-    fontSize: fontSizeMedium,
-    height: 40,
-    paddingLeft: 15,
-    width: "90%",
+    marginLeft: 10,
   },
 });
 

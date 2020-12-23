@@ -16,16 +16,16 @@ class FormTextInput extends Component {
       secureTextIcon = "eye";
     }
     this.state = {
-      errorMessage: null,
+      errorMessage: " ",
       hideSecureText: hideSecureText,
       secureTextIcon: secureTextIcon,
-      textInputStyle: FormStyle.textInput,
+      textInputStyle: FormStyle.formTextInputContainerColor,
     };
   }
 
   onBlur = (e) => {
     const { validateInput } = this.props;
-    let errorMessage = null;
+    let errorMessage = " ";
 
     if (validateInput != undefined) {
       let validInput = validateInput(e.nativeEvent.text);
@@ -35,7 +35,7 @@ class FormTextInput extends Component {
     }
 
     this.setState({
-      textInputStyle: FormStyle.textInput,
+      textInputStyle: FormStyle.formTextInputContainerColor,
       errorMessage: errorMessage,
     });
   };
@@ -43,12 +43,14 @@ class FormTextInput extends Component {
   onChangeText = (text) => {
     this.props.onChangeText(text);
     this.setState({
-      errorMessage: null,
+      errorMessage: " ",
     });
   };
 
   onFocus = () => {
-    this.setState({ textInputStyle: FormStyle.textInputFocused });
+    this.setState({
+      textInputStyle: FormStyle.formTextInputContainerColorFocused,
+    });
   };
 
   toggleShowSecureText = () => {
@@ -84,9 +86,8 @@ class FormTextInput extends Component {
     return (
       <View style={FormStyle.inputContainerLarge}>
         <Text style={FormStyle.inputHeaderText}>{header}</Text>
-        <View style={FormStyle.formTextInputContainer}>
+        <View style={[FormStyle.formTextInputContainer, textInputStyle]}>
           <TextInput
-            style={textInputStyle}
             autoCapitalize={autoCapitalize}
             autoCorrect={autoCorrect}
             autoFocus={autoFocus}
@@ -95,6 +96,7 @@ class FormTextInput extends Component {
             onEndEditing={(e) => this.onBlur(e)}
             onFocus={this.onFocus}
             secureTextEntry={hideSecureText}
+            style={FormStyle.textInput}
           />
           {secureTextEntry && (
             <Pressable

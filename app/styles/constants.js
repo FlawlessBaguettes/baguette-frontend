@@ -57,9 +57,9 @@ export const colorButtonPrimary = paletteRoyalBlue;
 
 export const colorBackgroundDisabled = paletteMineShaft;
 
-export const colorInputUnfocused = paletteAlto;
+export const colorInputUnfocused = paletteGallery;
 
-export const colorInputFocused = paletteGallery;
+export const colorInputFocused = paletteAlto;
 
 export const colorTextDark = paletteBlack;
 
@@ -72,5 +72,5 @@ export const colorTextLight = paletteWhite;
 // misc
 
 export const pressableButtonRipple = {
-	color: paletteBlueGem,
+  color: paletteBlueGem,
 };
