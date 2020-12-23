@@ -75,10 +75,12 @@ const CameraStyle = StyleSheet.create({
   },
 
   buttonTopLeft: {
+    marginTop: Platform.OS === "android" ? 10 : 0,
     marginLeft: 15,
   },
 
   buttonTopRight: {
+    marginTop: Platform.OS === "android" ? 10 : 0,
     marginRight: 15,
   },
 
