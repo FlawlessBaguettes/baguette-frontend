@@ -47,7 +47,7 @@ const ListPostsScreen = ({ route, navigation }) => {
   // const ITEM_HEIGHT = 325;
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.SignUpandLoginButtonsHeader}>
+      <View style={styles.signUpandLoginButtonsHeader}>
         <Text
           onPress={() => {
             navigation.navigate("SignUpScreen");
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#DCDCDC",
   },
-  SignUpandLoginButtonsHeader: {
+  signUpandLoginButtonsHeader: {
     flexDirection: "row",
     justifyContent: "space-between",
   },

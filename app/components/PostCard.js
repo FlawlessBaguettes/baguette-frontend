@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
 import YoutubePlayer from "react-native-youtube-iframe";
-import SeeRepliesButton from "./SeeRepliesButton";
+import { GET_REPLIES_ENDPOINT } from "../api/constants";
 
 const PostCard = ({
   title,
@@ -21,6 +21,18 @@ const PostCard = ({
       <Text>Error: Can't parse video url</Text>
     </SafeAreaView>;
   }
+  const seeRepliesButtonTitle =
+    numberOfReplies > 0 ? "See " + numberOfReplies + " Replies" : "0 Replies";
+
+  const isSeeRepliesButtondDisabled = numberOfReplies > 0 ? false : true;
+
+  seeRepliesButtonOnPress = () => {
+    if (numberOfReplies) {
+      navigation.push("ListPostsScreen", {
+        baseUrl: GET_REPLIES_ENDPOINT + "/" + id,
+      });
+    }
+  };
 
   return (
     <View style={styles.posts}>
@@ -40,14 +52,15 @@ const PostCard = ({
       </View>
 
       <View style={styles.buttonsFooter}>
-        <SeeRepliesButton
-          numberOfReplies={numberOfReplies}
-          id={id}
-          navigation={navigation}
+        <Button
+          title={seeRepliesButtonTitle}
+          style={styles.seeRepliesButton}
+          onPress={seeRepliesButtonOnPress}
+          disabled={isSeeRepliesButtondDisabled}
         />
         <Button
           title="Reply"
-          style={styles.replybutton}
+          style={styles.replyButton}
           onPress={() => {
             navigation.navigate("CameraView");
           }}
@@ -94,6 +107,7 @@ const styles = StyleSheet.create({
     paddingTop: 5,
   },
   replyButton: {},
+  seeRepliesButton: {},
 });
 
 export default PostCard;
