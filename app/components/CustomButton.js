@@ -18,10 +18,6 @@ function CustomButton({ disabled, isPrimary, onPress, title }) {
     updateTextStyle();
   });
 
-  const onButtonPress = () => {
-    onPress();
-  };
-
   const updateAndroidRipple = () => {
     const style = isPrimary ? pressableButtonRipple : null;
 
@@ -64,7 +60,7 @@ function CustomButton({ disabled, isPrimary, onPress, title }) {
     <Pressable
       android_ripple={androidRipple}
       disabled={disabled}
-      onPress={onButtonPress}
+      onPress={onPress}
       style={[buttonStyle, buttonEnabledStyle]}
     >
       <Text style={textStyle}>{title}</Text>
