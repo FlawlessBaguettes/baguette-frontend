@@ -1,20 +1,87 @@
 import { StyleSheet } from "react-native";
 
+import {
+  colorBackgroundDisabled,
+  colorButtonCamera,
+  colorButtonCameraRecording,
+  colorTextDark,
+  colorTextGrey,
+  colorTextWhite,
+  fontFamilyMedium,
+  fontFamilyRegular,
+  fontSizeExtraLarge,
+  fontSizeLarge,
+  fontSizeMedium,
+} from "./constants.js";
+
 const CameraStyle = StyleSheet.create({
-  captureButtonContainer: {
-    flex: 1,
-    flexDirection: "row",
+  buttonCaptureInner: {
+    height: 55,
+    width: 55,
   },
 
-  captureButtonOuter: {
-    height: 70,
-    width: 70,
-    borderWidth: 5,
-    borderColor: "white",
-    marginBottom: 20,
-    borderRadius: 50,
+  buttonCaptureInnerColor: {
+    borderRadius: 50, // need this for android
+    backgroundColor: colorButtonCamera,
+  },
+
+  buttonCaptureInnerColorRecording: {
+    borderRadius: 50, // need this for android
+    backgroundColor: colorButtonCameraRecording,
+  },
+
+  buttonCaptureOuter: {
     alignItems: "center",
+    borderColor: colorButtonCamera,
+    borderRadius: 50,
+    borderWidth: 5,
+    height: 70,
     justifyContent: "center",
+    marginBottom: 20,
+    width: 70,
+  },
+
+  buttonIcon: {
+    color: colorButtonCamera,
+    fontSize: 32,
+    textAlign: "center",
+  },
+
+  buttonPill: {
+    backgroundColor: colorButtonCamera,
+    borderRadius: 20,
+    paddingBottom: 8,
+    paddingLeft: 8,
+    paddingTop: 8,
+    width: 110,
+  },
+
+  buttonPillContentsContainer: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+
+  buttonPillIconChevron: {
+    color: colorTextDark,
+    fontSize: 24,
+  },
+
+  buttonPillText: {
+    alignSelf: "center",
+    color: colorTextDark,
+    fontFamily: fontFamilyRegular,
+    fontSize: fontSizeMedium,
+  },
+
+  buttonTopLeft: {
+    marginTop: Platform.OS === "android" ? 10 : 0,
+    marginLeft: 15,
+  },
+
+  buttonTopRight: {
+    marginTop: Platform.OS === "android" ? 10 : 0,
+    marginRight: 15,
   },
 
   container: {
@@ -23,10 +90,17 @@ const CameraStyle = StyleSheet.create({
     justifyContent: "space-between",
   },
 
-  iconButton: {
-    color: "white",
-    textAlign: "center",
-    fontSize: 32,
+  containerEmptyState: {
+    alignItems: "center",
+    backgroundColor: colorBackgroundDisabled,
+    flex: 1,
+    justifyContent: "center",
+    padding: 10,
+  },
+
+  containerCaptureButton: {
+    flex: 1,
+    flexDirection: "row",
   },
 
   safeAreaView: {
@@ -34,18 +108,19 @@ const CameraStyle = StyleSheet.create({
     position: "absolute",
   },
 
-  textButton: {
-    color: "white",
+  textDescriptionEmptyState: {
+    color: colorTextGrey,
+    fontFamily: fontFamilyRegular,
+    fontSize: fontSizeLarge,
     textAlign: "center",
-    fontSize: 24,
   },
 
-  topLeftButton: {
-    paddingLeft: 15,
-  },
-
-  topRightButton: {
-    paddingRight: 15,
+  textHeaderEmptyState: {
+    color: colorTextWhite,
+    fontFamily: fontFamilyMedium,
+    fontSize: fontSizeExtraLarge,
+    marginBottom: 15,
+    textAlign: "center",
   },
 });
 

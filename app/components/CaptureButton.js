@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Pressable, View } from "react-native";
 
 import CameraStyle from "../styles/CameraStyle";
 
@@ -8,39 +8,54 @@ class CaptureButton extends Component {
     super();
     this.state = {
       recording: false,
+      captureButtonInnerColor: null,
     };
   }
 
-  captureButtonInnerStyle() {
-    let captureButtonInnerColor = "white";
-    if (!this.state.recording) {
-      captureButtonInnerColor = "white";
-    } else {
-      captureButtonInnerColor = "red";
+  componentDidMount() {
+    this.setCaptureButtonInnerColor();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.recording != this.state.recording) {
+      this.setCaptureButtonInnerColor();
     }
-    return {
-      height: 55,
-      width: 55,
-      borderRadius: 50,
-      backgroundColor: captureButtonInnerColor,
-    };
   }
 
-  onPress() {
+  onPress = () => {
     this.props.onPress();
+
     this.setState({
       recording: !this.state.recording,
     });
+  };
+
+  setCaptureButtonInnerColor() {
+    const { recording } = this.state;
+
+    if (recording) {
+      this.setState({
+        captureButtonInnerColor: CameraStyle.buttonCaptureInnerColorRecording,
+      });
+    } else {
+      this.setState({
+        captureButtonInnerColor: CameraStyle.buttonCaptureInnerColor,
+      });
+    }
   }
 
   render() {
+    const { captureButtonInnerColor } = this.state;
+
     return (
       <View style={styles.container}>
-        <TouchableOpacity onPress={this.onPress.bind(this)}>
-          <View style={CameraStyle.captureButtonOuter}>
-            <View style={this.captureButtonInnerStyle()} />
+        <Pressable onPress={this.onPress}>
+          <View style={CameraStyle.buttonCaptureOuter}>
+            <View
+              style={[CameraStyle.buttonCaptureInner, captureButtonInnerColor]}
+            />
           </View>
-        </TouchableOpacity>
+        </Pressable>
       </View>
     );
   }

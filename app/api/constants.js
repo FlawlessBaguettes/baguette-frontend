@@ -6,4 +6,4 @@ export const GET_POSTS_ENDPOINT = ROUTE + "/posts";
 
 export const POST_POSTS_ENDPOINT = ROUTE + "/posts";
 
-export const GET_REPLIES_ENDPOINT = ROUTE + "/posts/replies/";
+export const GET_REPLIES_ENDPOINT = ROUTE + "/posts/replies";

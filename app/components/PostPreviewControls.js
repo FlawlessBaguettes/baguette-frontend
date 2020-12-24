@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Text, Pressable, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -15,22 +15,29 @@ class PostPreviewControls extends Component {
     return (
       <SafeAreaView style={CameraStyle.safeAreaView}>
         <View style={CameraStyle.container}>
-          <TouchableOpacity
-            style={CameraStyle.topLeftButton}
+          <Pressable
+            style={CameraStyle.buttonTopLeft}
             onPress={this.props.cancelPreview}
           >
             <MaterialCommunityIcons
               name="close"
-              style={CameraStyle.iconButton}
+              style={CameraStyle.buttonIcon}
             />
-          </TouchableOpacity>
+          </Pressable>
 
-          <TouchableOpacity
-            style={CameraStyle.topRightButton}
+          <Pressable
+            style={[CameraStyle.buttonPill, CameraStyle.buttonTopRight]}
             onPress={this.props.submitVideo}
           >
-            <Text style={CameraStyle.textButton}>Post</Text>
-          </TouchableOpacity>
+            <View style={CameraStyle.buttonPillContentsContainer}>
+              <Text style={CameraStyle.buttonPillText}>Continue</Text>
+
+              <MaterialCommunityIcons
+                name="chevron-right"
+                style={CameraStyle.buttonPillIconChevron}
+              />
+            </View>
+          </Pressable>
         </View>
       </SafeAreaView>
     );
