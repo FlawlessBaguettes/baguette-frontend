@@ -1,30 +1,35 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import { Text, TextInput, Pressable, View } from "react-native";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import FormStyle from "../styles/FormStyle";
 
-class FormTextInput extends Component {
-  constructor(props) {
-    super(props);
+function FormTextInput({
+  autoCapitalize,
+  autoCorrect,
+  autoFocus,
+  clearTextOnFocus,
+  header,
+  onChangeText,
+  secureTextEntry,
+  validateInput,
+}) {
+  const secureTextIconTurnOff = "eye";
+  const secureTextIconTurnOn = "eye-off";
 
-    let hideSecureText = false;
-    let secureTextIcon = "eye-off";
-    if (this.props.secureTextEntry == true) {
-      hideSecureText = true;
-      secureTextIcon = "eye";
-    }
-    this.state = {
-      errorMessage: " ",
-      hideSecureText: hideSecureText,
-      secureTextIcon: secureTextIcon,
-      textInputStyle: FormStyle.formTextInputContainerColor,
-    };
-  }
+  const [errorMessage, setErrorMessage] = useState(" ");
+  const [hideSecureText, setHideSecureText] = useState(secureTextEntry);
+  
+  const [secureTextIcon, setSecureTextIcon] = secureTextEntry
+    ? useState(secureTextIconTurnOff)
+    : useState(secureTextIconTurnOn);
 
-  onBlur = (e) => {
-    const { validateInput } = this.props;
+  const [textInputStyle, setTextInputStyle] = useState(
+    FormStyle.formTextInputContainerColor
+  );
+
+  const onBlur = (e) => {
     let errorMessage = " ";
 
     if (validateInput != undefined) {
@@ -34,86 +39,57 @@ class FormTextInput extends Component {
       }
     }
 
-    this.setState({
-      textInputStyle: FormStyle.formTextInputContainerColor,
-      errorMessage: errorMessage,
-    });
+    setTextInputStyle(FormStyle.formTextInputContainerColor);
+    setErrorMessage(errorMessage);
   };
 
-  onChangeText = (text) => {
-    this.props.onChangeText(text);
-    this.setState({
-      errorMessage: " ",
-    });
+  const onChangeInput = (text) => {
+    onChangeText(text);
+    setErrorMessage(" ");
   };
 
-  onFocus = () => {
-    this.setState({
-      textInputStyle: FormStyle.formTextInputContainerColorFocused,
-    });
+  const onFocus = () => {
+    setTextInputStyle(FormStyle.formTextInputContainerColorFocused);
   };
 
-  toggleShowSecureText = () => {
-    const { hideSecureText } = this.state;
-    if (hideSecureText) {
-      this.setState({
-        hideSecureText: false,
-        secureTextIcon: "eye-off",
-      });
-    } else {
-      this.setState({
-        hideSecureText: true,
-        secureTextIcon: "eye",
-      });
-    }
+  const toggleShowSecureText = () => {
+    hideSecureText
+      ? setSecureTextIcon(secureTextIconTurnOn)
+      : setSecureTextIcon(secureTextIconTurnOff);
+
+    setHideSecureText(!hideSecureText);
   };
 
-  render() {
-    const {
-      autoCapitalize,
-      autoCorrect,
-      autoFocus,
-      clearTextOnFocus,
-      header,
-      secureTextEntry,
-    } = this.props;
-    const {
-      errorMessage,
-      hideSecureText,
-      secureTextIcon,
-      textInputStyle,
-    } = this.state;
-    return (
-      <View style={FormStyle.inputContainerLarge}>
-        <Text style={FormStyle.inputHeaderText}>{header}</Text>
-        <View style={[FormStyle.formTextInputContainer, textInputStyle]}>
-          <TextInput
-            autoCapitalize={autoCapitalize}
-            autoCorrect={autoCorrect}
-            autoFocus={autoFocus}
-            clearTextOnFocus={clearTextOnFocus}
-            onChangeText={(text) => this.onChangeText(text)}
-            onEndEditing={(e) => this.onBlur(e)}
-            onFocus={this.onFocus}
-            secureTextEntry={hideSecureText}
-            style={FormStyle.textInput}
-          />
-          {secureTextEntry && (
-            <Pressable
-              onPress={this.toggleShowSecureText}
-              style={FormStyle.iconContainer}
-            >
-              <MaterialCommunityIcons
-                name={secureTextIcon}
-                style={FormStyle.secureTextIcon}
-              />
-            </Pressable>
-          )}
-        </View>
-        <Text style={FormStyle.errorMessage}>{errorMessage}</Text>
+  return (
+    <View style={FormStyle.inputContainerLarge}>
+      <Text style={FormStyle.inputHeaderText}>{header}</Text>
+      <View style={[FormStyle.formTextInputContainer, textInputStyle]}>
+        <TextInput
+          autoCapitalize={autoCapitalize}
+          autoCorrect={autoCorrect}
+          autoFocus={autoFocus}
+          clearTextOnFocus={clearTextOnFocus}
+          onChangeText={onChangeInput}
+          onEndEditing={onBlur}
+          onFocus={onFocus}
+          secureTextEntry={hideSecureText}
+          style={FormStyle.textInput}
+        />
+        {secureTextEntry && (
+          <Pressable
+            onPress={toggleShowSecureText}
+            style={FormStyle.iconContainer}
+          >
+            <MaterialCommunityIcons
+              name={secureTextIcon}
+              style={FormStyle.secureTextIcon}
+            />
+          </Pressable>
+        )}
       </View>
-    );
-  }
+      <Text style={FormStyle.errorMessage}>{errorMessage}</Text>
+    </View>
+  );
 }
 
 export default FormTextInput;
