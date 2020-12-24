@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { Text, Pressable, View } from "react-native";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -8,113 +8,100 @@ import Moment from "moment";
 
 import FormStyle from "../styles/FormStyle";
 
-class DateInput extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      errorMessage: null,
-      dateOfBirth: undefined,
-      isDatePickerVisible: false,
-    };
-  }
+function DateInput({ date, handleConfirm, header, validateInput }) {
+  const [defaultDate, setDefaultDate] = useState(undefined);
+  const [dateOfBirth, setDateOfBirth] = useState(undefined);
+  const [errorMessage, setErrorMessage] = useState(" ");
+  const [formattedDate, setFormattedDate] = useState(null);
+  const [isDatePickerVisible, setIsDatePickerVisible] = useState(false);
 
-  formatDate(date) {
-    if (date != null) {
-      return Moment(date).format("MMM D, YYYY");
+  useEffect(() => {
+    updateDefaultDate();
+    formatDate();
+  });
+
+  const formatDate = () => {
+    date != null
+      ? setFormattedDate(Moment(date).format("MMM D, YYYY"))
+      : setFormattedDate("mm/dd/yyyy");
+  };
+
+  const handleDateCancel = (d) => {
+    hideDatePicker();
+    updateErrorMessage(d);
+  };
+
+  const handleDateConfirm = (d) => {
+    if (d != undefined) {
+      d = removeTime(d);
+
+      setDateOfBirth(d);
+
+      handleConfirm(d);
     }
-    return "mm/dd/yyyy";
-  }
 
-  handleCancel = (date) => {
-    this.hideDatePicker();
-    this.setErrorMessage(date);
+    hideDatePicker();
   };
 
-  handleConfirm = (date) => {
-    if (date != undefined) {
-      date = this.removeTime(date);
-
-      this.setState({
-        dateOfBirth: date,
-      });
-
-      this.props.handleConfirm(date);
-    }
-
-    this.hideDatePicker();
+  const hideDatePicker = () => {
+    setIsDatePickerVisible(false);
   };
 
-  hideDatePicker = () => {
-    this.setState({
-      isDatePickerVisible: false,
-    });
+  const removeTime = (d) => {
+    return new Date(d.getFullYear(), d.getMonth(), d.getDate());
   };
 
-  removeTime(date) {
-    return new Date(date.getFullYear(), date.getMonth(), date.getDate());
-  }
-
-  showDatePicker = () => {
-    this.setState({
-      errorMessage: null,
-      isDatePickerVisible: true,
-    });
+  const showDatePicker = () => {
+    setErrorMessage(" ");
+    setIsDatePickerVisible(true);
   };
 
-  setErrorMessage(date) {
-    const { validateInput } = this.props;
-    const { dateOfBirth } = this.state;
+  const updateDefaultDate = () => {
+    const d = date === null ? undefined : date;
+
+    setDefaultDate(d);
+  };
+
+  const updateErrorMessage = (d) => {
     let errorMessage = null;
 
     if (validateInput != undefined && !dateOfBirth) {
-      if (date != undefined) {
-        date = this.removeTime(date);
+      if (d != undefined) {
+        d = removeTime(d);
       }
 
-      let validInput = validateInput(date);
+      let validInput = validateInput(d);
       if (validInput != true) {
         errorMessage = validInput;
       }
     }
 
-    this.setState({
-      errorMessage: errorMessage,
-    });
-  }
+    setErrorMessage(errorMessage);
+  };
 
-  render() {
-    const { header, date } = this.props;
-    const { errorMessage, isDatePickerVisible } = this.state;
+  return (
+    <View style={FormStyle.inputContainerLarge}>
+      <Text style={FormStyle.inputHeaderText}>{header}</Text>
 
-    const defaultDate = date == null ? undefined : date;
-
-    return (
-      <View style={FormStyle.inputContainerLarge}>
-        <Text style={FormStyle.inputHeaderText}>{header}</Text>
-
-        <Pressable
-          onPress={this.showDatePicker}
-          style={FormStyle.dateContainer}
-        >
-          <MaterialCommunityIcons
-            name="calendar"
-            style={FormStyle.calendarIcon}
-          />
-          <Text style={FormStyle.dateTextField}>{this.formatDate(date)}</Text>
-        </Pressable>
-
-        <DateTimePickerModal
-          date={defaultDate}
-          isDarkModeEnabled={false}
-          isVisible={isDatePickerVisible}
-          mode="date"
-          onConfirm={this.handleConfirm}
-          onCancel={this.handleCancel}
+      <Pressable onPress={showDatePicker} style={FormStyle.dateContainer}>
+        <MaterialCommunityIcons
+          name="calendar"
+          style={FormStyle.calendarIcon}
         />
-        <Text style={FormStyle.errorMessage}>{errorMessage}</Text>
-      </View>
-    );
-  }
+        <Text style={FormStyle.dateTextField}>{formattedDate}</Text>
+      </Pressable>
+
+      <DateTimePickerModal
+        date={defaultDate}
+        isDarkModeEnabled={false}
+        isVisible={isDatePickerVisible}
+        mode="date"
+        onConfirm={handleDateConfirm}
+        onCancel={handleDateCancel}
+      />
+      <Text style={FormStyle.errorMessage}>{errorMessage}</Text>
+    </View>
+  );
 }
 
 export default DateInput;
