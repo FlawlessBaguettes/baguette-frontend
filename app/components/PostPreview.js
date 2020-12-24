@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { StyleSheet, View } from "react-native";
 import { Video } from "expo-av";
 import { StatusBar } from "expo-status-bar";
