@@ -4,9 +4,16 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
+import {
+  useFonts,
+  Poppins_400Regular,
+  Poppins_500Medium,
+} from "@expo-google-fonts/poppins";
+
 import CameraView from "./app/components/CameraView";
 import ListPostsScreen from "./app/components/ListPostsScreen";
 import LoginScreen from "./app/components/LoginScreen";
+import PostSubmit from "./app/components/PostSubmit";
 import SignUpScreen from "./app/components/SignUpScreen";
 
 import { GET_POSTS_ENDPOINT } from "./app/api/constants";
@@ -14,6 +21,11 @@ import { GET_POSTS_ENDPOINT } from "./app/api/constants";
 const Stack = createStackNavigator();
 
 export default App = () => {
+  let [fontsLoaded] = useFonts({
+    Poppins_400Regular,
+    Poppins_500Medium,
+  });
+
   return (
     <SafeAreaProvider>
       <NavigationContainer>
@@ -45,6 +57,13 @@ export default App = () => {
             component={LoginScreen}
             options={{
               title: "Login",
+            }}
+          />
+          <Stack.Screen
+            name="PostSubmit"
+            component={PostSubmit}
+            options={{
+              title: "Post",
             }}
           />
         </Stack.Navigator>

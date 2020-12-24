@@ -1,37 +1,48 @@
 import { StyleSheet } from "react-native";
 
+import {
+  colorBackground,
+  colorInputFocused,
+  colorInputUnfocused,
+  colorTextDark,
+  colorTextError,
+  fontFamilyRegular,
+  fontSizeMedium,
+  fontSizeSmall,
+} from "./constants.js";
+
 const FormStyle = StyleSheet.create({
   buttonsContainer: {
     alignItems: "center",
+    marginBottom: 36,
     width: "100%",
   },
 
   calendarIcon: {
-    color: "black",
     padding: 10,
     fontSize: 24,
   },
 
   container: {
-    backgroundColor: "white",
-    flex: 1,
+    backgroundColor: colorBackground,
+    flexGrow: 1,
+    flexDirection: "column",
+    justifyContent: "space-between",
   },
 
   dateContainer: {
+    alignItems: "center",
+    backgroundColor: colorInputUnfocused,
+    borderRadius: 5,
+    borderWidth: 0,
     flexDirection: "row",
     justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#fff",
-    borderColor: "gray",
-    borderBottomWidth: 1,
-    borderEndWidth: 0,
-    borderStartWidth: 0,
-    borderTopWidth: 0,
-    borderRadius: 5,
   },
 
   dateTextField: {
     flex: 1,
+    fontFamily: fontFamilyRegular,
+    fontSize: fontSizeMedium,
     paddingTop: 10,
     paddingRight: 10,
     paddingBottom: 10,
@@ -39,68 +50,71 @@ const FormStyle = StyleSheet.create({
   },
 
   errorMessage: {
-    color: "red",
-    fontSize: 12,
-    paddingBottom: 7,
+    color: colorTextError,
+    fontFamily: fontFamilyRegular,
+    fontSize: fontSizeSmall,
+    marginBottom: 7,
     paddingLeft: 3,
     paddingTop: 3,
   },
 
   formsContainer: {
-    padding: 10,
+    paddingTop: 10,
   },
 
   formTextInputContainer: {
+    flex: 1,
     flexDirection: "row",
+    borderRadius: 5,
+    borderWidth: 0,
+    height: 40,
+  },
+
+  formTextInputContainerColor: {
+    backgroundColor: colorInputUnfocused,
+  },
+
+  formTextInputContainerColorFocused: {
+    backgroundColor: colorInputFocused,
   },
 
   iconContainer: {
-    borderColor: "black",
-    paddingLeft: 10,
-    paddingTop: 8,
+    paddingTop: 10,
+    paddingLeft: 5,
+    paddingRight: 5,
   },
 
   inputContainerSmall: {
-    width: 200,
+    width: "50%",
+    alignSelf: "center",
   },
 
   inputContainerMedium: {
-    width: 250,
+    width: "75%",
+    alignSelf: "center",
   },
 
   inputContainerLarge: {
-    width: 300,
+    width: "90%",
+    alignSelf: "center",
   },
 
-  inputHeader: {
-    fontSize: 14,
+  inputHeaderText: {
+    color: colorTextDark,
+    fontFamily: fontFamilyRegular,
+    fontSize: fontSizeMedium,
+    marginBottom: 3,
   },
 
   secureTextIcon: {
-    color: "black",
     fontSize: 24,
   },
 
   textInput: {
-    borderColor: "gray",
-    borderBottomWidth: 1,
-    borderEndWidth: 0,
-    borderStartWidth: 0,
-    borderTopWidth: 0,
-    borderRadius: 5,
-    height: 40,
-    width: "90%",
-  },
-
-  textInputFocused: {
-    borderColor: "gray",
-    borderBottomWidth: 2,
-    borderEndWidth: 0,
-    borderStartWidth: 0,
-    borderTopWidth: 0,
-    borderRadius: 5,
-    height: 40,
-    width: "90%",
+    flex: 1,
+    fontFamily: fontFamilyRegular,
+    fontSize: fontSizeMedium,
+    marginLeft: 10,
   },
 });
 

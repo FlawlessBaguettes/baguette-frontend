@@ -1,24 +1,14 @@
 import React, { Component } from "react";
-import {
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  TouchableHighlight,
-  View,
-} from "react-native";
+import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 
 import { Audio } from "expo-av";
 import { Camera } from "expo-camera";
 import { StatusBar } from "expo-status-bar";
 
-import axios from "axios";
-
 import CameraControls from "./CameraControls";
 import PostCamera from "./PostCamera";
 import PostPreview from "./PostPreview";
 import PostPreviewControls from "./PostPreviewControls";
-
-import { POST_POSTS_ENDPOINT } from "../api/constants";
 
 class CameraView extends Component {
   _isMounted = false;
@@ -26,6 +16,7 @@ class CameraView extends Component {
   constructor() {
     super();
     this.state = {
+      cameraDisabled: true,
       hasAudioPermissions: null,
       hasCameraPermissions: null,
       recording: false,
@@ -39,8 +30,9 @@ class CameraView extends Component {
 
   async componentDidMount() {
     this._isMounted = true;
-    this.getCameraPermissions();
-    this.getAudioPermissions();
+    await this.requestCameraPermissions();
+    await this.requestAudioPermissions();
+    await this.updateCameraDisabled();
   }
 
   componentWillUnmount() {
@@ -54,34 +46,17 @@ class CameraView extends Component {
     });
   };
 
-  async getAudioPermissions() {
-    let { status } = await Audio.requestPermissionsAsync();
-    if (status === "granted") {
-      this.setState({
-        hasAudioPermissions: status,
-      });
-    }
-  }
-
-  async getCameraPermissions() {
-    let { status } = await Camera.requestPermissionsAsync();
-    if (status === "granted") {
-      this.setState({
-        hasCameraPermissions: status,
-      });
-    }
-  }
-
   goBack = () => {
     this.props.navigation.goBack();
   };
 
   renderCameraControls() {
-    const { showCamera, recording } = this.state;
+    const { cameraDisabled, showCamera, recording } = this.state;
 
     if (showCamera && !recording) {
       return (
         <CameraControls
+          cameraDisabled={cameraDisabled}
           goBack={this.goBack}
           toggleCameraType={this.toggleCameraType}
         />
@@ -92,11 +67,12 @@ class CameraView extends Component {
   }
 
   renderPostCamera() {
-    const { showCamera, type } = this.state;
+    const { cameraDisabled, showCamera, type } = this.state;
 
     if (showCamera) {
       return (
         <PostCamera
+          cameraDisabled={cameraDisabled}
           cameraRef={this.cameraRef}
           toggleRecording={this.toggleRecording}
           type={type}
@@ -130,6 +106,25 @@ class CameraView extends Component {
     }
   }
 
+  async requestAudioPermissions() {
+    let { status } = await Audio.requestPermissionsAsync();
+    if (status === "granted") {
+      this.setState({
+        hasAudioPermissions: status,
+      });
+    }
+  }
+
+  async requestCameraPermissions() {
+    let { status } = await Camera.requestPermissionsAsync();
+
+    if (status === "granted") {
+      this.setState({
+        hasCameraPermissions: status,
+      });
+    }
+  }
+
   async startRecording() {
     if (this.cameraRef.current) {
       this.setState({ recording: true }, async () => {
@@ -152,37 +147,11 @@ class CameraView extends Component {
 
   submitVideo = () => {
     const { video } = this.state;
-    const uri = video.uri;
-    const uriParts = uri.split("/");
-    const fileName = uriParts[uriParts.length - 1];
-    const fileNameParts = fileName.split(".");
-    const fileType = fileName[fileName.length - 1];
-
-    const bodyFormData = new FormData();
-    bodyFormData.append("video", {
-      uri: uri,
-      name: fileName,
-      type: `video/${fileType}`,
-    });
-
-    const headers = {
-      "Content-Type": "multipart/form-data",
-    };
-
-    let config = {
-      method: "post",
-      url: POST_POSTS_ENDPOINT,
-      headers: headers,
-      data: bodyFormData,
-    };
-
-    axios(config)
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (response) {
-        console.log(response);
+    if (video) {
+      this.props.navigation.navigate("PostSubmit", {
+        video: video,
       });
+    }
   };
 
   toggleCameraType = () => {
@@ -206,20 +175,22 @@ class CameraView extends Component {
     }
   };
 
-  render() {
+  updateCameraDisabled() {
     const { hasAudioPermissions, hasCameraPermissions } = this.state;
-    if (hasCameraPermissions === null || hasAudioPermissions === null) {
-      return <SafeAreaView />;
+    let { cameraDisabled } = this.state;
+
+    if (hasCameraPermissions != "granted" || hasAudioPermissions != "granted") {
+      cameraDisabled = true;
+    } else {
+      cameraDisabled = false;
     }
 
-    if (hasCameraPermissions === false) {
-      return <Text>No access to camera</Text>;
-    }
+    this.setState({
+      cameraDisabled: cameraDisabled,
+    });
+  }
 
-    if (hasAudioPermissions === false) {
-      return <Text>No access to audio</Text>;
-    }
-
+  render() {
     return (
       <View style={styles.container}>
         <StatusBar hidden={true} translucent={true} />
