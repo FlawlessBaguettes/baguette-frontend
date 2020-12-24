@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { ScrollView, View } from "react-native";
 
 import DateInput from "./DateInput";
@@ -61,13 +61,12 @@ function SignUpScreen({ navigation }) {
     const isValidForm = validateForm();
 
     if (isValidForm) {
-      true;
+      console.log("Signed Up!");
     }
   };
 
   const updateSignUpButton = () => {
     const isValidForm = validateForm();
-    let state = false;
 
     if (isSignUpButtonDisabled === true && isValidForm) {
       setIsSignUpButtonDisabled(false);

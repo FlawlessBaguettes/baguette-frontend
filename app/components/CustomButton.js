@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Text, Pressable, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Pressable, Text, View } from "react-native";
 import PropTypes from "prop-types";
 
 import ButtonStyle from "../styles/ButtonStyle";
