@@ -1,21 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import React from "react";
+import PostCard from "./PostCard";
+import useFetch from "../utils/useFetch";
+
 import {
+  ActivityIndicator,
   FlatList,
-  View,
   SafeAreaView,
   StyleSheet,
   Text,
-  Button,
-  ActivityIndicator,
-} from 'react-native'
-
-import { GET_REPLIES_ENDPOINT } from "../api/constants"
-
-import useFetch from '../utils/useFetch'
+  View,
+} from "react-native";
 
 const ListPostsScreen = ({ route, navigation }) => {
-  const baseUrl = route.params.baseUrl;
-  const [url, setUrl] = useState(baseUrl);
+  const url = route.params.baseUrl;
   const [response, loading, hasError] = useFetch(url);
 
   if (hasError) {
@@ -33,11 +30,24 @@ const ListPostsScreen = ({ route, navigation }) => {
     ? response.posts.posts
     : response.replies
     ? response.replies.replies
-    : [response.post]; // temporary
+    : [];
 
+  const renderItem = ({ item }) => (
+    <PostCard
+      title={item.title}
+      contentPostedTime={item.content.posted_time}
+      userFullName={item.user.full_name}
+      contentUrl={item.content.url}
+      numberOfReplies={item.number_of_replies}
+      id={item.id}
+      navigation={navigation}
+    />
+  );
+
+  // const ITEM_HEIGHT = 325;
   return (
     <SafeAreaView style={styles.container}>
-    <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+      <View style={styles.signUpandLoginButtonsHeader}>
         <Text
           onPress={() => {
             navigation.navigate("SignUpScreen");
@@ -55,57 +65,18 @@ const ListPostsScreen = ({ route, navigation }) => {
       </View>
       <FlatList
         data={posts}
-        renderItem={({ item }) => (
-          <View style={styles.posts}>
-            <View
-              style={{ flexDirection: "row", justifyContent: "space-between" }}
-            >
-              <Text style={styles.title}>{item.title}</Text>
-              <Text style={styles.contentPostedTime}>
-                {item.content.posted_time}
-              </Text>
-            </View>
-
-            <Text style={styles.userFullName}>{item.user.full_name}</Text>
-
-            <View style={styles.video}>
-              <Text>{item.content.url}</Text>
-            </View>
-
-            <View
-              style={{ flexDirection: "row", justifyContent: "space-between" }}
-            >
-              <View>
-                {item.number_of_replies ? (
-                  <Button
-                    title={"See " + item.number_of_replies + " Replies"}
-                    style={styles.button}
-                    onPress={() => {
-                      if (item.number_of_replies) {
-                        navigation.push(
-                          'ListPostsScreen', {
-                            baseUrl: GET_REPLIES_ENDPOINT + '/' + item.id,
-                          } 
-                        )
-                      }
-                    }}
-                  />
-                ) : (
-                  <Button
-                    title="0 Replies"
-                    style={styles.button}
-                    disabled={true}
-                  />
-                )}
-              </View>
-              <Button 
-                title="Reply" 
-                style={styles.button} 
-                onPress={() => {navigation.navigate('CameraView')}}
-              />
-            </View>
-          </View>
-        )}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id}
+        // getItemLayout={(data, index) => ({
+        //   length: ITEM_HEIGHT,
+        //   offset: ITEM_HEIGHT * index,
+        //   index,
+        // })}
+        windowSize={11} // unit here is 1 viewport height
+        initialNumToRender={3} // items to render in initial batch
+        maxToRenderPerBatch={3} // number of additional items rendered on every scroll
+        updateCellsBatchingPeriod={50} // delay in ms between batch renders, left as default
+        removeClippedSubviews={true} // when set to true it will unmount components off the viewport
       />
     </SafeAreaView>
   );
@@ -116,28 +87,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#DCDCDC",
   },
-  posts: {
-    paddingVertical: 10,
-    paddingHorizontal: 10,
-    marginVertical: 5,
-    backgroundColor: "white",
-    borderBottomWidth: 1,
-    borderColor: "white",
+  signUpandLoginButtonsHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
-  title: {
-    fontSize: 15,
-  },
-  contentPostedTime: {
-    fontSize: 12,
-  },
-  userFullName: {
-    fontSize: 15,
-  },
-  video: {
-    paddingTop: "20%",
-    paddingBottom: "20%",
-  },
-  button: {},
 });
 
 export default ListPostsScreen;
