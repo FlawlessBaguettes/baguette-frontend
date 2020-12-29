@@ -11,8 +11,6 @@ import PostPreview from "./PostPreview";
 import PostPreviewControls from "./PostPreviewControls";
 
 function CameraView({ navigation }) {
-  const _isMounted = true;
-
   const [cameraDisabled, setCameraDisabled] = useState(true);
   const [hasAudioPermissions, setHasAudioPermissions] = useState(null);
   const [hasCameraPermissions, setHasCameraPermissions] = useState(null);
@@ -21,7 +19,7 @@ function CameraView({ navigation }) {
   const [type, setType] = useState(Camera.Constants.Type.front);
   const [video, setVideo] = useState(null);
 
-  let cameraRef = React.createRef()
+  let cameraRef = React.createRef();
 
   useEffect(() => {
     (async () => {
@@ -30,15 +28,6 @@ function CameraView({ navigation }) {
       updateCameraDisabled();
     })();
   }, [hasCameraPermissions, hasAudioPermissions]);
-
-  // async componentDidMount() {
-  //   this._isMounted = true;
-    
-  // }
-
-  // componentWillUnmount() {
-  //   this._isMounted = false;
-  // }
 
   const cancelPreview = () => {
     setShowCamera(true);
@@ -50,7 +39,6 @@ function CameraView({ navigation }) {
   };
 
   const renderCameraControls = () => {
-
     if (showCamera && !recording) {
       return (
         <CameraControls
@@ -65,7 +53,6 @@ function CameraView({ navigation }) {
   };
 
   const renderPostCamera = () => {
-
     if (showCamera) {
       return (
         <PostCamera
@@ -103,41 +90,35 @@ function CameraView({ navigation }) {
 
   const requestAudioPermissions = async () => {
     let { status } = await Audio.requestPermissionsAsync();
-    console.log("audio", status)
+
     if (status === "granted") {
-      setHasAudioPermissions(status)
+      setHasAudioPermissions(status);
     }
-  }
+  };
 
   const requestCameraPermissions = async () => {
     let { status } = await Camera.requestPermissionsAsync();
-    console.log("camera", status)
 
     if (status === "granted") {
-      setHasCameraPermissions(status)
+      setHasCameraPermissions(status);
     }
-  }
+  };
 
   const startRecording = async () => {
     if (cameraRef.current) {
-      setRecording(true, async () => {
-        let video = await cameraRef.current.recordAsync();
-        if (_isMounted) {
-          await setVideo(video)
-          await setShowCamera(false);
-        }
-      });
+      setRecording(true);
+      let video = await cameraRef.current.recordAsync();
+      await setVideo(video);
+      await setShowCamera(false);
     }
-  }
+  };
 
   const stopRecording = async () => {
-    setRecording(false, async () => {
-      await cameraRef.current.stopRecording();
-    });
-  }
+    await cameraRef.current.stopRecording();
+    await setRecording(false);
+  };
 
   const submitVideo = () => {
-    
     if (video) {
       navigation.navigate("PostSubmit", {
         video: video,
@@ -147,9 +128,9 @@ function CameraView({ navigation }) {
 
   const toggleCameraType = () => {
     if (type === Camera.Constants.Type.back) {
-      setType(Camera.Constants.Type.front)
+      setType(Camera.Constants.Type.front);
     } else {
-      setType(Camera.Constants.Type.back)
+      setType(Camera.Constants.Type.back);
     }
   };
 
@@ -162,13 +143,10 @@ function CameraView({ navigation }) {
   };
 
   const updateCameraDisabled = () => {
-    console.log(hasCameraPermissions, hasAudioPermissions)
-    if (hasCameraPermissions != "granted" || hasAudioPermissions != "granted") {
-      setCameraDisabled(true)
-    } else {
-      setCameraDisabled(false)
-    }
-  }
+    hasCameraPermissions != "granted" || hasAudioPermissions != "granted"
+      ? setCameraDisabled(true)
+      : setCameraDisabled(false);
+  };
 
   return (
     <View style={styles.container}>
