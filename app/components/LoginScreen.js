@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import { ScrollView, View } from "react-native";
 
 import FormTextInput from "./FormTextInput";
@@ -8,106 +8,91 @@ import FormStyle from "../styles/FormStyle";
 
 import { validateEmail, validatePasswordWeak } from "../utils/FormValidation";
 
-class LoginScreen extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: null,
-      isLoginButtonDisabled: true,
-      password: null,
-    };
-  }
+function LoginScreen({ navigation }) {
+  const [email, setEmail] = useState(null);
+  const [isLoginButtonDisabled, setIsLoginButtonDisabled] = useState(true);
+  const [password, setPassword] = useState(null);
 
-  componentDidUpdate() {
-    this.updateLoginButton();
-  }
+  useEffect(() => {
+    updateLoginButton();
+  });
 
-  handleEmail = (text) => {
-    this.setState({ email: text });
+  const handleEmail = (text) => {
+    setEmail(text);
   };
 
-  handlePassword = (text) => {
-    this.setState({ password: text });
+  const handlePassword = (text) => {
+    setPassword(text);
   };
 
-  onPressLogin = () => {
-    const validForm = this.validateForm();
+  const onPressLogin = () => {
+    const isValidForm = validateForm();
 
-    if (validForm) {
-      true;
+    if (isValidForm) {
+      console.log("Logged In!");
     }
   };
 
-  onPressSignUp = () => {
-    this.props.navigation.navigate("SignUpScreen");
+  const onPressSignUp = () => {
+    navigation.navigate("SignUpScreen");
   };
 
-  updateLoginButton() {
-    const { isLoginButtonDisabled } = this.state;
-    const validForm = this.validateForm();
+  const updateLoginButton = () => {
+    const isValidForm = validateForm();
 
-    if (isLoginButtonDisabled === true && validForm) {
-      this.setState({
-        isLoginButtonDisabled: false,
-      });
-    } else if (isLoginButtonDisabled === false && !validForm) {
-      this.setState({
-        isLoginButtonDisabled: true,
-      });
+    if (isLoginButtonDisabled === true && isValidForm) {
+      setIsLoginButtonDisabled(false);
+    } else if (isLoginButtonDisabled === false && !isValidForm) {
+      setIsLoginButtonDisabled(true);
     }
-  }
+  };
 
-  validateForm() {
-    const { email, password } = this.state;
+  const validateForm = () => {
     return (
       validateEmail(email) === true && validatePasswordWeak(password) === true
     );
-  }
+  };
 
-  render() {
-    const { isLoginButtonDisabled } = this.state;
+  return (
+    <ScrollView contentContainerStyle={FormStyle.container}>
+      <View style={FormStyle.formsContainer}>
+        <FormTextInput
+          autoCapitalize={"none"}
+          autoCorrect={false}
+          autoFocus={true}
+          clearTextOnFocus={false}
+          header={"Email"}
+          onChangeText={handleEmail}
+          validateInput={validateEmail}
+        />
 
-    return (
-      <ScrollView contentContainerStyle={FormStyle.container}>
-        <View style={FormStyle.formsContainer}>
-          <FormTextInput
-            autoCapitalize={"none"}
-            autoCorrect={false}
-            autoFocus={true}
-            clearTextOnFocus={false}
-            header={"Email"}
-            onChangeText={this.handleEmail}
-            validateInput={validateEmail}
-          />
+        <FormTextInput
+          autoCapitalize={"none"}
+          autoCorrect={false}
+          clearTextOnFocus={false}
+          header={"Password"}
+          onChangeText={handlePassword}
+          secureTextEntry={true}
+          validateInput={validatePasswordWeak}
+        />
+      </View>
 
-          <FormTextInput
-            autoCapitalize={"none"}
-            autoCorrect={false}
-            clearTextOnFocus={false}
-            header={"Password"}
-            onChangeText={this.handlePassword}
-            secureTextEntry={true}
-            validateInput={validatePasswordWeak}
-          />
-        </View>
+      <View style={FormStyle.buttonsContainer}>
+        <CustomButton
+          disabled={isLoginButtonDisabled}
+          isPrimary={true}
+          onPress={onPressLogin}
+          title={"Login"}
+        />
 
-        <View style={FormStyle.buttonsContainer}>
-          <CustomButton
-            disabled={isLoginButtonDisabled}
-            isPrimary={true}
-            onPress={this.onPressLogin}
-            title={"Login"}
-          />
-
-          <CustomButton
-            isPrimary={false}
-            onPress={this.onPressSignUp}
-            title={"Sign Up"}
-          />
-        </View>
-      </ScrollView>
-    );
-  }
+        <CustomButton
+          isPrimary={false}
+          onPress={onPressSignUp}
+          title={"Sign Up"}
+        />
+      </View>
+    </ScrollView>
+  );
 }
 
 export default LoginScreen;
