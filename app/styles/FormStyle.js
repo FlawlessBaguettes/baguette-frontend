@@ -8,6 +8,9 @@ import {
   colorTextError,
   colorTextGreyDark,
   fontFamilyMedium,
+  fontFamilyRegular,
+  fontSizeExtraLarge,
+  fontSizeLarge,
   fontSizeMedium,
   fontSizeSmall,
 } from "./constants.js";
@@ -30,6 +33,13 @@ const FormStyle = StyleSheet.create({
     flexGrow: 1,
     flexDirection: "column",
     justifyContent: "space-between",
+  },
+
+  containerDisclaimer: {
+    backgroundColor: colorBackground,
+    flexGrow: 1,
+    flexDirection: "column",
+    justifyContent: "center",
   },
 
   dateContainer: {
@@ -118,6 +128,21 @@ const FormStyle = StyleSheet.create({
     fontFamily: fontFamilyMedium,
     fontSize: fontSizeMedium,
     marginLeft: 10,
+  },
+
+  textDisclaimerBody: {
+    color: colorTextGreyDark,
+    fontFamily: fontFamilyRegular,
+    fontSize: fontSizeLarge,
+    textAlign: "center",
+  },
+
+  textDisclaimerHeader: {
+    color: colorTextGreyDark,
+    fontFamily: fontFamilyMedium,
+    fontSize: fontSizeExtraLarge,
+    marginBottom: 15,
+    textAlign: "center",
   },
 });
 

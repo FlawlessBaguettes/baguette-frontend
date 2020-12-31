@@ -6,18 +6,18 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import NavigationStyle from "../styles/NavigationStyle";
 
-const BackButton = () => {
+const AccountMenuButton = () => {
   const navigation = useNavigation();
 
   const onPress = () => {
-    navigation.goBack();
+    navigation.navigate("AccountMenuScreen");
   };
 
   return (
-    <Pressable style={NavigationStyle.containerHeaderLeft}>
+    <Pressable style={NavigationStyle.containerHeaderRight}>
       <View style={NavigationStyle.buttonBackBackground}>
         <MaterialCommunityIcons
-          name="chevron-left"
+          name="account"
           onPress={onPress}
           style={NavigationStyle.buttonBackChevron}
         />
@@ -26,4 +26,4 @@ const BackButton = () => {
   );
 };
 
-export default BackButton;
+export default AccountMenuButton;

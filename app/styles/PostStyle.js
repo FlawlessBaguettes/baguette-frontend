@@ -11,7 +11,6 @@ import {
 } from "./constants.js";
 
 const PostStyle = StyleSheet.create({
-
   container: {
     backgroundColor: colorBackground,
     borderBottomWidth: 1,
@@ -62,7 +61,6 @@ const PostStyle = StyleSheet.create({
     fontFamily: fontFamilyMedium,
     fontSize: fontSizeMedium,
   },
-
 });
 
 export default PostStyle;

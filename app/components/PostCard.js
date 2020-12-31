@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Text, View } from "react-native";
+import { Text, View } from "react-native";
 
 import YoutubePlayer from "react-native-youtube-iframe";
 
@@ -34,7 +34,7 @@ const PostCard = ({
 
   const onPressReply = () => {
     navigation.navigate("CameraView");
-  }
+  };
 
   const onPressSeeReplies = () => {
     if (numberOfReplies) {
@@ -51,7 +51,7 @@ const PostCard = ({
           <Text style={PostStyle.textTitle}>{title}</Text>
           <Text style={PostStyle.textPostedTime}>{contentPostedTime}</Text>
         </View>
-        
+
         <Text style={PostStyle.textUserFullName}>{userFullName}</Text>
       </View>
 
@@ -64,14 +64,13 @@ const PostCard = ({
       </View>
 
       <View style={PostStyle.containerFooter}>
-
         <CustomButton
           isPrimary={false}
           onPress={onPressSeeReplies}
           title={seeRepliesButtonTitle}
           disabled={isSeeRepliesButtondDisabled}
         />
-        
+
         <CustomButton
           isPrimary={false}
           onPress={onPressReply}

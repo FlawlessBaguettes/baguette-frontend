@@ -32,14 +32,6 @@ const ListPostsScreen = ({ route, navigation }) => {
     ? response.replies.replies
     : [];
 
-  const onPressLogin = () => {
-    navigation.navigate("LoginScreen");
-  };
-
-  const onPressSignUp = () => {
-    navigation.navigate("SignUpScreen");
-  };
-
   const renderItem = ({ item }) => (
     <PostCard
       title={item.title}
@@ -55,10 +47,6 @@ const ListPostsScreen = ({ route, navigation }) => {
   // const ITEM_HEIGHT = 325;
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.signUpandLoginButtonsHeader}>
-        <Text onPress={onPressSignUp}>Sign Up</Text>
-        <Text onPress={onPressLogin}>Login</Text>
-      </View>
       <FlatList
         data={posts}
         renderItem={renderItem}
@@ -73,7 +61,7 @@ const ListPostsScreen = ({ route, navigation }) => {
         maxToRenderPerBatch={3} // number of additional items rendered on every scroll
         updateCellsBatchingPeriod={50} // delay in ms between batch renders, left as default
         removeClippedSubviews={true} // when set to true it will unmount components off the viewport
-        showsVerticalScrollIndicator ={false}
+        showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
       />
     </SafeAreaView>
@@ -84,10 +72,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#f5f5f5",
-  },
-  signUpandLoginButtonsHeader: {
-    flexDirection: "row",
-    justifyContent: "space-between",
   },
 });
 

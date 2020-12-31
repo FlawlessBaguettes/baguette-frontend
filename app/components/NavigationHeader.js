@@ -3,6 +3,8 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
+import AccountMenuButton from "./AccountMenuButton";
+import AccountMenuScreen from "./AccountMenuScreen";
 import BackButton from "./BackButton";
 import CameraView from "./CameraView";
 import ListPostsScreen from "./ListPostsScreen";
@@ -13,59 +15,70 @@ import SignUpScreen from "./SignUpScreen";
 import { GET_POSTS_ENDPOINT } from "../api/constants";
 
 const NavigationHeader = () => {
-
   const Stack = createStackNavigator();
-  console.log(Stack.Screen.navigation)
 
-  const backButton = (navigation) => {
-    return(
-      <BackButton navigation={navigation} />
-    )
-  }
+  const backButton = () => {
+    return <BackButton />;
+  };
 
-  return(
+  const accountMenuButton = () => {
+    return <AccountMenuButton />;
+  };
+
+  return (
     <NavigationContainer>
-        <Stack.Navigator initialRouteName="ListPostsScreen">
-          <Stack.Screen
-            name="CameraView"
-            component={CameraView}
-            options={{
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name="ListPostsScreen"
-            component={ListPostsScreen}
-            initialParams={{ baseUrl: GET_POSTS_ENDPOINT }}
-            options={{
-              title: "Home",
-            }}
-          />
-          <Stack.Screen
-            name="SignUpScreen"
-            component={SignUpScreen}
-            options={({ navigation }) => ({
-              title: "Sign Up",
-              headerLeft: backButton,
-            })}
-          />
-          <Stack.Screen
-            name="LoginScreen"
-            component={LoginScreen}
-            options={{
-              title: "Login",
-            }}
-          />
-          <Stack.Screen
-            name="PostSubmit"
-            component={PostSubmit}
-            options={{
-              title: "Post",
-            }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-  )
-}
+      <Stack.Navigator initialRouteName="ListPostsScreen">
+        <Stack.Screen
+          name="CameraView"
+          component={CameraView}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="ListPostsScreen"
+          component={ListPostsScreen}
+          initialParams={{ baseUrl: GET_POSTS_ENDPOINT }}
+          options={{
+            title: "Home",
+            headerRight: accountMenuButton,
+          }}
+        />
+        <Stack.Screen
+          name="AccountMenuScreen"
+          component={AccountMenuScreen}
+          options={{
+            title: "Account Menu",
+            headerLeft: backButton,
+          }}
+        />
+        <Stack.Screen
+          name="SignUpScreen"
+          component={SignUpScreen}
+          options={{
+            title: "Sign Up",
+            headerLeft: backButton,
+          }}
+        />
+        <Stack.Screen
+          name="LoginScreen"
+          component={LoginScreen}
+          options={{
+            title: "Login",
+            headerLeft: backButton,
+          }}
+        />
+        <Stack.Screen
+          name="PostSubmit"
+          component={PostSubmit}
+          options={{
+            title: "Post",
+            headerLeft: backButton,
+          }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
 
 export default NavigationHeader;

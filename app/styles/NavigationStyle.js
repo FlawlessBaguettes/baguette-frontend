@@ -6,9 +6,12 @@ import {
 } from "./constants.js";
 
 const NavigationStyle = StyleSheet.create({
-
-  containerButtonBack: {
+  containerHeaderLeft: {
     marginLeft: 10,
+  },
+
+  containerHeaderRight: {
+    marginRight: 10,
   },
 
   buttonBackBackground: {
@@ -20,7 +23,6 @@ const NavigationStyle = StyleSheet.create({
     margin: 2,
     fontSize: fontButtonSize,
   },
-
 });
 
 export default NavigationStyle;
