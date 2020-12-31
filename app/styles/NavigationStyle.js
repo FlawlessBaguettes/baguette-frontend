@@ -23,6 +23,10 @@ const NavigationStyle = StyleSheet.create({
     margin: 2,
     fontSize: fontButtonSize,
   },
+
+  buttonPressed: {
+    opacity: 0.5,
+  },
 });
 
 export default NavigationStyle;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Pressable, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
@@ -7,18 +7,33 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import NavigationStyle from "../styles/NavigationStyle";
 
 const AccountMenuButton = () => {
+  const [buttonStylePressed, setButtonStylePressed] = useState(null);
+
   const navigation = useNavigation();
 
   const onPress = () => {
     navigation.navigate("AccountMenuScreen");
   };
 
+  const onPressIn = () => {
+    setButtonStylePressed(NavigationStyle.buttonPressed);
+  };
+
+  const onPressOut = () => {
+    setButtonStylePressed(null);
+  };
+
   return (
-    <Pressable style={NavigationStyle.containerHeaderRight}>
+    <Pressable
+      style={[NavigationStyle.containerHeaderRight, buttonStylePressed]}
+      onPress={onPress}
+      onPressIn={onPressIn}
+      onPressOut={onPressOut}
+      s
+    >
       <View style={NavigationStyle.buttonBackBackground}>
         <MaterialCommunityIcons
           name="account"
-          onPress={onPress}
           style={NavigationStyle.buttonBackChevron}
         />
       </View>
