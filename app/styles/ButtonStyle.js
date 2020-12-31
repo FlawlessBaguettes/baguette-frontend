@@ -2,19 +2,14 @@ import { StyleSheet } from "react-native";
 
 import {
   colorButtonPrimary,
+  colorTextGrey,
   colorTextLight,
   fontFamilyMedium,
   fontSizeExtraLarge,
-  fontSizeMedium,
+  fontSizeLarge,
 } from "./constants.js";
 
 const ButtonStyle = StyleSheet.create({
-  container: {
-    backgroundColor: "white",
-    flex: 1,
-    alignItems: "center",
-  },
-
   buttonPrimary: {
     backgroundColor: colorButtonPrimary,
     borderRadius: 25,
@@ -32,22 +27,26 @@ const ButtonStyle = StyleSheet.create({
     opacity: 1,
   },
 
-  buttonPrimaryText: {
-    alignSelf: "center",
-    color: colorTextLight,
-    fontFamily: fontFamilyMedium,
-    fontSize: fontSizeExtraLarge,
-  },
-
   buttonSecondary: {},
 
   buttonSecondaryDisabled: {},
 
   buttonSecondaryEnabled: {},
 
-  buttonSecondaryText: {
+  textButtonPrimary: {
+    alignSelf: "center",
+    color: colorTextLight,
     fontFamily: fontFamilyMedium,
-    fontSize: fontSizeMedium,
+    fontSize: fontSizeExtraLarge,
+  },
+
+  textButtonSecondary: {
+    fontFamily: fontFamilyMedium,
+    fontSize: fontSizeLarge,
+  },
+
+  textButtonSecondaryPressed: {
+    color: colorTextGrey,
   },
 });
 

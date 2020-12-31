@@ -8,12 +8,13 @@ import { pressableButtonRipple } from "../styles/constants";
 function CustomButton({ disabled, isPrimary, onPress, title }) {
   const [androidRipple, setAndroidRipple] = useState(null);
   const [buttonStyle, setButtonStyle] = useState(null);
-  const [buttonEnabledStyle, setButtonEnabledStyle] = useState(null);
+  const [buttonStyleEnabled, setButtonStyleEnabled] = useState(null);
   const [textStyle, setTextStyle] = useState(null);
+  const [textStylePressed, setTextStylePressed] = useState(null);
 
   useEffect(() => {
     updateAndroidRipple();
-    updateButtonEnabledStyle();
+    updateButtonStyleEnabled();
     updateButtonStyle();
     updateTextStyle();
   });
@@ -24,18 +25,18 @@ function CustomButton({ disabled, isPrimary, onPress, title }) {
     setAndroidRipple(style);
   };
 
-  const updateButtonEnabledStyle = () => {
+  const updateButtonStyleEnabled = () => {
     if (isPrimary) {
       if (disabled) {
-        setButtonEnabledStyle(ButtonStyle.buttonPrimaryDisabled);
+        setButtonStyleEnabled(ButtonStyle.buttonPrimaryDisabled);
       } else {
-        setButtonEnabledStyle(ButtonStyle.buttonPrimaryEnabled);
+        setButtonStyleEnabled(ButtonStyle.buttonPrimaryEnabled);
       }
     } else {
       if (disabled) {
-        setButtonEnabledStyle(ButtonStyle.buttonSecondaryDisabled);
+        setButtonStyleEnabled(ButtonStyle.buttonSecondaryDisabled);
       } else {
-        setButtonEnabledStyle(ButtonStyle.buttonSecondaryEnabled);
+        setButtonStyleEnabled(ButtonStyle.buttonSecondaryEnabled);
       }
     }
   };
@@ -50,20 +51,30 @@ function CustomButton({ disabled, isPrimary, onPress, title }) {
 
   const updateTextStyle = () => {
     const style = isPrimary
-      ? ButtonStyle.buttonPrimaryText
-      : ButtonStyle.buttonSecondaryText;
+      ? ButtonStyle.textButtonPrimary
+      : ButtonStyle.textButtonSecondary;
 
     setTextStyle(style);
   };
+
+  const onPressIn = () => {
+    !isPrimary ? setTextStylePressed(ButtonStyle.textButtonSecondaryPressed) : null
+  }
+
+  const onPressOut = () => {
+    setTextStylePressed(null)
+  }
 
   return (
     <Pressable
       android_ripple={androidRipple}
       disabled={disabled}
       onPress={onPress}
-      style={[buttonStyle, buttonEnabledStyle]}
+      onPressIn={onPressIn}
+      onPressOut={onPressOut}
+      style={(pressed) => [buttonStyle, buttonStyleEnabled]}
     >
-      <Text style={textStyle}>{title}</Text>
+      <Text style={[textStyle, textStylePressed]}>{title}</Text>
     </Pressable>
   );
 }
