@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Pressable, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -6,22 +6,11 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import CameraStyle from "../styles/CameraStyle";
 
-class CameraControls extends Component {
-  constructor(props) {
-    super(props);
-  }
+function CameraControls({ cameraDisabled, goBack, toggleCameraType }) {
 
-  toggleCameraType = () => {
-    this.props.toggleCameraType();
-  };
-
-  goBack = () => {
-    this.props.goBack();
-  };
-
-  renderGoBackButton() {
+  const renderGoBackButton = () => {
     return (
-      <Pressable style={CameraStyle.buttonTopLeft} onPress={this.goBack}>
+      <Pressable style={CameraStyle.buttonTopLeft} onPress={goBack}>
         <MaterialCommunityIcons
           name="keyboard-backspace"
           style={CameraStyle.buttonIcon}
@@ -30,11 +19,11 @@ class CameraControls extends Component {
     );
   }
 
-  renderToggleCameraTypeButton() {
+  const renderToggleCameraTypeButton = () => {
     return (
       <Pressable
         style={CameraStyle.buttonTopRight}
-        onPress={this.toggleCameraType}
+        onPress={toggleCameraType}
       >
         <MaterialCommunityIcons
           name="camera-switch"
@@ -43,18 +32,15 @@ class CameraControls extends Component {
       </Pressable>
     );
   }
-
-  render() {
-    const { cameraDisabled } = this.props;
+    
     return (
       <SafeAreaView style={CameraStyle.safeAreaView}>
         <View style={CameraStyle.container}>
-          {this.renderGoBackButton()}
-          {!cameraDisabled && this.renderToggleCameraTypeButton()}
+          {renderGoBackButton()}
+          {!cameraDisabled && renderToggleCameraTypeButton()}
         </View>
       </SafeAreaView>
     );
-  }
 }
 
 export default CameraControls;

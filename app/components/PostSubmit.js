@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import { ScrollView, View } from "react-native";
 
 import axios from "axios";
@@ -12,27 +12,20 @@ import { validatePostTitle } from "../utils/FormValidation";
 
 import { POST_POSTS_ENDPOINT } from "../api/constants";
 
-class PostSubmit extends Component {
-  constructor(props) {
-    super(props);
-    const { video } = this.props.route.params;
-    this.state = {
-      isPostButtonDisabled: true,
-      title: null,
-      video: video,
-    };
-  }
+function PostSubmit({ route }) {
+  const [isPostButtonDisabled, setIsPostButtonDisabled] = useState(true);
+  const [title, setTitle] = useState(null);
+  const [video, setVideo] = useState(route.params.video);
 
-  componentDidUpdate() {
-    this.updatePostButton();
-  }
+  useEffect(() => {
+    updatePostButton()
+  })
 
-  handleTitle = (title) => {
-    this.setState({ title: title });
+  const handleTitle = (text) => {
+    setTitle(text)
   };
 
   onPress = () => {
-    const { title, video } = this.state;
     const uri = video.uri;
     const uriParts = uri.split("/");
     const fileName = uriParts[uriParts.length - 1];
@@ -68,53 +61,39 @@ class PostSubmit extends Component {
       });
   };
 
-  updatePostButton() {
-    const { isPostButtonDisabled } = this.state;
-    const formValidation = this.validateForm();
+  const updatePostButton = () => {
+    const isValidForm = validateForm();
 
-    if (isPostButtonDisabled === true && formValidation) {
-      this.setState({
-        isPostButtonDisabled: false,
-      });
-    } else if (isPostButtonDisabled === false && !formValidation) {
-      this.setState({
-        isPostButtonDisabled: true,
-      });
-    }
+    isValidForm ? setIsPostButtonDisabled(false) : setIsPostButtonDisabled(true);
   }
 
-  validateForm() {
-    const { title } = this.state;
+  const validateForm = () => {
     return validatePostTitle(title) === true;
   }
 
-  render() {
-    const { isPostButtonDisabled } = this.state;
+  return (
+    <ScrollView contentContainerStyle={FormStyle.container}>
+      <View style={FormStyle.formsContainer}>
+        <FormTextInput
+          autoCapitalize={"none"}
+          autoCorrect={false}
+          clearTextOnFocus={false}
+          header={"Title"}
+          onChangeText={handleTitle}
+          validateInput={validatePostTitle}
+        />
+      </View>
 
-    return (
-      <ScrollView contentContainerStyle={FormStyle.container}>
-        <View style={FormStyle.formsContainer}>
-          <FormTextInput
-            autoCapitalize={"none"}
-            autoCorrect={false}
-            clearTextOnFocus={false}
-            header={"Title"}
-            onChangeText={this.handleTitle}
-            validateInput={validatePostTitle}
-          />
-        </View>
-
-        <View style={FormStyle.buttonsContainer}>
-          <CustomButton
-            disabled={isPostButtonDisabled}
-            isPrimary={true}
-            onPress={this.onPress}
-            title={"Post"}
-          />
-        </View>
-      </ScrollView>
-    );
-  }
+      <View style={FormStyle.buttonsContainer}>
+        <CustomButton
+          disabled={isPostButtonDisabled}
+          isPrimary={true}
+          onPress={onPress}
+          title={"Post"}
+        />
+      </View>
+    </ScrollView>
+  );
 }
 
 export default PostSubmit;

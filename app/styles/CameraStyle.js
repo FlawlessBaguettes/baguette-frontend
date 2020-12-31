@@ -6,7 +6,7 @@ import {
   colorButtonCameraRecording,
   colorTextDark,
   colorTextGrey,
-  colorTextWhite,
+  colorTextLight,
   fontFamilyMedium,
   fontFamilyRegular,
   fontSizeExtraLarge,
@@ -116,7 +116,7 @@ const CameraStyle = StyleSheet.create({
   },
 
   textHeaderEmptyState: {
-    color: colorTextWhite,
+    color: colorTextLight,
     fontFamily: fontFamilyMedium,
     fontSize: fontSizeExtraLarge,
     marginBottom: 15,
