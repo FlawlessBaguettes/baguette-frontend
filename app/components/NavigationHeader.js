@@ -42,6 +42,7 @@ const NavigationHeader = () => {
           options={{
             title: "Home",
             headerRight: accountMenuButton,
+            headerTitleAlign: 'center',
           }}
         />
         <Stack.Screen
@@ -50,6 +51,7 @@ const NavigationHeader = () => {
           options={{
             title: "Account Menu",
             headerLeft: backButton,
+            headerTitleAlign: 'center',
           }}
         />
         <Stack.Screen
@@ -58,6 +60,7 @@ const NavigationHeader = () => {
           options={{
             title: "Sign Up",
             headerLeft: backButton,
+            headerTitleAlign: 'center',
           }}
         />
         <Stack.Screen
@@ -66,6 +69,7 @@ const NavigationHeader = () => {
           options={{
             title: "Login",
             headerLeft: backButton,
+            headerTitleAlign: 'center',
           }}
         />
         <Stack.Screen
@@ -74,6 +78,7 @@ const NavigationHeader = () => {
           options={{
             title: "Post",
             headerLeft: backButton,
+            headerTitleAlign: 'center',
           }}
         />
       </Stack.Navigator>
