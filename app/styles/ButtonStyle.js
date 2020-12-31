@@ -2,7 +2,6 @@ import { StyleSheet } from "react-native";
 
 import {
   colorButtonPrimary,
-  colorTextGrey,
   colorTextLight,
   fontFamilyMedium,
   fontSizeExtraLarge,
@@ -27,6 +26,10 @@ const ButtonStyle = StyleSheet.create({
     opacity: 1,
   },
 
+  buttonPrimaryPressed: {
+    opacity: 0.75,
+  },
+
   buttonSecondary: {},
 
   buttonSecondaryDisabled: {},
@@ -46,7 +49,7 @@ const ButtonStyle = StyleSheet.create({
   },
 
   textButtonSecondaryPressed: {
-    color: colorTextGrey,
+    opacity: 0.25,
   },
 });
 

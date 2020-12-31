@@ -76,9 +76,3 @@ export const colorTextGrey = paletteGallery;
 export const colorTextGreyDark = paletteScorpian;
 
 export const colorTextLight = paletteWhite;
-
-// misc
-
-export const pressableButtonRipple = {
-  color: paletteBlueGem,
-};
