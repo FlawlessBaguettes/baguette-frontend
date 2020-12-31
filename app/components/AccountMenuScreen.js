@@ -22,7 +22,7 @@ const AccountMenuScreen = ({ navigation }) => {
       <Text style={FormStyle.textDisclaimerBody}>
         Sign up for an account to get access to a variety of features!
       </Text>
-      <View style={FormStyle.buttonsContainer}>
+      <View style={FormStyle.containerButtons}>
         <CustomButton
           isPrimary={true}
           onPress={onPressSignUp}

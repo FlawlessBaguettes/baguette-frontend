@@ -80,15 +80,15 @@ function DateInput({ date, handleConfirm, header, validateInput }) {
   };
 
   return (
-    <View style={FormStyle.inputContainerLarge}>
-      <Text style={FormStyle.inputHeaderText}>{header}</Text>
+    <View style={FormStyle.containerInputLarge}>
+      <Text style={FormStyle.textInputHeader}>{header}</Text>
 
-      <Pressable onPress={showDatePicker} style={FormStyle.dateContainer}>
+      <Pressable onPress={showDatePicker} style={FormStyle.containerDate}>
         <MaterialCommunityIcons
           name="calendar"
-          style={FormStyle.calendarIcon}
+          style={FormStyle.iconCalendar}
         />
-        <Text style={FormStyle.dateTextField}>{formattedDate}</Text>
+        <Text style={FormStyle.textDateField}>{formattedDate}</Text>
       </Pressable>
 
       <DateTimePickerModal
@@ -99,7 +99,7 @@ function DateInput({ date, handleConfirm, header, validateInput }) {
         onConfirm={handleDateConfirm}
         onCancel={handleDateCancel}
       />
-      <Text style={FormStyle.errorMessage}>{errorMessage}</Text>
+      <Text style={FormStyle.textErrorMessage}>{errorMessage}</Text>
     </View>
   );
 }

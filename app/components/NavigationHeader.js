@@ -40,7 +40,7 @@ const NavigationHeader = () => {
           component={ListPostsScreen}
           initialParams={{ baseUrl: GET_POSTS_ENDPOINT }}
           options={{
-            title: "Home",
+            title: null,
             headerRight: accountMenuButton,
             headerTitleAlign: 'center',
           }}

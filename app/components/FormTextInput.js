@@ -26,7 +26,7 @@ function FormTextInput({
     : useState(secureTextIconTurnOn);
 
   const [textInputStyle, setTextInputStyle] = useState(
-    FormStyle.formTextInputContainerColor
+    FormStyle.containerFormTextInputColorUnfocused
   );
 
   const onBlur = (e) => {
@@ -39,7 +39,7 @@ function FormTextInput({
       }
     }
 
-    setTextInputStyle(FormStyle.formTextInputContainerColor);
+    setTextInputStyle(FormStyle.containerFormTextInputColorUnfocused);
     setErrorMessage(errorMessage);
   };
 
@@ -49,7 +49,7 @@ function FormTextInput({
   };
 
   const onFocus = () => {
-    setTextInputStyle(FormStyle.formTextInputContainerColorFocused);
+    setTextInputStyle(FormStyle.containerFormTextInputColorFocused);
   };
 
   const toggleShowSecureText = () => {
@@ -61,9 +61,9 @@ function FormTextInput({
   };
 
   return (
-    <View style={FormStyle.inputContainerLarge}>
-      <Text style={FormStyle.inputHeaderText}>{header}</Text>
-      <View style={[FormStyle.formTextInputContainer, textInputStyle]}>
+    <View style={FormStyle.containerInputLarge}>
+      <Text style={FormStyle.textInputHeader}>{header}</Text>
+      <View style={[FormStyle.containerFormTextInput, textInputStyle]}>
         <TextInput
           autoCapitalize={autoCapitalize}
           autoCorrect={autoCorrect}
@@ -78,16 +78,16 @@ function FormTextInput({
         {secureTextEntry && (
           <Pressable
             onPress={toggleShowSecureText}
-            style={FormStyle.iconContainer}
+            style={FormStyle.containerIcon}
           >
             <MaterialCommunityIcons
               name={secureTextIcon}
-              style={FormStyle.secureTextIcon}
+              style={FormStyle.iconSecureText}
             />
           </Pressable>
         )}
       </View>
-      <Text style={FormStyle.errorMessage}>{errorMessage}</Text>
+      <Text style={FormStyle.textErrorMessage}>{errorMessage}</Text>
     </View>
   );
 }

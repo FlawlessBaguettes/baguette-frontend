@@ -55,7 +55,7 @@ function LoginScreen({ navigation }) {
 
   return (
     <ScrollView contentContainerStyle={FormStyle.container}>
-      <View style={FormStyle.formsContainer}>
+      <View style={FormStyle.containerForm}>
         <FormTextInput
           autoCapitalize={"none"}
           autoCorrect={false}
@@ -77,7 +77,7 @@ function LoginScreen({ navigation }) {
         />
       </View>
 
-      <View style={FormStyle.buttonsContainer}>
+      <View style={FormStyle.containerButtons}>
         <CustomButton
           disabled={isLoginButtonDisabled}
           isPrimary={true}

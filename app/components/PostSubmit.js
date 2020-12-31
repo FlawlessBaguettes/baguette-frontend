@@ -73,7 +73,7 @@ function PostSubmit({ route }) {
 
   return (
     <ScrollView contentContainerStyle={FormStyle.container}>
-      <View style={FormStyle.formsContainer}>
+      <View style={FormStyle.containerForm}>
         <FormTextInput
           autoCapitalize={"none"}
           autoCorrect={false}
@@ -84,7 +84,7 @@ function PostSubmit({ route }) {
         />
       </View>
 
-      <View style={FormStyle.buttonsContainer}>
+      <View style={FormStyle.containerButtons}>
         <CustomButton
           disabled={isPostButtonDisabled}
           isPrimary={true}
