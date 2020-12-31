@@ -89,7 +89,7 @@ function CameraView({ navigation }) {
   };
 
   const requestAudioPermissions = async () => {
-    let { status } = await Audio.requestPermissionsAsync();
+    const { status } = await Audio.requestPermissionsAsync();
 
     if (status === "granted") {
       setHasAudioPermissions(status);
@@ -97,7 +97,7 @@ function CameraView({ navigation }) {
   };
 
   const requestCameraPermissions = async () => {
-    let { status } = await Camera.requestPermissionsAsync();
+    const { status } = await Camera.requestPermissionsAsync();
 
     if (status === "granted") {
       setHasCameraPermissions(status);
@@ -107,7 +107,7 @@ function CameraView({ navigation }) {
   const startRecording = async () => {
     if (cameraRef.current) {
       setRecording(true);
-      let video = await cameraRef.current.recordAsync();
+      const video = await cameraRef.current.recordAsync();
       await setVideo(video);
       await setShowCamera(false);
     }

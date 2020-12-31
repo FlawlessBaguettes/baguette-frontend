@@ -9,7 +9,7 @@ import CameraStyle from "../styles/CameraStyle";
 function PostCamera({ cameraDisabled, cameraRef, toggleRecording, type: propsType }) {
   const [type, setType] = useState(propsType)
 
-  const handleChange = (e) => {
+  const handleChange = (event) => {
     if (type != propsType) {
       setType(propsType)
     }
