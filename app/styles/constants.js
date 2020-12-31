@@ -17,17 +17,19 @@ export const palettePictonBlue = "#4cc9f0";
 
 export const paletteMonza = "#d10812";
 
-// palette shades
+// palette shades (ordered from lighest to darkest)
 
-export const paletteBlack = "black";
-
-export const paletteAlto = "#e0e0e0";
+export const paletteWhite = "white";
 
 export const paletteGallery = "#ededed";
 
+export const paletteAlto = "#d1d1d1";
+
+export const paletteScorpian = "#5E5E5E";
+
 export const paletteMineShaft = "#3b3b3b";
 
-export const paletteWhite = "white";
+export const paletteBlack = "black";
 
 // color names https://chir.ag/projects/name-that-color
 
@@ -43,7 +45,7 @@ export const fontSizeMedium = 14;
 
 export const fontSizeLarge = 16;
 
-export const fontSizeExtraLarge = 20;
+export const fontSizeExtraLarge = 18;
 
 // functional
 
@@ -66,6 +68,8 @@ export const colorTextDark = paletteBlack;
 export const colorTextError = paletteMonza;
 
 export const colorTextGrey = paletteGallery;
+
+export const colorTextGreyDark = paletteScorpian;
 
 export const colorTextLight = paletteWhite;
 

@@ -1,11 +1,11 @@
 import { StyleSheet } from "react-native";
 
 import {
-  fontFamilyRegular,
-  fontSizeExtraLarge,
-  fontSizeLarge,
   colorButtonPrimary,
   colorTextLight,
+  fontFamilyMedium,
+  fontSizeExtraLarge,
+  fontSizeMedium,
 } from "./constants.js";
 
 const ButtonStyle = StyleSheet.create({
@@ -35,7 +35,7 @@ const ButtonStyle = StyleSheet.create({
   buttonPrimaryText: {
     alignSelf: "center",
     color: colorTextLight,
-    fontFamily: fontFamilyRegular,
+    fontFamily: fontFamilyMedium,
     fontSize: fontSizeExtraLarge,
   },
 
@@ -46,8 +46,8 @@ const ButtonStyle = StyleSheet.create({
   buttonSecondaryEnabled: {},
 
   buttonSecondaryText: {
-    fontFamily: fontFamilyRegular,
-    fontSize: fontSizeLarge,
+    fontFamily: fontFamilyMedium,
+    fontSize: fontSizeMedium,
   },
 });
 

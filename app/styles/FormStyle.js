@@ -6,7 +6,8 @@ import {
   colorInputUnfocused,
   colorTextDark,
   colorTextError,
-  fontFamilyRegular,
+  colorTextGreyDark,
+  fontFamilyMedium,
   fontSizeMedium,
   fontSizeSmall,
 } from "./constants.js";
@@ -19,8 +20,9 @@ const FormStyle = StyleSheet.create({
   },
 
   calendarIcon: {
-    padding: 10,
+    color: colorTextGreyDark,
     fontSize: 24,
+    padding: 10,
   },
 
   container: {
@@ -32,16 +34,16 @@ const FormStyle = StyleSheet.create({
 
   dateContainer: {
     alignItems: "center",
-    backgroundColor: colorInputUnfocused,
+    borderColor: colorInputUnfocused,
     borderRadius: 5,
-    borderWidth: 0,
+    borderWidth: 3,
     flexDirection: "row",
     justifyContent: "center",
   },
 
   dateTextField: {
     flex: 1,
-    fontFamily: fontFamilyRegular,
+    fontFamily: fontFamilyMedium,
     fontSize: fontSizeMedium,
     paddingTop: 10,
     paddingRight: 10,
@@ -51,7 +53,7 @@ const FormStyle = StyleSheet.create({
 
   errorMessage: {
     color: colorTextError,
-    fontFamily: fontFamilyRegular,
+    fontFamily: fontFamilyMedium,
     fontSize: fontSizeSmall,
     marginBottom: 7,
     paddingLeft: 3,
@@ -66,20 +68,20 @@ const FormStyle = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     borderRadius: 5,
-    borderWidth: 0,
+    borderWidth: 3,
     height: 40,
   },
 
   formTextInputContainerColor: {
-    backgroundColor: colorInputUnfocused,
+    borderColor: colorInputUnfocused,
   },
 
   formTextInputContainerColorFocused: {
-    backgroundColor: colorInputFocused,
+    borderColor: colorInputFocused,
   },
 
   iconContainer: {
-    paddingTop: 10,
+    paddingTop: 6,
     paddingLeft: 5,
     paddingRight: 5,
   },
@@ -100,19 +102,20 @@ const FormStyle = StyleSheet.create({
   },
 
   inputHeaderText: {
-    color: colorTextDark,
-    fontFamily: fontFamilyRegular,
+    color: colorTextGreyDark,
+    fontFamily: fontFamilyMedium,
     fontSize: fontSizeMedium,
     marginBottom: 3,
   },
 
   secureTextIcon: {
+    color: colorTextGreyDark,
     fontSize: 24,
   },
 
   textInput: {
     flex: 1,
-    fontFamily: fontFamilyRegular,
+    fontFamily: fontFamilyMedium,
     fontSize: fontSizeMedium,
     marginLeft: 10,
   },

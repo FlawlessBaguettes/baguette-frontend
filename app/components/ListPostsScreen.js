@@ -32,6 +32,14 @@ const ListPostsScreen = ({ route, navigation }) => {
     ? response.replies.replies
     : [];
 
+  const onPressLogin = () => {
+    navigation.navigate("LoginScreen");
+  };
+
+  const onPressSignUp = () => {
+    navigation.navigate("SignUpScreen");
+  };
+
   const renderItem = ({ item }) => (
     <PostCard
       title={item.title}
@@ -48,20 +56,8 @@ const ListPostsScreen = ({ route, navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.signUpandLoginButtonsHeader}>
-        <Text
-          onPress={() => {
-            navigation.navigate("SignUpScreen");
-          }}
-        >
-          Sign Up
-        </Text>
-        <Text
-          onPress={() => {
-            navigation.navigate("LoginScreen");
-          }}
-        >
-          Login
-        </Text>
+        <Text onPress={onPressSignUp}>Sign Up</Text>
+        <Text onPress={onPressLogin}>Login</Text>
       </View>
       <FlatList
         data={posts}
@@ -85,7 +81,7 @@ const ListPostsScreen = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#DCDCDC",
+    backgroundColor: "#f5f5f5",
   },
   signUpandLoginButtonsHeader: {
     flexDirection: "row",
