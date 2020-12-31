@@ -13,16 +13,24 @@ const BackButton = () => {
     navigation.goBack();
   };
 
+  const backButton = () => {
+    return (
+      <Pressable style={NavigationStyle.containerHeaderLeft}>
+        <View style={NavigationStyle.buttonBackBackground}>
+          <MaterialCommunityIcons
+            name="chevron-left"
+            onPress={onPress}
+            style={NavigationStyle.buttonBackChevron}
+          />
+        </View>
+      </Pressable>
+    )
+  }
+
   return (
-    <Pressable style={NavigationStyle.containerHeaderLeft}>
-      <View style={NavigationStyle.buttonBackBackground}>
-        <MaterialCommunityIcons
-          name="chevron-left"
-          onPress={onPress}
-          style={NavigationStyle.buttonBackChevron}
-        />
-      </View>
-    </Pressable>
+    <View>
+      {navigation.canGoBack() && backButton()}
+    </View>
   );
 };
 

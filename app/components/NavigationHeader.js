@@ -41,6 +41,7 @@ const NavigationHeader = () => {
           initialParams={{ baseUrl: GET_POSTS_ENDPOINT }}
           options={{
             title: null,
+            headerLeft: backButton,
             headerRight: accountMenuButton,
             headerTitleAlign: 'center',
           }}
