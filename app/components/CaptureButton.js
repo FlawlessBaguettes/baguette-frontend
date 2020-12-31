@@ -1,64 +1,41 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, Pressable, View } from "react-native";
 
 import CameraStyle from "../styles/CameraStyle";
 
-class CaptureButton extends Component {
-  constructor() {
-    super();
-    this.state = {
-      recording: false,
-      captureButtonInnerColor: null,
-    };
-  }
+function CaptureButton({ onPress }) {
+  const [recording, setRecording] = useState(false);
+  const [captureButtonInnerColor, setCaptureButtonInnerColor] = useState(null);
 
-  componentDidMount() {
-    this.setCaptureButtonInnerColor();
-  }
+  useEffect(() => {
+    updateCaptureButtonInnerColor();
+  });
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.recording != this.state.recording) {
-      this.setCaptureButtonInnerColor();
-    }
-  }
+  const onButtonPress = () => {
+    onPress();
 
-  onPress = () => {
-    this.props.onPress();
-
-    this.setState({
-      recording: !this.state.recording,
-    });
+    setRecording(!recording);
   };
 
-  setCaptureButtonInnerColor() {
-    const { recording } = this.state;
+  const updateCaptureButtonInnerColor = () => {
+    recording
+      ? setCaptureButtonInnerColor(CameraStyle.buttonCaptureInnerColorRecording)
+      : setCaptureButtonInnerColor(
+          CameraStyle.buttonCaptureInnerColor
+        );
+  };
 
-    if (recording) {
-      this.setState({
-        captureButtonInnerColor: CameraStyle.buttonCaptureInnerColorRecording,
-      });
-    } else {
-      this.setState({
-        captureButtonInnerColor: CameraStyle.buttonCaptureInnerColor,
-      });
-    }
-  }
-
-  render() {
-    const { captureButtonInnerColor } = this.state;
-
-    return (
-      <View style={styles.container}>
-        <Pressable onPress={this.onPress}>
-          <View style={CameraStyle.buttonCaptureOuter}>
-            <View
-              style={[CameraStyle.buttonCaptureInner, captureButtonInnerColor]}
-            />
-          </View>
-        </Pressable>
-      </View>
-    );
-  }
+  return (
+    <View style={styles.container}>
+      <Pressable onPress={onButtonPress}>
+        <View style={CameraStyle.buttonCaptureOuter}>
+          <View
+            style={[CameraStyle.buttonCaptureInner, captureButtonInnerColor]}
+          />
+        </View>
+      </Pressable>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({

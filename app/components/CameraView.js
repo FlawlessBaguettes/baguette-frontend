@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 
 import { Audio } from "expo-av";
@@ -10,197 +10,153 @@ import PostCamera from "./PostCamera";
 import PostPreview from "./PostPreview";
 import PostPreviewControls from "./PostPreviewControls";
 
-class CameraView extends Component {
-  _isMounted = false;
+function CameraView({ navigation }) {
+  const [cameraDisabled, setCameraDisabled] = useState(true);
+  const [hasAudioPermissions, setHasAudioPermissions] = useState(null);
+  const [hasCameraPermissions, setHasCameraPermissions] = useState(null);
+  const [recording, setRecording] = useState(false);
+  const [showCamera, setShowCamera] = useState(true);
+  const [type, setType] = useState(Camera.Constants.Type.front);
+  const [video, setVideo] = useState(null);
 
-  constructor() {
-    super();
-    this.state = {
-      cameraDisabled: true,
-      hasAudioPermissions: null,
-      hasCameraPermissions: null,
-      recording: false,
-      showCamera: true,
-      type: Camera.Constants.Type.front,
-      video: null,
-    };
+  let cameraRef = React.createRef();
 
-    this.cameraRef = React.createRef();
-  }
+  useEffect(() => {
+    (async () => {
+      await requestCameraPermissions();
+      await requestAudioPermissions();
+      updateCameraDisabled();
+    })();
+  }, [hasCameraPermissions, hasAudioPermissions]);
 
-  async componentDidMount() {
-    this._isMounted = true;
-    await this.requestCameraPermissions();
-    await this.requestAudioPermissions();
-    await this.updateCameraDisabled();
-  }
-
-  componentWillUnmount() {
-    this._isMounted = false;
-  }
-
-  cancelPreview = () => {
-    this.setState({
-      showCamera: true,
-      video: null,
-    });
+  const cancelPreview = () => {
+    setShowCamera(true);
+    setVideo(null);
   };
 
-  goBack = () => {
-    this.props.navigation.goBack();
+  const goBack = () => {
+    navigation.goBack();
   };
 
-  renderCameraControls() {
-    const { cameraDisabled, showCamera, recording } = this.state;
-
+  const renderCameraControls = () => {
     if (showCamera && !recording) {
       return (
         <CameraControls
           cameraDisabled={cameraDisabled}
-          goBack={this.goBack}
-          toggleCameraType={this.toggleCameraType}
+          goBack={goBack}
+          toggleCameraType={toggleCameraType}
         />
       );
     } else {
       return null;
     }
-  }
+  };
 
-  renderPostCamera() {
-    const { cameraDisabled, showCamera, type } = this.state;
-
+  const renderPostCamera = () => {
     if (showCamera) {
       return (
         <PostCamera
           cameraDisabled={cameraDisabled}
-          cameraRef={this.cameraRef}
-          toggleRecording={this.toggleRecording}
+          cameraRef={cameraRef}
+          toggleRecording={toggleRecording}
           type={type}
         />
       );
     } else {
       return null;
     }
-  }
+  };
 
-  renderPostPreview() {
-    const { showCamera, video } = this.state;
+  const renderPostPreview = () => {
     if (!showCamera && video) {
       return <PostPreview uri={video.uri} />;
     } else {
       return null;
     }
-  }
+  };
 
-  renderPostPreviewControls() {
-    const { showCamera, video } = this.state;
+  const renderPostPreviewControls = () => {
     if (!showCamera && video) {
       return (
         <PostPreviewControls
-          cancelPreview={this.cancelPreview}
-          submitVideo={this.submitVideo}
+          cancelPreview={cancelPreview}
+          submitVideo={submitVideo}
         />
       );
     } else {
       return null;
     }
-  }
+  };
 
-  async requestAudioPermissions() {
-    let { status } = await Audio.requestPermissionsAsync();
-    if (status === "granted") {
-      this.setState({
-        hasAudioPermissions: status,
-      });
-    }
-  }
-
-  async requestCameraPermissions() {
-    let { status } = await Camera.requestPermissionsAsync();
+  const requestAudioPermissions = async () => {
+    const { status } = await Audio.requestPermissionsAsync();
 
     if (status === "granted") {
-      this.setState({
-        hasCameraPermissions: status,
-      });
+      setHasAudioPermissions(status);
     }
-  }
+  };
 
-  async startRecording() {
-    if (this.cameraRef.current) {
-      this.setState({ recording: true }, async () => {
-        let video = await this.cameraRef.current.recordAsync();
-        if (this._isMounted) {
-          await this.setState({
-            video,
-            showCamera: false,
-          });
-        }
-      });
+  const requestCameraPermissions = async () => {
+    const { status } = await Camera.requestPermissionsAsync();
+
+    if (status === "granted") {
+      setHasCameraPermissions(status);
     }
-  }
+  };
 
-  async stopRecording() {
-    this.setState({ recording: false }, async () => {
-      await this.cameraRef.current.stopRecording();
-    });
-  }
+  const startRecording = async () => {
+    if (cameraRef.current) {
+      setRecording(true);
+      const video = await cameraRef.current.recordAsync();
+      await setVideo(video);
+      await setShowCamera(false);
+    }
+  };
 
-  submitVideo = () => {
-    const { video } = this.state;
+  const stopRecording = async () => {
+    await cameraRef.current.stopRecording();
+    await setRecording(false);
+  };
+
+  const submitVideo = () => {
     if (video) {
-      this.props.navigation.navigate("PostSubmit", {
+      navigation.navigate("PostSubmit", {
         video: video,
       });
     }
   };
 
-  toggleCameraType = () => {
-    if (this.state.type === Camera.Constants.Type.back) {
-      this.setState({
-        type: Camera.Constants.Type.front,
-      });
+  const toggleCameraType = () => {
+    if (type === Camera.Constants.Type.back) {
+      setType(Camera.Constants.Type.front);
     } else {
-      this.setState({
-        type: Camera.Constants.Type.back,
-      });
+      setType(Camera.Constants.Type.back);
     }
   };
 
-  toggleRecording = () => {
-    const { recording } = this.state;
+  const toggleRecording = () => {
     if (recording) {
-      this.stopRecording();
+      stopRecording();
     } else {
-      this.startRecording();
+      startRecording();
     }
   };
 
-  updateCameraDisabled() {
-    const { hasAudioPermissions, hasCameraPermissions } = this.state;
-    let { cameraDisabled } = this.state;
+  const updateCameraDisabled = () => {
+    hasCameraPermissions != "granted" || hasAudioPermissions != "granted"
+      ? setCameraDisabled(true)
+      : setCameraDisabled(false);
+  };
 
-    if (hasCameraPermissions != "granted" || hasAudioPermissions != "granted") {
-      cameraDisabled = true;
-    } else {
-      cameraDisabled = false;
-    }
-
-    this.setState({
-      cameraDisabled: cameraDisabled,
-    });
-  }
-
-  render() {
-    return (
-      <View style={styles.container}>
-        <StatusBar hidden={true} translucent={true} />
-        {this.renderPostCamera()}
-        {this.renderCameraControls()}
-        {this.renderPostPreview()}
-        {this.renderPostPreviewControls()}
-      </View>
-    );
-  }
+  return (
+    <View style={styles.container}>
+      <StatusBar hidden={true} translucent={true} />
+      {renderPostCamera()}
+      {renderCameraControls()}
+      {renderPostPreview()}
+      {renderPostPreviewControls()}
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({

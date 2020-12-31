@@ -1,31 +1,38 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 import { Camera } from "expo-camera";
 
-import axios from "axios";
-
 import CaptureButton from "./CaptureButton";
 import CameraStyle from "../styles/CameraStyle";
 
-class PostCamera extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      type: props.type,
-    };
-  }
+function PostCamera({ cameraDisabled, cameraRef, toggleRecording, type: propsType }) {
+  const [type, setType] = useState(propsType)
 
-  handleChange(event) {
-    const { type } = this.state;
-    if (type != this.props.type) {
-      this.setState({
-        type: this.props.type,
-      });
+  const handleChange = (event) => {
+    if (type != propsType) {
+      setType(propsType)
     }
   }
 
-  renderEmptyState() {
+  const renderCamera = () => {
+    return (
+      <Camera
+        handleChange={handleChange()}
+        ratio={"16:9"}
+        ref={cameraRef}
+        style={styles.container}
+        type={type}
+        useCamera2Api={true}
+      >
+        <View style={CameraStyle.containerCaptureButton}>
+          <CaptureButton onPress={toggleRecording} />
+        </View>
+      </Camera>
+    );
+  }
+
+  const renderEmptyState = () => {
     return (
       <View style={CameraStyle.containerEmptyState}>
         <Text style={CameraStyle.textHeaderEmptyState}>
@@ -39,33 +46,12 @@ class PostCamera extends Component {
     );
   }
 
-  renderCamera() {
-    return (
-      <Camera
-        handleChange={this.handleChange()}
-        ratio={"16:9"}
-        ref={this.props.cameraRef}
-        style={styles.container}
-        type={this.state.type}
-        useCamera2Api={true}
-      >
-        <View style={CameraStyle.containerCaptureButton}>
-          <CaptureButton onPress={this.props.toggleRecording} />
-        </View>
-      </Camera>
-    );
-  }
-
-  render() {
-    const { cameraDisabled } = this.props;
-
-    return (
-      <View style={styles.container}>
-        {!cameraDisabled && this.renderCamera()}
-        {cameraDisabled && this.renderEmptyState()}
-      </View>
-    );
-  }
+  return (
+    <View style={styles.container}>
+      {!cameraDisabled && renderCamera()}
+      {cameraDisabled && renderEmptyState()}
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
