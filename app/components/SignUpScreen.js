@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import { ScrollView, View } from "react-native";
 
 import DateInput from "./DateInput";
@@ -16,84 +16,66 @@ import {
   validateUsername,
 } from "../utils/FormValidation";
 
-class SignUpScreen extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      dateOfBirth: null,
-      email: null,
-      firstName: null,
-      isSignUpButtonDisabled: true,
-      lastName: null,
-      password: null,
-      username: null,
-    };
-  }
+function SignUpScreen({ navigation }) {
+  const [dateOfBirth, setDateOfBirth] = useState(null);
+  const [email, setEmail] = useState(null);
+  const [firstName, setFirstName] = useState(null);
+  const [isSignUpButtonDisabled, setIsSignUpButtonDisabled] = useState(true);
+  const [lastName, setLastName] = useState(null);
+  const [password, setPssword] = useState(null);
+  const [username, setUsername] = useState(null);
 
-  componentDidUpdate() {
-    this.updateSignUpButton();
-  }
+  useEffect(() => {
+    updateSignUpButton();
+  });
 
-  handleEmail = (text) => {
-    this.setState({ email: text });
+  const handleEmail = (text) => {
+    setEmail(text);
   };
 
-  handleDateOfBirth = (date) => {
-    this.setState({ dateOfBirth: date });
+  const handleDateOfBirth = (date) => {
+    setDateOfBirth(date);
   };
 
-  handleFirstName = (text) => {
-    this.setState({ firstName: text });
+  const handleFirstName = (text) => {
+    setFirstName(text);
   };
 
-  handleLastName = (text) => {
-    this.setState({ lastName: text });
+  const handleLastName = (text) => {
+    setLastName(text);
   };
 
-  handlePassword = (text) => {
-    this.setState({ password: text });
+  const handlePassword = (text) => {
+    setPssword(text);
   };
 
-  handleUsername = (text) => {
-    this.setState({ username: text });
+  const handleUsername = (text) => {
+    setUsername(text);
   };
 
-  onPressLogin = () => {
-    this.props.navigation.navigate("LoginScreen");
+  const onPressLogin = () => {
+    navigation.navigate("LoginScreen");
   };
 
-  onPressSignUp = () => {
-    const validForm = this.validateForm();
+  const onPressSignUp = () => {
+    const isValidForm = validateForm();
 
-    if (validForm) {
-      true;
+    if (isValidForm) {
+      console.log("Signed Up!");
     }
   };
 
-  updateSignUpButton() {
-    const { isSignUpButtonDisabled } = this.state;
-    const formValidation = this.validateForm();
+  const updateSignUpButton = () => {
+    const isValidForm = validateForm();
 
-    if (isSignUpButtonDisabled === true && formValidation) {
-      this.setState({
-        isSignUpButtonDisabled: false,
-      });
-    } else if (isSignUpButtonDisabled === false && !formValidation) {
-      this.setState({
-        isSignUpButtonDisabled: true,
-      });
+    if (isSignUpButtonDisabled === true && isValidForm) {
+      setIsSignUpButtonDisabled(false);
+    } else if (isSignUpButtonDisabled === false && !isValidForm) {
+      setIsSignUpButtonDisabled(true);
     }
-  }
+  };
 
-  validateForm() {
-    const {
-      dateOfBirth,
-      email,
-      firstName,
-      lastName,
-      password,
-      username,
-    } = this.state;
+  const validateForm = () => {
     return (
       validateDateOfBirth(dateOfBirth) === true &&
       validateEmail(email) === true &&
@@ -102,85 +84,82 @@ class SignUpScreen extends Component {
       validatePasswordStrong(password) === true &&
       validateUsername(username) === true
     );
-  }
+  };
 
-  render() {
-    const { dateOfBirth, isSignUpButtonDisabled } = this.state;
-    return (
-      <ScrollView contentContainerStyle={FormStyle.container}>
-        <View style={FormStyle.formsContainer}>
-          <FormTextInput
-            autoCapitalize={"none"}
-            autoCorrect={false}
-            autoFocus={true}
-            clearTextOnFocus={false}
-            header={"First Name"}
-            onChangeText={this.handleFirstName}
-            validateInput={validateFirstName}
-          />
+  return (
+    <ScrollView contentContainerStyle={FormStyle.container}>
+      <View style={FormStyle.formsContainer}>
+        <FormTextInput
+          autoCapitalize={"none"}
+          autoCorrect={false}
+          autoFocus={true}
+          clearTextOnFocus={false}
+          header={"First Name"}
+          onChangeText={handleFirstName}
+          validateInput={validateFirstName}
+        />
 
-          <FormTextInput
-            autoCapitalize={"none"}
-            autoCorrect={false}
-            clearTextOnFocus={false}
-            header={"Last Name"}
-            onChangeText={this.handleLastName}
-            validateInput={validateLastName}
-          />
+        <FormTextInput
+          autoCapitalize={"none"}
+          autoCorrect={false}
+          clearTextOnFocus={false}
+          header={"Last Name"}
+          onChangeText={handleLastName}
+          validateInput={validateLastName}
+        />
 
-          <FormTextInput
-            autoCapitalize={"none"}
-            autoCorrect={false}
-            clearTextOnFocus={false}
-            header={"Email"}
-            onChangeText={this.handleEmail}
-            validateInput={validateEmail}
-          />
+        <FormTextInput
+          autoCapitalize={"none"}
+          autoCorrect={false}
+          clearTextOnFocus={false}
+          header={"Email"}
+          onChangeText={handleEmail}
+          validateInput={validateEmail}
+        />
 
-          <FormTextInput
-            autoCapitalize={"none"}
-            autoCorrect={false}
-            clearTextOnFocus={false}
-            header={"Username"}
-            onChangeText={this.handleUsername}
-            validateInput={validateUsername}
-          />
+        <FormTextInput
+          autoCapitalize={"none"}
+          autoCorrect={false}
+          clearTextOnFocus={false}
+          header={"Username"}
+          onChangeText={handleUsername}
+          validateInput={validateUsername}
+        />
 
-          <FormTextInput
-            autoCapitalize={"none"}
-            autoCorrect={false}
-            clearTextOnFocus={false}
-            header={"Password"}
-            onChangeText={this.handlePassword}
-            secureTextEntry={true}
-            validateInput={validatePasswordStrong}
-          />
+        <FormTextInput
+          autoCapitalize={"none"}
+          autoCorrect={false}
+          clearTextOnFocus={false}
+          header={"Password"}
+          onChangeText={handlePassword}
+          secureTextEntry={true}
+          validateInput={validatePasswordStrong}
+        />
 
-          <DateInput
-            date={dateOfBirth}
-            handleConfirm={this.handleDateOfBirth}
-            header={"Date of Birth"}
-            validateInput={validateDateOfBirth}
-          />
-        </View>
+        <DateInput
+          date={dateOfBirth}
+          handleConfirm={handleDateOfBirth}
+          header={"Date of Birth"}
+          validateInput={validateDateOfBirth}
+        />
+      </View>
 
-        <View style={FormStyle.buttonsContainer}>
-          <CustomButton
-            disabled={isSignUpButtonDisabled}
-            isPrimary={true}
-            onPress={this.onPressSignUp}
-            title={"Sign Up"}
-          />
+      <View style={FormStyle.buttonsContainer}>
+        <CustomButton
+          disabled={isSignUpButtonDisabled}
+          isPrimary={true}
+          onPress={onPressSignUp}
+          title={"Sign Up"}
+        />
 
-          <CustomButton
-            isPrimary={false}
-            onPress={this.onPressLogin}
-            title={"Login"}
-          />
-        </View>
-      </ScrollView>
-    );
-  }
+        <CustomButton
+          isPrimary={false}
+          onPress={onPressLogin}
+          title={"Login"}
+        />
+      </View>
+    </ScrollView>
+  );
 }
 
 export default SignUpScreen;

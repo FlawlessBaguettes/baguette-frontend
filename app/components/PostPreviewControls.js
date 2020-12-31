@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, Pressable, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
