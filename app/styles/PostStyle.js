@@ -33,6 +33,8 @@ const PostStyle = StyleSheet.create({
   containerFooter: {
     flexDirection: "row",
     justifyContent: "space-between",
+    marginLeft: 5,
+    marginRight: 5,
   },
 
   containerTitle: {

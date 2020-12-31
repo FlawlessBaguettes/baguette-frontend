@@ -1,7 +1,4 @@
 import React from "react";
-import { StyleSheet } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import {
@@ -10,15 +7,7 @@ import {
   Poppins_500Medium,
 } from "@expo-google-fonts/poppins";
 
-import CameraView from "./app/components/CameraView";
-import ListPostsScreen from "./app/components/ListPostsScreen";
-import LoginScreen from "./app/components/LoginScreen";
-import PostSubmit from "./app/components/PostSubmit";
-import SignUpScreen from "./app/components/SignUpScreen";
-
-import { GET_POSTS_ENDPOINT } from "./app/api/constants";
-
-const Stack = createStackNavigator();
+import NavigationHeader from "./app/components/NavigationHeader";
 
 export default App = () => {
   let [fontsLoaded] = useFonts({
@@ -28,53 +17,7 @@ export default App = () => {
 
   return (
     <SafeAreaProvider>
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="ListPostsScreen">
-          <Stack.Screen
-            name="CameraView"
-            component={CameraView}
-            options={{
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name="ListPostsScreen"
-            component={ListPostsScreen}
-            initialParams={{ baseUrl: GET_POSTS_ENDPOINT }}
-            options={{
-              title: "Home",
-            }}
-          />
-          <Stack.Screen
-            name="SignUpScreen"
-            component={SignUpScreen}
-            options={{
-              title: "Sign Up",
-            }}
-          />
-          <Stack.Screen
-            name="LoginScreen"
-            component={LoginScreen}
-            options={{
-              title: "Login",
-            }}
-          />
-          <Stack.Screen
-            name="PostSubmit"
-            component={PostSubmit}
-            options={{
-              title: "Post",
-            }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <NavigationHeader />
     </SafeAreaProvider>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 24,
-  },
-});

@@ -39,6 +39,8 @@ export const fontFamilyRegular = "Poppins_400Regular";
 
 export const fontFamilyMedium = "Poppins_500Medium";
 
+export const fontButtonSize = 28;
+
 export const fontSizeSmall = 12;
 
 export const fontSizeMedium = 14;
@@ -52,6 +54,8 @@ export const fontSizeExtraLarge = 18;
 export const colorBackground = paletteWhite;
 
 export const colorButtonCamera = paletteWhite;
+
+export const colorButtonNavigationBackground = paletteGallery;
 
 export const colorButtonCameraRecording = paletteMonza;
 

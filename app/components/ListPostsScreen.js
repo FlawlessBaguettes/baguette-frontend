@@ -73,6 +73,8 @@ const ListPostsScreen = ({ route, navigation }) => {
         maxToRenderPerBatch={3} // number of additional items rendered on every scroll
         updateCellsBatchingPeriod={50} // delay in ms between batch renders, left as default
         removeClippedSubviews={true} // when set to true it will unmount components off the viewport
+        showsVerticalScrollIndicator ={false}
+        showsHorizontalScrollIndicator={false}
       />
     </SafeAreaView>
   );
