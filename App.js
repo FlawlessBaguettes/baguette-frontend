@@ -7,6 +7,7 @@ import {
   Poppins_400Regular,
   Poppins_500Medium,
 } from "@expo-google-fonts/poppins";
+import { StatusBar } from "expo-status-bar";
 
 import NavigationHeader from "./app/components/NavigationHeader";
 
@@ -22,6 +23,7 @@ export default App = () => {
 
   return (
     <SafeAreaProvider>
+      <StatusBar style={'light'} />
       <NavigationHeader />
     </SafeAreaProvider>
   );
