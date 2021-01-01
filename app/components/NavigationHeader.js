@@ -14,6 +14,8 @@ import SignUpScreen from "./SignUpScreen";
 
 import { GET_POSTS_ENDPOINT } from "../api/constants";
 
+import NavigationStyle from "../styles/NavigationStyle";
+
 const NavigationHeader = () => {
   const Stack = createStackNavigator();
 
@@ -43,7 +45,8 @@ const NavigationHeader = () => {
             title: null,
             headerLeft: backButton,
             headerRight: accountMenuButton,
-            headerTitleAlign: 'center',
+            headerStyle: NavigationStyle.header,
+            headerTitleStyle: NavigationStyle.textHeader,
           }}
         />
         <Stack.Screen
@@ -52,7 +55,8 @@ const NavigationHeader = () => {
           options={{
             title: "Account Menu",
             headerLeft: backButton,
-            headerTitleAlign: 'center',
+            headerStyle: NavigationStyle.header,
+            headerTitleStyle: NavigationStyle.textHeader,
           }}
         />
         <Stack.Screen
@@ -61,7 +65,8 @@ const NavigationHeader = () => {
           options={{
             title: "Sign Up",
             headerLeft: backButton,
-            headerTitleAlign: 'center',
+            headerStyle: NavigationStyle.header,
+            headerTitleStyle: NavigationStyle.textHeader,
           }}
         />
         <Stack.Screen
@@ -70,7 +75,8 @@ const NavigationHeader = () => {
           options={{
             title: "Login",
             headerLeft: backButton,
-            headerTitleAlign: 'center',
+            headerStyle: NavigationStyle.header,
+            headerTitleStyle: NavigationStyle.textHeader,
           }}
         />
         <Stack.Screen
@@ -79,7 +85,8 @@ const NavigationHeader = () => {
           options={{
             title: "Post",
             headerLeft: backButton,
-            headerTitleAlign: 'center',
+            headerStyle: NavigationStyle.header,
+            headerTitleStyle: NavigationStyle.textHeader,
           }}
         />
       </Stack.Navigator>

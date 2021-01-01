@@ -43,6 +43,7 @@ const FormStyle = StyleSheet.create({
     flexGrow: 1,
     flexDirection: "column",
     justifyContent: "center",
+    paddingHorizontal: 10,
   },
 
   containerForm: {
@@ -111,6 +112,7 @@ const FormStyle = StyleSheet.create({
     color: colorTextGreyDark,
     fontFamily: fontFamilyRegular,
     fontSize: fontSizeLarge,
+    marginBottom: 15,
     textAlign: "center",
   },
 
@@ -118,7 +120,7 @@ const FormStyle = StyleSheet.create({
     color: colorTextGreyDark,
     fontFamily: fontFamilyMedium,
     fontSize: fontSizeExtraLarge,
-    marginBottom: 15,
+    marginBottom: 5,
     textAlign: "center",
   },
 

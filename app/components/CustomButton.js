@@ -65,7 +65,7 @@ function CustomButton({ disabled, isPrimary, onPress, title }) {
       onPress={onPress}
       onPressIn={onPressIn}
       onPressOut={onPressOut}
-      style={(pressed) => [buttonStyle, buttonStyleEnabled, buttonStylePressed]}
+      style={[buttonStyle, buttonStyleEnabled, buttonStylePressed]}
     >
       <Text style={[textStyle, textStylePressed]}>{title}</Text>
     </Pressable>

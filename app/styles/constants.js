@@ -53,13 +53,15 @@ export const fontSizeExtraLarge = 18;
 
 export const colorBackground = paletteWhite;
 
+export const colorBackgroundHeader = paletteRoyalBlue;
+
 export const colorButtonCamera = paletteWhite;
 
 export const colorButtonNavigationBackground = paletteGallery;
 
 export const colorButtonCameraRecording = paletteMonza;
 
-export const colorButtonPrimary = paletteRoyalBlue;
+export const colorButtonPrimary = palettePersianRose;
 
 export const colorBackgroundDisabled = paletteMineShaft;
 
