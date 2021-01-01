@@ -1,6 +1,7 @@
 import React from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
+import AppLoading from "expo-app-loading";
 import {
   useFonts,
   Poppins_400Regular,
@@ -14,6 +15,10 @@ export default App = () => {
     Poppins_400Regular,
     Poppins_500Medium,
   });
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
 
   return (
     <SafeAreaProvider>
