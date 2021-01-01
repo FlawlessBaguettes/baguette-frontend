@@ -9,34 +9,39 @@ function CustomButton({ disabled, isPrimary, onPress, title }) {
   const [buttonStyleEnabled, setButtonStyleEnabled] = useState(null);
   const [buttonStylePressed, setButtonStylePressed] = useState(null);
   const [textStyle, setTextStyle] = useState(null);
+  const [textStyleEnabled, setTextStyleEnabled] = useState(null);
   const [textStylePressed, setTextStylePressed] = useState(null);
 
   useEffect(() => {
     updateButtonStyleEnabled();
     updateButtonStyle();
     updateTextStyle();
+    updateTextStyleEnabled();
   });
+
+  const onPressIn = () => {
+    !isPrimary
+      ? setTextStylePressed(ButtonStyle.textButtonSecondaryPressed)
+      : setTextStylePressed(null);
+      
+    isPrimary ? setButtonStylePressed(ButtonStyle.buttonPrimaryPressed) : null;
+  };
+
+  const onPressOut = () => {
+    setTextStylePressed(null);
+    setButtonStylePressed(null);
+  };
 
   const updateButtonStyleEnabled = () => {
     if (isPrimary) {
-      if (disabled) {
-        setButtonStyleEnabled(ButtonStyle.buttonPrimaryDisabled);
-      } else {
-        setButtonStyleEnabled(ButtonStyle.buttonPrimaryEnabled);
-      }
-    } else {
-      if (disabled) {
-        setButtonStyleEnabled(ButtonStyle.buttonSecondaryDisabled);
-      } else {
-        setButtonStyleEnabled(ButtonStyle.buttonSecondaryEnabled);
-      }
+      disabled
+        ? setButtonStyleEnabled(ButtonStyle.buttonPrimaryDisabled)
+        : setButtonStyleEnabled(ButtonStyle.buttonPrimaryEnabled);
     }
   };
 
   const updateButtonStyle = () => {
-    const style = isPrimary
-      ? ButtonStyle.buttonPrimary
-      : ButtonStyle.buttonSecondary;
+    const style = isPrimary ? ButtonStyle.buttonPrimary : null;
 
     setButtonStyle(style);
   };
@@ -49,15 +54,13 @@ function CustomButton({ disabled, isPrimary, onPress, title }) {
     setTextStyle(style);
   };
 
-  const onPressIn = () => {
-    !isPrimary ? setTextStylePressed(ButtonStyle.textButtonSecondaryPressed) : setTextStylePressed(null)
-    isPrimary ? setButtonStylePressed(ButtonStyle.buttonPrimaryPressed) : null
-  }
-
-  const onPressOut = () => {
-    setTextStylePressed(null)
-    setButtonStylePressed(null)
-  }
+  const updateTextStyleEnabled = () => {
+    if (!isPrimary) {
+      disabled
+        ? setTextStyleEnabled(ButtonStyle.textButtonSecondaryDisabled)
+        : setTextStyleEnabled(ButtonStyle.textButtonSecondaryEnabled);
+    }
+  };
 
   return (
     <Pressable
@@ -67,7 +70,9 @@ function CustomButton({ disabled, isPrimary, onPress, title }) {
       onPressOut={onPressOut}
       style={[buttonStyle, buttonStyleEnabled, buttonStylePressed]}
     >
-      <Text style={[textStyle, textStylePressed]}>{title}</Text>
+      <Text style={[textStyle, textStyleEnabled, textStylePressed]}>
+        {title}
+      </Text>
     </Pressable>
   );
 }

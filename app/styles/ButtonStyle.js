@@ -2,6 +2,8 @@ import { StyleSheet } from "react-native";
 
 import {
   colorButtonPrimary,
+  colorTextDark,
+  colorTextGreyDark,
   colorTextLight,
   fontFamilyMedium,
   fontSizeExtraLarge,
@@ -30,12 +32,6 @@ const ButtonStyle = StyleSheet.create({
     opacity: 0.75,
   },
 
-  buttonSecondary: {},
-
-  buttonSecondaryDisabled: {},
-
-  buttonSecondaryEnabled: {},
-
   textButtonPrimary: {
     alignSelf: "center",
     color: colorTextLight,
@@ -46,6 +42,14 @@ const ButtonStyle = StyleSheet.create({
   textButtonSecondary: {
     fontFamily: fontFamilyMedium,
     fontSize: fontSizeLarge,
+  },
+
+  textButtonSecondaryDisabled: {
+    color: colorTextGreyDark,
+  },
+
+  textButtonSecondaryEnabled: {
+    color: colorTextDark,
   },
 
   textButtonSecondaryPressed: {

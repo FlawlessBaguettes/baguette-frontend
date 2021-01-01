@@ -30,7 +30,7 @@ const PostCard = ({
   const seeRepliesButtonTitle =
     numberOfReplies > 0 ? "See " + numberOfReplies + " Replies" : "0 Replies";
 
-  const isSeeRepliesButtondDisabled = numberOfReplies > 0 ? false : true;
+  const isSeeRepliesButtonDisabled = numberOfReplies > 0 ? false : true;
 
   const onPressReply = () => {
     navigation.navigate("CameraView");
@@ -68,7 +68,7 @@ const PostCard = ({
           isPrimary={false}
           onPress={onPressSeeReplies}
           title={seeRepliesButtonTitle}
-          disabled={isSeeRepliesButtondDisabled}
+          disabled={isSeeRepliesButtonDisabled}
         />
 
         <CustomButton
