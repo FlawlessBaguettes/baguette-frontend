@@ -10,23 +10,18 @@ import PostStyle from "../styles/PostStyle";
 import { GET_REPLIES_ENDPOINT } from "../api/constants";
 
 const PostCard = ({
-  title,
   contentPostedTime,
-  userFullName,
   contentUrl,
-  numberOfReplies,
   id,
   navigation,
+  numberOfReplies,
+  title,
+  userFullName,
 }) => {
   const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
   const match = contentUrl.match(regExp);
   const videoId = match && match[7].length == 11 ? match[7] : false;
 
-  if (!videoId) {
-    <SafeAreaView>
-      <Text>Error: Can't parse video url</Text>
-    </SafeAreaView>;
-  }
   const seeRepliesButtonTitle =
     numberOfReplies > 0 ? "See " + numberOfReplies + " Replies" : "0 Replies";
 
@@ -43,6 +38,11 @@ const PostCard = ({
       });
     }
   };
+
+  if (!videoId) {
+    console.warn("Invalid URL or video ID")
+    return null;
+  }
 
   return (
     <View style={PostStyle.container}>

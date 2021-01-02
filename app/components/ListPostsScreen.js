@@ -1,7 +1,4 @@
-import React from "react";
-import PostCard from "./PostCard";
-import useFetch from "../utils/useFetch";
-
+import React, { useEffect, useState, useCallback } from "react";
 import {
   ActivityIndicator,
   FlatList,
@@ -11,58 +8,69 @@ import {
   View,
 } from "react-native";
 
+import ErrorScreen from "./ErrorScreen";
+import PostCard from "./PostCard";
+
+import useFetch from "../utils/useFetch";
+
 const ListPostsScreen = ({ route, navigation }) => {
+  const [posts, setPosts] = useState(null);
   const url = route.params.baseUrl;
-  const [response, loading, hasError] = useFetch(url);
+  let [response, loading, hasError] = useFetch(url);
+
+  useEffect(() => {
+    updatePosts();
+  });
+
+  const renderItem = ({ item }) => (
+    <PostCard
+      contentPostedTime={item.content.posted_time}
+      contentUrl={item.content.url}
+      id={item.id}
+      navigation={navigation}
+      numberOfReplies={item.number_of_replies}
+      title={item.title}
+      userFullName={item.user.full_name}
+    />
+  );
+
+  const updatePosts = () => {
+    if (response) {
+      const p = response.posts
+        ? response.posts.posts
+        : response.replies
+        ? response.replies.replies
+        : [];
+
+      setPosts(p);
+    }
+  };
 
   if (hasError) {
     return (
-      <SafeAreaView>
-        <Text>Error occurred</Text>
-      </SafeAreaView>
+      <ErrorScreen 
+        onRefresh={null}
+      />
     );
   }
+
   if (loading || !response) {
     return <ActivityIndicator />;
   }
 
-  const posts = response.posts
-    ? response.posts.posts
-    : response.replies
-    ? response.replies.replies
-    : [];
-
-  const renderItem = ({ item }) => (
-    <PostCard
-      title={item.title}
-      contentPostedTime={item.content.posted_time}
-      userFullName={item.user.full_name}
-      contentUrl={item.content.url}
-      numberOfReplies={item.number_of_replies}
-      id={item.id}
-      navigation={navigation}
-    />
-  );
-
-  // const ITEM_HEIGHT = 325;
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
         data={posts}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-        // getItemLayout={(data, index) => ({
-        //   length: ITEM_HEIGHT,
-        //   offset: ITEM_HEIGHT * index,
-        //   index,
-        // })}
-        windowSize={11} // unit here is 1 viewport height
         initialNumToRender={3} // items to render in initial batch
+        keyExtractor={(item) => item.id}
         maxToRenderPerBatch={3} // number of additional items rendered on every scroll
-        updateCellsBatchingPeriod={50} // delay in ms between batch renders, left as default
         removeClippedSubviews={true} // when set to true it will unmount components off the viewport
+        renderItem={renderItem}
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
+        updateCellsBatchingPeriod={50} // delay in ms between batch renders, left as default
+        windowSize={11} // unit here is 1 viewport height
       />
     </SafeAreaView>
   );
