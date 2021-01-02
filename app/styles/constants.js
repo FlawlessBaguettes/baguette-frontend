@@ -78,3 +78,7 @@ export const colorTextGrey = paletteGallery;
 export const colorTextGreyDark = paletteScorpian;
 
 export const colorTextLight = paletteWhite;
+
+export const opacityDisabled = 0.5;
+
+export const opacityEnabled = 1;

@@ -3,11 +3,12 @@ import { StyleSheet } from "react-native";
 import {
   colorButtonPrimary,
   colorTextDark,
-  colorTextGreyDark,
   colorTextLight,
   fontFamilyMedium,
   fontSizeExtraLarge,
   fontSizeLarge,
+  opacityDisabled,
+  opacityEnabled,
 } from "./constants.js";
 
 const ButtonStyle = StyleSheet.create({
@@ -21,15 +22,15 @@ const ButtonStyle = StyleSheet.create({
   },
 
   buttonPrimaryDisabled: {
-    opacity: 0.25,
+    opacity: opacityDisabled,
   },
 
   buttonPrimaryEnabled: {
-    opacity: 1,
+    opacity: opacityEnabled,
   },
 
   buttonPrimaryPressed: {
-    opacity: 0.75,
+    opacity: opacityDisabled,
   },
 
   textButtonPrimary: {
@@ -40,20 +41,21 @@ const ButtonStyle = StyleSheet.create({
   },
 
   textButtonSecondary: {
+    color: colorTextDark,
     fontFamily: fontFamilyMedium,
     fontSize: fontSizeLarge,
   },
 
   textButtonSecondaryDisabled: {
-    color: colorTextGreyDark,
+    opacity: opacityDisabled,
   },
 
   textButtonSecondaryEnabled: {
-    color: colorTextDark,
+    opacity: opacityEnabled,
   },
 
   textButtonSecondaryPressed: {
-    opacity: 0.25,
+    opacity: opacityDisabled,
   },
 });
 
