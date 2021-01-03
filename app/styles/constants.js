@@ -39,6 +39,8 @@ export const fontFamilyRegular = "Poppins_400Regular";
 
 export const fontFamilyMedium = "Poppins_500Medium";
 
+export const fontFamilySemiBold = "Poppins_600SemiBold";
+
 export const fontButtonSize = 28;
 
 export const fontSizeSmall = 12;
@@ -51,6 +53,7 @@ export const fontSizeExtraLarge = 18;
 
 // functional
 
+// colors
 export const colorBackground = paletteWhite;
 
 export const colorBackgroundHeader = paletteRoyalBlue;
@@ -79,6 +82,28 @@ export const colorTextGreyDark = paletteScorpian;
 
 export const colorTextLight = paletteWhite;
 
+// margins
+
+export const marginBottomHeader = 5;
+
+export const marginBottomDescription = 15;
+
+// opacity
+
 export const opacityDisabled = 0.5;
 
 export const opacityEnabled = 1;
+
+// text
+
+export const textAlignDescription = "center";
+
+export const textAlignHeader = "center";
+
+export const textFontFamilyDescription = fontFamilyRegular;
+
+export const textFontFamilyHeader = fontFamilySemiBold;
+
+export const textFontSizeDescription = fontSizeLarge;
+
+export const textFontSizeHeader = fontSizeLarge;

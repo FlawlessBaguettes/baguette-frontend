@@ -4,15 +4,19 @@ import {
   colorBackground,
   colorInputFocused,
   colorInputUnfocused,
-  colorTextDark,
   colorTextError,
   colorTextGreyDark,
   fontFamilyMedium,
-  fontFamilyRegular,
-  fontSizeExtraLarge,
-  fontSizeLarge,
   fontSizeMedium,
   fontSizeSmall,
+  marginBottomDescription,
+  marginBottomHeader,
+  textAlignDescription,
+  textAlignHeader,
+  textFontFamilyDescription,
+  textFontFamilyHeader,
+  textFontSizeDescription,
+  textFontSizeHeader,
 } from "./constants.js";
 
 const FormStyle = StyleSheet.create({
@@ -108,20 +112,20 @@ const FormStyle = StyleSheet.create({
     paddingLeft: 0,
   },
 
-  textDisclaimerBody: {
+  textDisclaimerDescription: {
     color: colorTextGreyDark,
-    fontFamily: fontFamilyRegular,
-    fontSize: fontSizeLarge,
-    marginBottom: 15,
-    textAlign: "center",
+    fontFamily: textFontFamilyDescription,
+    fontSize: textFontSizeDescription,
+    marginBottom: marginBottomDescription,
+    textAlign: textAlignDescription,
   },
 
   textDisclaimerHeader: {
     color: colorTextGreyDark,
-    fontFamily: fontFamilyMedium,
-    fontSize: fontSizeExtraLarge,
-    marginBottom: 5,
-    textAlign: "center",
+    fontFamily: textFontFamilyHeader,
+    fontSize: textFontSizeHeader,
+    marginBottom: marginBottomHeader,
+    textAlign: textAlignHeader,
   },
 
   textErrorMessage: {

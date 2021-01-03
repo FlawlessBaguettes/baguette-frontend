@@ -15,7 +15,7 @@ const ErrorScreen = ({ onRefresh }) => {
       <Text style={FormStyle.textDisclaimerHeader}>
         Whoops!{"\n"} Looks like something isn't right.
       </Text>
-      <Text style={FormStyle.textDisclaimerBody}>
+      <Text style={FormStyle.textDisclaimerDescription}>
         Try refreshing the page to fix the issue.
       </Text>
       <View style={FormStyle.containerButtons}>

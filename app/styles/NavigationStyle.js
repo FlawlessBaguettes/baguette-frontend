@@ -11,11 +11,11 @@ import {
 
 const NavigationStyle = StyleSheet.create({
   containerHeaderLeft: {
-    marginLeft: 10,
+    marginLeft: 15,
   },
 
   containerHeaderRight: {
-    marginRight: 10,
+    marginRight: 15,
   },
 
   buttonBackBackground: {

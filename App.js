@@ -6,6 +6,7 @@ import {
   useFonts,
   Poppins_400Regular,
   Poppins_500Medium,
+  Poppins_600SemiBold,
 } from "@expo-google-fonts/poppins";
 import { StatusBar } from "expo-status-bar";
 
@@ -15,6 +16,7 @@ export default App = () => {
   let [fontsLoaded] = useFonts({
     Poppins_400Regular,
     Poppins_500Medium,
+    Poppins_600SemiBold,
   });
 
   if (!fontsLoaded) {

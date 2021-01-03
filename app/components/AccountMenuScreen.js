@@ -19,7 +19,7 @@ const AccountMenuScreen = ({ navigation }) => {
       <Text style={FormStyle.textDisclaimerHeader}>
         Hey!{"\n"} Looks like you don't have an account yet.
       </Text>
-      <Text style={FormStyle.textDisclaimerBody}>
+      <Text style={FormStyle.textDisclaimerDescription}>
         Sign up for an account to get access to a variety of features!
       </Text>
       <View style={FormStyle.containerButtons}>
