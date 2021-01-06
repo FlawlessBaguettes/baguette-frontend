@@ -18,12 +18,12 @@ const NavigationStyle = StyleSheet.create({
     marginRight: 15,
   },
 
-  buttonBackBackground: {
+  buttonBackground: {
     backgroundColor: colorButtonNavigationBackground,
     borderRadius: 50,
   },
 
-  buttonBackChevron: {
+  buttonIcon: {
     margin: 2,
     fontSize: fontButtonSize,
   },

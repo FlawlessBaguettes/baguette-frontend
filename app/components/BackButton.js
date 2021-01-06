@@ -31,10 +31,10 @@ const BackButton = () => {
         onPressIn={onPressIn}
         onPressOut={onPressOut}
       >
-        <View style={NavigationStyle.buttonBackBackground}>
+        <View style={NavigationStyle.buttonBackground}>
           <MaterialCommunityIcons
             name="chevron-left"
-            style={NavigationStyle.buttonBackChevron}
+            style={NavigationStyle.buttonIcon}
           />
         </View>
       </Pressable>

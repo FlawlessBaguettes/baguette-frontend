@@ -29,12 +29,11 @@ const AccountMenuButton = () => {
       onPress={onPress}
       onPressIn={onPressIn}
       onPressOut={onPressOut}
-      s
     >
-      <View style={NavigationStyle.buttonBackBackground}>
+      <View style={NavigationStyle.buttonBackground}>
         <MaterialCommunityIcons
           name="account"
-          style={NavigationStyle.buttonBackChevron}
+          style={NavigationStyle.buttonIcon}
         />
       </View>
     </Pressable>

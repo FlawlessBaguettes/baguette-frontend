@@ -2,10 +2,12 @@ import { StyleSheet } from "react-native";
 
 import {
   colorBackground,
+  colorButtonUserProfilePictureBackground,
   colorInputFocused,
   colorInputUnfocused,
   colorTextError,
   colorTextGreyDark,
+  fontButtonSize,
   fontFamilyMedium,
   fontSizeMedium,
   fontSizeSmall,
@@ -14,17 +16,47 @@ import {
   textAlignDescription,
   textAlignHeader,
   textFontFamilyDescription,
+  textFontFamilyHandle,
   textFontFamilyHeader,
+  textFontFamilyName,
   textFontSizeDescription,
+  textFontSizeHandle,
   textFontSizeHeader,
+  textFontSizeName,
 } from "./constants.js";
 
 const FormStyle = StyleSheet.create({
+  buttonUserProfilePictureBackground: {
+    backgroundColor: colorButtonUserProfilePictureBackground,
+    borderRadius: 100,
+    height: 150,
+    width: 150,
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+  },
+
+  buttonUserProfilePictureIcon: {
+    margin: 2,
+    fontSize: 120,
+  },
+
   container: {
     backgroundColor: colorBackground,
     flexGrow: 1,
     flexDirection: "column",
     justifyContent: "space-between",
+  },
+
+  containerAccountMenuScreen: {
+    backgroundColor: colorBackground,
+    flexGrow: 1,
+    flexDirection: "column",
+    justifyContent: "center",
+  },
+
+  containerAccountMenuListItems: {
+    alignItems: "center",
   },
 
   containerButtons: {
@@ -43,10 +75,6 @@ const FormStyle = StyleSheet.create({
   },
 
   containerDisclaimer: {
-    backgroundColor: colorBackground,
-    flexGrow: 1,
-    flexDirection: "column",
-    justifyContent: "center",
     paddingHorizontal: 10,
   },
 
@@ -89,6 +117,10 @@ const FormStyle = StyleSheet.create({
   containerInputLarge: {
     width: "90%",
     alignSelf: "center",
+  },
+
+  containerUserDetails: {
+
   },
 
   iconCalendar: {
@@ -137,6 +169,15 @@ const FormStyle = StyleSheet.create({
     paddingTop: 3,
   },
 
+
+  textUserHandle: {
+    color: colorTextGreyDark,
+    fontFamily: textFontFamilyHandle,
+    fontSize: textFontSizeHandle,
+    marginBottom: marginBottomDescription,
+    textAlign: textAlignDescription,
+  },
+
   textInput: {
     flex: 1,
     fontFamily: fontFamilyMedium,
@@ -149,6 +190,14 @@ const FormStyle = StyleSheet.create({
     fontFamily: fontFamilyMedium,
     fontSize: fontSizeMedium,
     marginBottom: 3,
+  },
+
+  textName: {
+    color: colorTextGreyDark,
+    fontFamily: textFontFamilyName,
+    fontSize: textFontSizeName,
+    marginBottom: marginBottomHeader,
+    textAlign: textAlignHeader,
   },
 });
 

@@ -56,7 +56,11 @@ export const fontSizeExtraLarge = 18;
 // colors
 export const colorBackground = paletteWhite;
 
+export const colorBackgroundDisabled = paletteMineShaft;
+
 export const colorBackgroundHeader = paletteRoyalBlue;
+
+export const colorButtonAccountMenuListItemBackground = paletteGallery;
 
 export const colorButtonCamera = paletteWhite;
 
@@ -66,7 +70,7 @@ export const colorButtonCameraRecording = paletteMonza;
 
 export const colorButtonPrimary = palettePersianRose;
 
-export const colorBackgroundDisabled = paletteMineShaft;
+export const colorButtonUserProfilePictureBackground = paletteGallery;
 
 export const colorInputUnfocused = paletteGallery;
 
@@ -102,8 +106,16 @@ export const textAlignHeader = "center";
 
 export const textFontFamilyDescription = fontFamilyRegular;
 
+export const textFontFamilyHandle = fontFamilyMedium;
+
 export const textFontFamilyHeader = fontFamilySemiBold;
+
+export const textFontFamilyName = fontFamilySemiBold;
 
 export const textFontSizeDescription = fontSizeLarge;
 
+export const textFontSizeHandle = fontSizeLarge;
+
 export const textFontSizeHeader = fontSizeLarge;
+
+export const textFontSizeName = fontSizeExtraLarge;
