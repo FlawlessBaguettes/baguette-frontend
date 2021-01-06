@@ -29,16 +29,17 @@ const FormStyle = StyleSheet.create({
   buttonUserProfilePictureBackground: {
     backgroundColor: colorButtonUserProfilePictureBackground,
     borderRadius: 100,
-    height: 150,
-    width: 150,
+    height: 125,
+    width: 125,
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center",
+    marginBottom: 10,
   },
 
   buttonUserProfilePictureIcon: {
     margin: 2,
-    fontSize: 120,
+    fontSize: 100,
   },
 
   container: {
@@ -120,7 +121,7 @@ const FormStyle = StyleSheet.create({
   },
 
   containerUserDetails: {
-
+    marginBottom: 50,
   },
 
   iconCalendar: {
@@ -196,7 +197,6 @@ const FormStyle = StyleSheet.create({
     color: colorTextGreyDark,
     fontFamily: textFontFamilyName,
     fontSize: textFontSizeName,
-    marginBottom: marginBottomHeader,
     textAlign: textAlignHeader,
   },
 });
