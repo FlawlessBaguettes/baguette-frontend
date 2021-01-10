@@ -4,14 +4,13 @@ import { Text, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import CustomButton from "./CustomButton";
-import AccountMenuListItem from "./AccountMenuListItem";
+import AccountMenuListItem, { AccountMenuItems } from "./AccountMenuListItem";
 
+import AccountMenuStyle from "../styles/AccountMenuStyle";
 import FormStyle from "../styles/FormStyle";
 
 const AccountMenuScreen = ({ navigation }) => {
   const [isLoggedIn, setIsLoggedin] = useState(false);
-  const [withColor, setWithColor] = useState(true);
-  const [withColorButton, setWithColorButton] = useState("Remove Color");
 
   const onPressAboutUs = () => {
     console.log("About Us");
@@ -35,26 +34,14 @@ const AccountMenuScreen = ({ navigation }) => {
     navigation.navigate("SignUpScreen");
   };
 
-  const onPressWithColor = () => {
-    console.log("Before", withColor, withColorButton);
-    if (withColor) {
-      setWithColor(false);
-      setWithColorButton("Add Color");
-    } else {
-      setWithColor(true);
-      setWithColorButton("Remove Color");
-    }
-    console.log("After", withColor, withColorButton);
-  };
-
   const registrationDisclaimer = () => {
     return (
       <View style={FormStyle.containerDisclaimer}>
         <Text style={FormStyle.textDisclaimerHeader}>
-          Hey!{"\n"} Looks like you don't have an account yet.
+          Hey!{"\n"} Looks like you don't have an account
         </Text>
         <Text style={FormStyle.textDisclaimerDescription}>
-          Sign up for an account to get access to a variety of features!
+          Sign up to access a variety of features
         </Text>
         <View style={FormStyle.containerButtons}>
           <CustomButton
@@ -75,55 +62,38 @@ const AccountMenuScreen = ({ navigation }) => {
 
   const userDetails = () => {
     return (
-      <View style={FormStyle.containerUserDetails}>
-        <View style={FormStyle.buttonUserProfilePictureBackground}>
+      <View style={AccountMenuStyle.containerUserDetails}>
+        <View style={AccountMenuStyle.buttonUserProfilePictureBackground}>
           <MaterialCommunityIcons
             name="account"
-            style={FormStyle.buttonUserProfilePictureIcon}
+            style={AccountMenuStyle.buttonUserProfilePictureIcon}
           />
         </View>
-        <Text style={FormStyle.textName}>John Doe</Text>
-        <Text style={FormStyle.textUserHandle}>@jdoe</Text>
+        <Text style={AccountMenuStyle.textName}>John Doe</Text>
+        <Text style={AccountMenuStyle.textUserHandle}>@jdoe</Text>
       </View>
     );
   };
 
   return (
-    <View style={FormStyle.containerAccountMenuScreen}>
+    <View style={AccountMenuStyle.containerAccountMenuScreen}>
       {!isLoggedIn && registrationDisclaimer()}
       {isLoggedIn && userDetails()}
-      <View style={FormStyle.containerAccountMenuListItems}>
+      <View style={AccountMenuStyle.containerAccountMenuListItems}>
         <AccountMenuListItem
-          iconName={"comment-question-outline"}
-          iconBackgroundColor={"#d10812"}
-          itemText={withColorButton}
-          onPress={onPressWithColor}
-          withColor={withColor}
-        />
-
-        <AccountMenuListItem
-          iconName={"comment-question-outline"}
-          iconBackgroundColor={"#7209b7"}
-          itemText={"Help & Support"}
+          menuItem={AccountMenuItems.HELP}
           onPress={onPressHelp}
-          withColor={withColor}
         />
 
         <AccountMenuListItem
-          iconName={"information-outline"}
-          iconBackgroundColor={"#3a0ca3"}
-          itemText={"About Us"}
+          menuItem={AccountMenuItems.ABOUT}
           onPress={onPressAboutUs}
-          withColor={withColor}
         />
 
         {isLoggedIn && (
           <AccountMenuListItem
-            iconName={"logout"}
-            iconBackgroundColor={"#4cc9f0"}
-            itemText={"Log Out"}
+            menuItem={AccountMenuItems.LOG_OUT}
             onPress={onPressLogout}
-            withColor={withColor}
           />
         )}
       </View>

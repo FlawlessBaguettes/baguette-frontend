@@ -17,6 +17,12 @@ export const palettePictonBlue = "#4cc9f0";
 
 export const paletteMonza = "#d10812";
 
+export const paletteCoralRed = "#FF4040";
+
+export const paletteMantis = "#83CE60";
+
+export const paletteCornflowerBlue = "#7070FF";
+
 // palette shades (ordered from lighest to darkest)
 
 export const paletteWhite = "white";
@@ -54,6 +60,12 @@ export const fontSizeExtraLarge = 18;
 // functional
 
 // colors
+export const colorAccountMenuListItemIconAboutBackground = paletteMantis;
+
+export const colorAccountMenuListItemIconHelpBackground = paletteCoralRed;
+
+export const colorAccountMenuListItemIconLogOutBackground = paletteCornflowerBlue;
+
 export const colorBackground = paletteWhite;
 
 export const colorBackgroundDisabled = paletteMineShaft;

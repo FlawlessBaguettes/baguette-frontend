@@ -10,12 +10,8 @@ import {
 } from "./constants.js";
 
 const NavigationStyle = StyleSheet.create({
-  containerHeaderLeft: {
-    marginLeft: 15,
-  },
-
-  containerHeaderRight: {
-    marginRight: 15,
+  containerHeaderItem: {
+    marginHorizontal: 15,
   },
 
   buttonBackground: {

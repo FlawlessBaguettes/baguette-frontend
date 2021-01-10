@@ -1,42 +1,17 @@
 import { StyleSheet } from "react-native";
 
 import {
-  colorButtonAccountMenuListItemBackground,
   colorButtonPrimary,
   colorTextDark,
-  colorTextGrey,
-  colorTextGreyDark,
   colorTextLight,
   fontFamilyMedium,
   fontSizeExtraLarge,
   fontSizeLarge,
-  fontSizeMedium,
   opacityDisabled,
   opacityEnabled,
 } from "./constants.js";
 
 const ButtonStyle = StyleSheet.create({
-
-  containerAccountMenuListItem: {
-    alignItems: "center",
-    backgroundColor: colorButtonAccountMenuListItemBackground,
-    borderRadius: 7,
-    flexDirection: "row",
-    marginBottom: 5,
-    paddingBottom: 7,
-    paddingTop: 7,
-    width: 325,
-  },
-
-  containerAccountMenuListItemIcon: {
-    alignItems: "center",
-    backgroundColor: colorTextGreyDark,
-    borderRadius: 10,
-    height: 32,
-    justifyContent: "center",
-    width: 32,
-    marginLeft: 15,
-  },
 
   buttonPrimary: {
     backgroundColor: colorButtonPrimary,
@@ -57,18 +32,6 @@ const ButtonStyle = StyleSheet.create({
 
   buttonPrimaryPressed: {
     opacity: opacityDisabled,
-  },
-
-  iconAccountMenuListItem: {
-    color: colorTextLight,
-    fontSize: 22,
-  },
-
-  textButtonAccountMenuListItem: {
-    color: colorTextDark,
-    fontFamily: fontFamilyMedium,
-    fontSize: fontSizeLarge,
-    marginLeft: 15,
   },
 
   textButtonPrimary: {

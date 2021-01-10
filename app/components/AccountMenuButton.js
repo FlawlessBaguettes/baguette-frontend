@@ -25,7 +25,7 @@ const AccountMenuButton = () => {
 
   return (
     <Pressable
-      style={[NavigationStyle.containerHeaderRight, buttonStylePressed]}
+      style={[NavigationStyle.containerHeaderItem, buttonStylePressed]}
       onPress={onPress}
       onPressIn={onPressIn}
       onPressOut={onPressOut}

@@ -3,10 +3,9 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import AccountMenuButton from "./AccountMenuButton";
 import AccountMenuScreen from "./AccountMenuScreen";
-import BackButton from "./BackButton";
 import CameraView from "./CameraView";
+import HeaderButton, { HeaderButtonType } from "./HeaderButton";
 import ListPostsScreen from "./ListPostsScreen";
 import LoginScreen from "./LoginScreen";
 import PostSubmit from "./PostSubmit";
@@ -20,11 +19,11 @@ const NavigationHeader = () => {
   const Stack = createStackNavigator();
 
   const backButton = () => {
-    return <BackButton />;
+    return <HeaderButton headerButtonType={HeaderButtonType.BACK} />;
   };
 
   const accountMenuButton = () => {
-    return <AccountMenuButton />;
+    return <HeaderButton headerButtonType={HeaderButtonType.ACCOUNT_MENU} />;
   };
 
   return (

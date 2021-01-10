@@ -26,7 +26,7 @@ const BackButton = () => {
   const backButton = () => {
     return (
       <Pressable
-        style={[NavigationStyle.containerHeaderLeft, buttonStylePressed]}
+        style={[NavigationStyle.containerHeaderItem, buttonStylePressed]}
         onPress={onPress}
         onPressIn={onPressIn}
         onPressOut={onPressOut}
