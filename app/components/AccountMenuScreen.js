@@ -41,7 +41,7 @@ const AccountMenuScreen = ({ navigation }) => {
           Hey!{"\n"} Looks like you don't have an account
         </Text>
         <Text style={FormStyle.textDisclaimerDescription}>
-          Sign up to access a variety of features
+          Sign up to join the community
         </Text>
         <View style={FormStyle.containerButtons}>
           <CustomButton
