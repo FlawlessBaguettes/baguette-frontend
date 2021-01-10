@@ -33,11 +33,11 @@ const NavigationStyle = StyleSheet.create({
   },
 
   textHeader: {
-    alignSelf: 'center',
+    alignSelf: "center",
     fontFamily: fontFamilyMedium,
     fontSize: fontSizeExtraLarge,
     color: colorTextLight,
-  }
+  },
 });
 
 export default NavigationStyle;

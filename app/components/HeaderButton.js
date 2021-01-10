@@ -16,12 +16,11 @@ export const HeaderButtonType = {
 const HeaderButton = ({ headerButtonType }) => {
   const [buttonStylePressed, setButtonStylePressed] = useState(null);
   const [icon, setIcon] = useState(null);
+  const navigation = useNavigation();
 
   useEffect(() => {
     updateIcon();
   });
-
-  const navigation = useNavigation();
 
   const buttonComponent = () => {
     return (
