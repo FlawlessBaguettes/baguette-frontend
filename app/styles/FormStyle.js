@@ -47,6 +47,13 @@ const FormStyle = StyleSheet.create({
     paddingHorizontal: 10,
   },
 
+  containerErrorScreen: {
+    backgroundColor: colorBackground,
+    flexGrow: 1,
+    flexDirection: "column",
+    justifyContent: "center",
+  },
+
   containerForm: {
     paddingTop: 10,
   },

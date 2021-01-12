@@ -22,6 +22,10 @@ const ListPostsScreen = ({ route, navigation }) => {
     updatePosts();
   });
 
+  const onRefresh = () => {
+    null;
+  };
+
   const renderItem = ({ item }) => (
     <PostCard
       contentPostedTime={item.content.posted_time}
@@ -49,7 +53,7 @@ const ListPostsScreen = ({ route, navigation }) => {
   if (hasError) {
     return (
       <ErrorScreen 
-        onRefresh={null}
+        onRefresh={onRefresh}
       />
     );
   }

@@ -11,19 +11,21 @@ const ErrorScreen = ({ onRefresh }) => {
   };
 
   return (
-    <View style={FormStyle.containerDisclaimer}>
-      <Text style={FormStyle.textDisclaimerHeader}>
-        Whoops!{"\n"} Looks like something isn't right.
-      </Text>
-      <Text style={FormStyle.textDisclaimerDescription}>
-        Try refreshing the page to fix the issue.
-      </Text>
-      <View style={FormStyle.containerButtons}>
-        <CustomButton
-          isPrimary={true}
-          onPress={onPressRefresh}
-          title={"Refresh"}
-        />
+    <View style={FormStyle.containerErrorScreen}>
+      <View style={FormStyle.containerDisclaimer}>
+        <Text style={FormStyle.textDisclaimerHeader}>
+          Whoops!{"\n"} Looks like something isn't right.
+        </Text>
+        <Text style={FormStyle.textDisclaimerDescription}>
+          Try refreshing the page to fix the issue.
+        </Text>
+        <View style={FormStyle.containerButtons}>
+          <CustomButton
+            isPrimary={true}
+            onPress={onPressRefresh}
+            title={"Refresh"}
+          />
+        </View>
       </View>
     </View>
   );
