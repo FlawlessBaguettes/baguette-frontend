@@ -11,19 +11,21 @@ import {
 import ErrorScreen from "./ErrorScreen";
 import PostCard from "./PostCard";
 
+import { GET_POSTS_ENDPOINT, GET_REPLIES_ENDPOINT } from "../api/constants";
+
 import useFetch from "../utils/useFetch";
 
 const ListPostsScreen = ({ route, navigation }) => {
   const [posts, setPosts] = useState(null);
-  const url = route.params.baseUrl;
-  let [response, loading, hasError] = useFetch(url);
+  const url =  route.params === undefined ? GET_POSTS_ENDPOINT :  GET_REPLIES_ENDPOINT + "/" + route.params.postId;
+  const [response, isLoading, hasError, refetch] = useFetch(url);
 
   useEffect(() => {
     updatePosts();
   });
 
   const onRefresh = () => {
-    null;
+    refetch()
   };
 
   const renderItem = ({ item }) => (
@@ -58,7 +60,7 @@ const ListPostsScreen = ({ route, navigation }) => {
     );
   }
 
-  if (loading || !response) {
+  if (isLoading || !response) {
     return <ActivityIndicator />;
   }
 

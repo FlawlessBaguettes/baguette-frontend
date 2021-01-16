@@ -34,7 +34,7 @@ const PostCard = ({
   const onPressSeeReplies = () => {
     if (numberOfReplies) {
       navigation.push("ListPostsScreen", {
-        baseUrl: GET_REPLIES_ENDPOINT + "/" + id,
+        postId: id,
       });
     }
   };

@@ -11,8 +11,6 @@ import LoginScreen from "./LoginScreen";
 import PostSubmit from "./PostSubmit";
 import SignUpScreen from "./SignUpScreen";
 
-import { GET_POSTS_ENDPOINT } from "../api/constants";
-
 import NavigationStyle from "../styles/NavigationStyle";
 
 const NavigationHeader = () => {
@@ -39,7 +37,6 @@ const NavigationHeader = () => {
         <Stack.Screen
           name="ListPostsScreen"
           component={ListPostsScreen}
-          initialParams={{ baseUrl: GET_POSTS_ENDPOINT }}
           options={{
             title: "Baguette",
             headerLeft: backButton,
