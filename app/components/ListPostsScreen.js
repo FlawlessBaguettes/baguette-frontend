@@ -16,16 +16,22 @@ import { GET_POSTS_ENDPOINT, GET_REPLIES_ENDPOINT } from "../api/constants";
 import useFetch from "../utils/useFetch";
 
 const ListPostsScreen = ({ route, navigation }) => {
+  const url =
+    route.params === undefined
+      ? GET_POSTS_ENDPOINT
+      : GET_REPLIES_ENDPOINT + "/" + route.params.postId;
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const [posts, setPosts] = useState(null);
-  const url =  route.params === undefined ? GET_POSTS_ENDPOINT :  GET_REPLIES_ENDPOINT + "/" + route.params.postId;
   const [response, isLoading, hasError, refetch] = useFetch(url);
 
   useEffect(() => {
     updatePosts();
   });
 
-  const onRefresh = () => {
-    refetch()
+  const onRefresh = async () => {
+    await setIsRefreshing(true);
+    await refetch();
+    await setIsRefreshing(false);
   };
 
   const renderItem = ({ item }) => (
@@ -53,11 +59,7 @@ const ListPostsScreen = ({ route, navigation }) => {
   };
 
   if (hasError) {
-    return (
-      <ErrorScreen 
-        onRefresh={onRefresh}
-      />
-    );
+    return <ErrorScreen onRefresh={onRefresh} />;
   }
 
   if (isLoading || !response) {
@@ -71,6 +73,8 @@ const ListPostsScreen = ({ route, navigation }) => {
         initialNumToRender={3} // items to render in initial batch
         keyExtractor={(item) => item.id}
         maxToRenderPerBatch={3} // number of additional items rendered on every scroll
+        onRefresh={onRefresh}
+        refreshing={isRefreshing}
         removeClippedSubviews={true} // when set to true it will unmount components off the viewport
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}

@@ -40,7 +40,7 @@ const PostCard = ({
   };
 
   if (!videoId) {
-    console.warn("Invalid URL or video ID")
+    console.warn("Invalid URL or video ID");
     return null;
   }
 
