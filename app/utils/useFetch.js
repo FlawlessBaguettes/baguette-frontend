@@ -3,24 +3,30 @@ import axios from "axios";
 
 function useFetch(url) {
   const [response, setResponse] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
+  const [refetchIndex, setRefetchIndex] = useState(0);
+
+  const refetch = () => {
+    setRefetchIndex((prevRefetchIndex) => prevRefetchIndex + 1)
+  }
 
   useEffect(() => {
-    setLoading(true);
+    setIsLoading(true);
     axios
       .get(url)
       .then((res) => {
         setResponse(res.data);
-        setLoading(false);
+        setIsLoading(false);
+        setHasError(false);
       })
       .catch(() => {
         setHasError(true);
-        setLoading(false);
+        setIsLoading(false);
       });
-  }, [url]);
+  }, [url, refetchIndex]);
 
-  return [response, loading, hasError];
+  return [response, isLoading, hasError, refetch];
 }
 
 export default useFetch;

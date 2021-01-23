@@ -4,25 +4,23 @@ import {
   colorBackground,
   colorInputFocused,
   colorInputUnfocused,
-  colorTextDark,
   colorTextError,
-  fontFamilyRegular,
+  colorTextGreyDark,
+  fontFamilyMedium,
   fontSizeMedium,
   fontSizeSmall,
+  marginBottomDescription,
+  marginBottomHeader,
+  textAlignDescription,
+  textAlignHeader,
+  textFontFamilyDescription,
+  textFontFamilyHeader,
+  textFontSizeDescription,
+  textFontSizeHeader,
 } from "./constants.js";
 
 const FormStyle = StyleSheet.create({
-  buttonsContainer: {
-    alignItems: "center",
-    marginBottom: 36,
-    width: "100%",
-  },
-
-  calendarIcon: {
-    padding: 10,
-    fontSize: 24,
-  },
-
+  
   container: {
     backgroundColor: colorBackground,
     flexGrow: 1,
@@ -30,18 +28,91 @@ const FormStyle = StyleSheet.create({
     justifyContent: "space-between",
   },
 
-  dateContainer: {
+  containerButtons: {
     alignItems: "center",
-    backgroundColor: colorInputUnfocused,
+    marginBottom: 36,
+    width: "100%",
+  },
+
+  containerDate: {
+    alignItems: "center",
+    borderColor: colorInputUnfocused,
     borderRadius: 5,
-    borderWidth: 0,
+    borderWidth: 3,
     flexDirection: "row",
     justifyContent: "center",
   },
 
-  dateTextField: {
+  containerDisclaimer: {
+    paddingHorizontal: 10,
+  },
+
+  containerErrorScreen: {
+    backgroundColor: colorBackground,
+    flexGrow: 1,
+    flexDirection: "column",
+    justifyContent: "center",
+  },
+
+  containerForm: {
+    paddingTop: 10,
+  },
+
+  containerFormTextInput: {
     flex: 1,
-    fontFamily: fontFamilyRegular,
+    flexDirection: "row",
+    borderRadius: 5,
+    borderWidth: 3,
+    height: 40,
+  },
+
+  containerFormTextInputColorFocused: {
+    borderColor: colorInputFocused,
+  },
+
+  containerFormTextInputColorUnfocused: {
+    borderColor: colorInputUnfocused,
+  },
+
+  containerIcon: {
+    paddingTop: 6,
+    paddingLeft: 5,
+    paddingRight: 5,
+  },
+
+  containerInputSmall: {
+    width: "50%",
+    alignSelf: "center",
+  },
+
+  containerInputMedium: {
+    width: "75%",
+    alignSelf: "center",
+  },
+
+  containerInputLarge: {
+    width: "90%",
+    alignSelf: "center",
+  },
+
+  containerUserDetails: {
+    marginBottom: 50,
+  },
+
+  iconCalendar: {
+    color: colorTextGreyDark,
+    fontSize: 24,
+    padding: 10,
+  },
+
+  iconSecureText: {
+    color: colorTextGreyDark,
+    fontSize: 24,
+  },
+
+  textDateField: {
+    flex: 1,
+    fontFamily: fontFamilyMedium,
     fontSize: fontSizeMedium,
     paddingTop: 10,
     paddingRight: 10,
@@ -49,72 +120,43 @@ const FormStyle = StyleSheet.create({
     paddingLeft: 0,
   },
 
-  errorMessage: {
+  textDisclaimerDescription: {
+    color: colorTextGreyDark,
+    fontFamily: textFontFamilyDescription,
+    fontSize: textFontSizeDescription,
+    marginBottom: marginBottomDescription,
+    textAlign: textAlignDescription,
+  },
+
+  textDisclaimerHeader: {
+    color: colorTextGreyDark,
+    fontFamily: textFontFamilyHeader,
+    fontSize: textFontSizeHeader,
+    marginBottom: marginBottomHeader,
+    textAlign: textAlignHeader,
+  },
+
+  textErrorMessage: {
     color: colorTextError,
-    fontFamily: fontFamilyRegular,
+    fontFamily: fontFamilyMedium,
     fontSize: fontSizeSmall,
     marginBottom: 7,
     paddingLeft: 3,
     paddingTop: 3,
   },
 
-  formsContainer: {
-    paddingTop: 10,
-  },
-
-  formTextInputContainer: {
-    flex: 1,
-    flexDirection: "row",
-    borderRadius: 5,
-    borderWidth: 0,
-    height: 40,
-  },
-
-  formTextInputContainerColor: {
-    backgroundColor: colorInputUnfocused,
-  },
-
-  formTextInputContainerColorFocused: {
-    backgroundColor: colorInputFocused,
-  },
-
-  iconContainer: {
-    paddingTop: 10,
-    paddingLeft: 5,
-    paddingRight: 5,
-  },
-
-  inputContainerSmall: {
-    width: "50%",
-    alignSelf: "center",
-  },
-
-  inputContainerMedium: {
-    width: "75%",
-    alignSelf: "center",
-  },
-
-  inputContainerLarge: {
-    width: "90%",
-    alignSelf: "center",
-  },
-
-  inputHeaderText: {
-    color: colorTextDark,
-    fontFamily: fontFamilyRegular,
-    fontSize: fontSizeMedium,
-    marginBottom: 3,
-  },
-
-  secureTextIcon: {
-    fontSize: 24,
-  },
-
   textInput: {
     flex: 1,
-    fontFamily: fontFamilyRegular,
+    fontFamily: fontFamilyMedium,
     fontSize: fontSizeMedium,
     marginLeft: 10,
+  },
+
+  textInputHeader: {
+    color: colorTextGreyDark,
+    fontFamily: fontFamilyMedium,
+    fontSize: fontSizeMedium,
+    marginBottom: 3,
   },
 });
 

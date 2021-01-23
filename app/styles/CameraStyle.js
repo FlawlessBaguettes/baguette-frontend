@@ -7,11 +7,16 @@ import {
   colorTextDark,
   colorTextGrey,
   colorTextLight,
-  fontFamilyMedium,
   fontFamilyRegular,
-  fontSizeExtraLarge,
-  fontSizeLarge,
   fontSizeMedium,
+  marginBottomDescription,
+  marginBottomHeader,
+  textAlignDescription,
+  textAlignHeader,
+  textFontFamilyDescription,
+  textFontFamilyHeader,
+  textFontSizeDescription,
+  textFontSizeHeader,
 } from "./constants.js";
 
 const CameraStyle = StyleSheet.create({
@@ -110,17 +115,18 @@ const CameraStyle = StyleSheet.create({
 
   textDescriptionEmptyState: {
     color: colorTextGrey,
-    fontFamily: fontFamilyRegular,
-    fontSize: fontSizeLarge,
-    textAlign: "center",
+    fontFamily: textFontFamilyDescription,
+    fontSize: textFontSizeDescription,
+    marginBottom: marginBottomDescription,
+    textAlign: textAlignDescription,
   },
 
   textHeaderEmptyState: {
     color: colorTextLight,
-    fontFamily: fontFamilyMedium,
-    fontSize: fontSizeExtraLarge,
-    marginBottom: 15,
-    textAlign: "center",
+    fontFamily: textFontFamilyHeader,
+    fontSize: textFontSizeHeader,
+    marginBottom: marginBottomHeader,
+    textAlign: textAlignHeader,
   },
 });
 

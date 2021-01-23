@@ -6,12 +6,12 @@ import { Camera } from "expo-camera";
 import CaptureButton from "./CaptureButton";
 import CameraStyle from "../styles/CameraStyle";
 
-function PostCamera({ cameraDisabled, cameraRef, toggleRecording, type: propsType }) {
-  const [type, setType] = useState(propsType)
+function PostCamera({ cameraDisabled, cameraRef, toggleRecording, type: propsCameraType }) {
+  const [type, setType] = useState(propsCameraType)
 
   const handleChange = (event) => {
-    if (type != propsType) {
-      setType(propsType)
+    if (type != propsCameraType) {
+      setType(propsCameraType)
     }
   }
 

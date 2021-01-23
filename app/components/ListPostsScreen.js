@@ -1,7 +1,4 @@
-import React from "react";
-import PostCard from "./PostCard";
-import useFetch from "../utils/useFetch";
-
+import React, { useEffect, useState, useCallback } from "react";
 import {
   ActivityIndicator,
   FlatList,
@@ -11,72 +8,79 @@ import {
   View,
 } from "react-native";
 
+import ErrorScreen from "./ErrorScreen";
+import PostCard from "./PostCard";
+
+import { GET_POSTS_ENDPOINT, GET_REPLIES_ENDPOINT } from "../api/constants";
+
+import useFetch from "../utils/useFetch";
+
 const ListPostsScreen = ({ route, navigation }) => {
-  const url = route.params.baseUrl;
-  const [response, loading, hasError] = useFetch(url);
+  const url =
+    route.params === undefined
+      ? GET_POSTS_ENDPOINT
+      : GET_REPLIES_ENDPOINT + "/" + route.params.postId;
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [posts, setPosts] = useState(null);
+  const [response, isLoading, hasError, refetch] = useFetch(url);
 
-  if (hasError) {
-    return (
-      <SafeAreaView>
-        <Text>Error occurred</Text>
-      </SafeAreaView>
-    );
-  }
-  if (loading || !response) {
-    return <ActivityIndicator />;
-  }
+  useEffect(() => {
+    updatePosts();
+  });
 
-  const posts = response.posts
-    ? response.posts.posts
-    : response.replies
-    ? response.replies.replies
-    : [];
+  const onRefresh = async () => {
+    await setIsRefreshing(true);
+    await refetch();
+    await setIsRefreshing(false);
+  };
 
   const renderItem = ({ item }) => (
     <PostCard
-      title={item.title}
       contentPostedTime={item.content.posted_time}
-      userFullName={item.user.full_name}
       contentUrl={item.content.url}
-      numberOfReplies={item.number_of_replies}
       id={item.id}
       navigation={navigation}
+      numberOfReplies={item.number_of_replies}
+      title={item.title}
+      userFullName={item.user.full_name}
     />
   );
 
-  // const ITEM_HEIGHT = 325;
+  const updatePosts = () => {
+    if (response) {
+      const p = response.posts
+        ? response.posts.posts
+        : response.replies
+        ? response.replies.replies
+        : [];
+
+      setPosts(p);
+    }
+  };
+
+  if (hasError) {
+    return <ErrorScreen onRefresh={onRefresh} />;
+  }
+
+  if (isLoading || !response) {
+    return <ActivityIndicator />;
+  }
+
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.signUpandLoginButtonsHeader}>
-        <Text
-          onPress={() => {
-            navigation.navigate("SignUpScreen");
-          }}
-        >
-          Sign Up
-        </Text>
-        <Text
-          onPress={() => {
-            navigation.navigate("LoginScreen");
-          }}
-        >
-          Login
-        </Text>
-      </View>
       <FlatList
         data={posts}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-        // getItemLayout={(data, index) => ({
-        //   length: ITEM_HEIGHT,
-        //   offset: ITEM_HEIGHT * index,
-        //   index,
-        // })}
-        windowSize={11} // unit here is 1 viewport height
         initialNumToRender={3} // items to render in initial batch
+        keyExtractor={(item) => item.id}
         maxToRenderPerBatch={3} // number of additional items rendered on every scroll
-        updateCellsBatchingPeriod={50} // delay in ms between batch renders, left as default
+        onRefresh={onRefresh}
+        refreshing={isRefreshing}
         removeClippedSubviews={true} // when set to true it will unmount components off the viewport
+        renderItem={renderItem}
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
+        updateCellsBatchingPeriod={50} // delay in ms between batch renders, left as default
+        windowSize={11} // unit here is 1 viewport height
       />
     </SafeAreaView>
   );
@@ -85,11 +89,7 @@ const ListPostsScreen = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#DCDCDC",
-  },
-  signUpandLoginButtonsHeader: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    backgroundColor: "#f5f5f5",
   },
 });
 

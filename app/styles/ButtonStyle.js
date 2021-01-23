@@ -1,19 +1,17 @@
 import { StyleSheet } from "react-native";
 
 import {
-  fontFamilyRegular,
+  colorButtonPrimary,
+  colorTextDark,
+  colorTextLight,
+  fontFamilyMedium,
   fontSizeExtraLarge,
   fontSizeLarge,
-  colorButtonPrimary,
-  colorTextLight,
+  opacityDisabled,
+  opacityEnabled,
 } from "./constants.js";
 
 const ButtonStyle = StyleSheet.create({
-  container: {
-    backgroundColor: "white",
-    flex: 1,
-    alignItems: "center",
-  },
 
   buttonPrimary: {
     backgroundColor: colorButtonPrimary,
@@ -25,29 +23,40 @@ const ButtonStyle = StyleSheet.create({
   },
 
   buttonPrimaryDisabled: {
-    opacity: 0.25,
+    opacity: opacityDisabled,
   },
 
   buttonPrimaryEnabled: {
-    opacity: 1,
+    opacity: opacityEnabled,
   },
 
-  buttonPrimaryText: {
+  buttonPrimaryPressed: {
+    opacity: opacityDisabled,
+  },
+
+  textButtonPrimary: {
     alignSelf: "center",
     color: colorTextLight,
-    fontFamily: fontFamilyRegular,
+    fontFamily: fontFamilyMedium,
     fontSize: fontSizeExtraLarge,
   },
 
-  buttonSecondary: {},
-
-  buttonSecondaryDisabled: {},
-
-  buttonSecondaryEnabled: {},
-
-  buttonSecondaryText: {
-    fontFamily: fontFamilyRegular,
+  textButtonSecondary: {
+    color: colorTextDark,
+    fontFamily: fontFamilyMedium,
     fontSize: fontSizeLarge,
+  },
+
+  textButtonSecondaryDisabled: {
+    opacity: opacityDisabled,
+  },
+
+  textButtonSecondaryEnabled: {
+    opacity: opacityEnabled,
+  },
+
+  textButtonSecondaryPressed: {
+    opacity: opacityDisabled,
   },
 });
 
