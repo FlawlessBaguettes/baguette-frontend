@@ -12,6 +12,8 @@ import { StatusBar } from "expo-status-bar";
 
 import NavigationHeader from "./app/components/NavigationHeader";
 
+import { AuthProvider } from "./app/components/authContext";
+
 export default App = () => {
   let [fontsLoaded] = useFonts({
     Poppins_400Regular,
@@ -25,8 +27,10 @@ export default App = () => {
 
   return (
     <SafeAreaProvider>
-      <StatusBar style={'light'} />
-      <NavigationHeader />
+      <AuthProvider>
+        <StatusBar style={"light"} />
+        <NavigationHeader />
+      </AuthProvider>
     </SafeAreaProvider>
   );
 };
