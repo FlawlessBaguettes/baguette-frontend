@@ -6,13 +6,12 @@ import {
   colorTextLight,
   fontFamilyMedium,
   fontSizeExtraLarge,
-  fontSizeLarge,
+  fontSizeMedium,
   opacityDisabled,
   opacityEnabled,
 } from "./constants.js";
 
 const ButtonStyle = StyleSheet.create({
-
   buttonPrimary: {
     backgroundColor: colorButtonPrimary,
     borderRadius: 25,
@@ -44,7 +43,8 @@ const ButtonStyle = StyleSheet.create({
   textButtonSecondary: {
     color: colorTextDark,
     fontFamily: fontFamilyMedium,
-    fontSize: fontSizeLarge,
+    fontSize: fontSizeMedium,
+    padding: 2,
   },
 
   textButtonSecondaryDisabled: {

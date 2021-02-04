@@ -6,6 +6,7 @@ import {
   fontFamilyMedium,
   fontFamilyRegular,
   fontSizeExtraLarge,
+  fontSizeLarge,
   fontSizeMedium,
   fontSizeSmall,
 } from "./constants.js";
@@ -22,6 +23,21 @@ const PostStyle = StyleSheet.create({
     marginTop: 5,
     paddingHorizontal: 5,
     paddingVertical: 10,
+  },
+
+  containerCompactCard: {
+    alignItems: "center",
+    flexDirection: "row",
+    height: 70,
+    justifyContent: "space-between",
+  },
+
+  containerCompactCardText: {
+    width: 200,
+  },
+
+  containerCompactCardVideo: {
+    height: 80,
   },
 
   containerHeader: {
@@ -43,7 +59,8 @@ const PostStyle = StyleSheet.create({
   },
 
   containerVideo: {
-    height: 220,
+    height: 200,
+    marginBottom: 10,
   },
 
   textPostedTime: {
@@ -55,6 +72,11 @@ const PostStyle = StyleSheet.create({
   textTitle: {
     fontFamily: fontFamilyMedium,
     fontSize: fontSizeExtraLarge,
+  },
+
+  textTitleCompactCard: {
+    fontFamily: fontFamilyMedium,
+    fontSize: fontSizeLarge,
   },
 
   textUserFullName: {

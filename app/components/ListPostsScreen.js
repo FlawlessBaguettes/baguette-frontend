@@ -39,6 +39,7 @@ const ListPostsScreen = ({ route, navigation }) => {
       contentPostedTime={item.content.posted_time}
       contentUrl={item.content.url}
       id={item.id}
+      isCompactCard={item.is_parent_replies}
       navigation={navigation}
       numberOfReplies={item.number_of_replies}
       title={item.title}
@@ -51,8 +52,8 @@ const ListPostsScreen = ({ route, navigation }) => {
       const p = response.posts
         ? response.posts.posts
         : response.replies
-        ? response.replies.replies
-        : [];
+        ? response.replies.posts
+        : null;
 
       setPosts(p);
     }
