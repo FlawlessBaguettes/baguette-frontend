@@ -108,7 +108,7 @@ const PostCard = ({
 
         <View style={PostStyle.containerVideo}>
           <YoutubePlayer
-            height={200}
+            height={220}
             videoId={videoId}
             initialPlayerParams={{ loop: true, modestbranding: true }}
           />

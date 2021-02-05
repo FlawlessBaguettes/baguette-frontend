@@ -59,7 +59,7 @@ const PostStyle = StyleSheet.create({
   },
 
   containerVideo: {
-    height: 200,
+    height: 220,
     marginBottom: 10,
   },
 
