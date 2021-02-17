@@ -69,7 +69,7 @@ function CameraView({ navigation }) {
 
   const renderPostPreview = () => {
     if (!showCamera && video) {
-      return <PostPreview uri={video.uri} />;
+      return <PostPreview isMuted={false} uri={video.uri} />;
     } else {
       return null;
     }

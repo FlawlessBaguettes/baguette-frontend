@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { Pressable, Text, View } from "react-native";
+import React, { useEffect, useRef, useState } from "react";
+import { Animated, Pressable, Text, View } from "react-native";
 
-import YoutubePlayer from "react-native-youtube-iframe";
+import { Video } from "expo-av";
 
 import CustomButton from "./CustomButton";
+import PostPreview from "./PostPreview";
 
 import PostStyle from "../styles/PostStyle";
 
@@ -13,31 +14,29 @@ const PostCard = ({
   contentPostedTime,
   contentUrl,
   id,
-  isCompactCard,
   navigation,
   numberOfReplies,
   title,
   userFullName,
+  postHeight,
 }) => {
-  const [isCompact, setIsCompact] = useState(isCompactCard);
-  const [cardSizeButtonText, setCardSizeButtonText] = useState(null);
-
-  const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
-  const match = contentUrl.match(regExp);
-  const videoId = match && match[7].length == 11 ? match[7] : false;
+  const headerFadeAnim = useRef(new Animated.Value(1)).current;
+  const headerFadeOutTimeout = 3000;
+  const [uri, setUri] = useState(null);
 
   const seeRepliesButtonTitle =
     numberOfReplies > 0 ? "See " + numberOfReplies + " Replies" : "0 Replies";
 
   const isSeeRepliesButtonDisabled = numberOfReplies > 0 ? false : true;
 
-  useEffect(() => {
-    updateCardSizeButtonText();
-  });
+  const VIMEO_ID = '265111898';
+  fetch(`https://player.vimeo.com/video/${VIMEO_ID}/config`)
+    .then(res => res.json())
+    .then(res => setUri(res.request.files.hls.cdns[res.request.files.hls.default_cdn].url));
 
-  const onPressToggleCardSize = () => {
-    setIsCompact(!isCompact);
-  };
+  useEffect(() => {
+    setTimeout(() => { headerFadeOut() }, headerFadeOutTimeout);
+  }, [headerFadeAnim])
 
   const onPressReply = () => {
     navigation.navigate("CameraView");
@@ -51,107 +50,68 @@ const PostCard = ({
     }
   };
 
-  const updateCardSizeButtonText = () => {
-    isCompact
-      ? setCardSizeButtonText("Expand")
-      : setCardSizeButtonText("Collapse");
+  const onVideoPressIn = () => {
+    headerFadeIn();
+    setTimeout(() => { headerFadeOut() }, headerFadeOutTimeout);
   };
 
-  const compactPostCard = () => {
-    return (
-      <Pressable onPress={onPressToggleCardSize}>
-        <View style={PostStyle.container}>
-          <View style={PostStyle.containerCompactCard}>
-            <View style={PostStyle.containerCompactCardText}>
-              <Text style={PostStyle.textTitleCompactCard} numberOfLines={3}>
-                {title}
-              </Text>
-              <View>
-                <Text style={PostStyle.textPostedTime}>
-                  {userFullName} • {contentPostedTime}
-                </Text>
-              </View>
-            </View>
-            <View style={PostStyle.containerCompactCardVideo}>
-              <YoutubePlayer
-                height={150}
-                width={150}
-                videoId={videoId}
-                initialPlayerParams={{ loop: true, modestbranding: true }}
-              />
-            </View>
-          </View>
+  const headerFadeIn = () => {
+    Animated.timing(headerFadeAnim, {
+      toValue: 1,
+      duration: 1000,
+      useNativeDriver: true,
+    }).start();
+  };
 
-          <View style={PostStyle.containerFooter}>
-            <CustomButton
-              isPrimary={false}
-              onPress={onPressToggleCardSize}
-              title={cardSizeButtonText}
-            />
-          </View>
-        </View>
-      </Pressable>
-    );
+  const headerFadeOut = () => {
+    Animated.timing(headerFadeAnim, {
+      toValue: 0,
+      duration: 2000,
+      useNativeDriver: true,
+    }).start();
   };
 
   const fullPostCard = () => {
     return (
-      <View style={PostStyle.container}>
-        <View style={PostStyle.containerHeader}>
+      <Pressable onPress={onVideoPressIn}>
+      <View style={[PostStyle.container, { height: postHeight }]}>
+          <View style={PostStyle.containerVideo}>
+            <PostPreview isMuted={true} uri={uri} />
+          </View>
+
+        <Animated.View style={[PostStyle.containerHeader, { opacity: headerFadeAnim }]}>
           <View style={PostStyle.containerTitle}>
             <Text style={PostStyle.textTitle}>{title}</Text>
             <Text style={PostStyle.textPostedTime}>{contentPostedTime}</Text>
           </View>
 
           <Text style={PostStyle.textUserFullName}>{userFullName}</Text>
-        </View>
-
-        <View style={PostStyle.containerVideo}>
-          <YoutubePlayer
-            height={220}
-            videoId={videoId}
-            initialPlayerParams={{ loop: true, modestbranding: true }}
-          />
-        </View>
+        </Animated.View>
 
         <View style={PostStyle.containerFooter}>
-          {!isCompactCard && (
-            <CustomButton
-              isPrimary={false}
-              onPress={onPressSeeReplies}
-              title={seeRepliesButtonTitle}
-              disabled={isSeeRepliesButtonDisabled}
-            />
-          )}
-          {!isCompactCard && (
-            <CustomButton
-              isPrimary={false}
-              onPress={onPressReply}
-              title={"Reply"}
-            />
-          )}
+          <CustomButton
+            isPrimary={false}
+            onPress={onPressReply}
+            title={"Reply"}
+            theme={"light"}
+          />
 
-          {isCompactCard && (
-            <CustomButton
-              isPrimary={false}
-              onPress={onPressToggleCardSize}
-              title={cardSizeButtonText}
-            />
-          )}
+          <CustomButton
+            disabled={isSeeRepliesButtonDisabled}
+            isPrimary={false}
+            onPress={onPressSeeReplies}
+            title={seeRepliesButtonTitle}
+            theme={"light"}
+          />
         </View>
       </View>
+      </Pressable>
     );
   };
 
-  if (!videoId) {
-    console.warn("Invalid URL or video ID");
-    return null;
-  }
-
   return (
     <View>
-      {isCompact && compactPostCard()}
-      {!isCompact && fullPostCard()}
+      {fullPostCard()}
     </View>
   );
 };

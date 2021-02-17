@@ -6,6 +6,7 @@ import {
   colorTextLight,
   fontFamilyMedium,
   fontSizeExtraLarge,
+  fontSizeLarge,
   fontSizeMedium,
   opacityDisabled,
   opacityEnabled,
@@ -41,10 +42,13 @@ const ButtonStyle = StyleSheet.create({
   },
 
   textButtonSecondary: {
-    color: colorTextDark,
     fontFamily: fontFamilyMedium,
-    fontSize: fontSizeMedium,
+    fontSize: fontSizeLarge,
     padding: 2,
+  },
+
+  textButtonSecondaryDark: {
+    color: colorTextDark,
   },
 
   textButtonSecondaryDisabled: {
@@ -53,6 +57,10 @@ const ButtonStyle = StyleSheet.create({
 
   textButtonSecondaryEnabled: {
     opacity: opacityEnabled,
+  },
+
+  textButtonSecondaryLight: {
+    color: colorTextLight,
   },
 
   textButtonSecondaryPressed: {

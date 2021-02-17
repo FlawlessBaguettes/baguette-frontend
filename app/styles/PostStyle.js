@@ -1,86 +1,63 @@
 import { StyleSheet } from "react-native";
 
 import {
-  colorBackground,
-  colorTextGreyDark,
   fontFamilyMedium,
-  fontFamilyRegular,
   fontSizeExtraLarge,
-  fontSizeLarge,
   fontSizeMedium,
   fontSizeSmall,
 } from "./constants.js";
 
 const PostStyle = StyleSheet.create({
   container: {
-    backgroundColor: colorBackground,
-    borderBottomWidth: 1,
-    borderColor: colorBackground,
-    borderRadius: 10,
-    marginBottom: 5,
-    marginLeft: 5,
-    marginRight: 5,
-    marginTop: 5,
-    paddingHorizontal: 5,
-    paddingVertical: 10,
-  },
-
-  containerCompactCard: {
-    alignItems: "center",
-    flexDirection: "row",
-    height: 70,
-    justifyContent: "space-between",
-  },
-
-  containerCompactCardText: {
-    width: 200,
-  },
-
-  containerCompactCardVideo: {
-    height: 80,
+    flex: 1,
   },
 
   containerHeader: {
     flex: 1,
-    marginBottom: 5,
-    marginTop: 5,
+    paddingHorizontal: 10,
+    paddingVertical: 15,
+    position: "absolute",
+    width: "100%",
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
   },
 
   containerFooter: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginLeft: 5,
-    marginRight: 5,
+    paddingBottom: 15,
+    paddingHorizontal: 10,
+    position: "absolute",
+    width: "100%",
+    bottom: 0,
   },
 
   containerTitle: {
+    alignItems: "center",
     flexDirection: "row",
     justifyContent: "space-between",
   },
 
   containerVideo: {
-    height: 220,
-    marginBottom: 10,
+    height: "100%",
   },
 
   textPostedTime: {
-    color: colorTextGreyDark,
+    color: "white",
     fontFamily: fontFamilyMedium,
     fontSize: fontSizeSmall,
   },
 
   textTitle: {
+    color: "white",
     fontFamily: fontFamilyMedium,
     fontSize: fontSizeExtraLarge,
   },
 
-  textTitleCompactCard: {
-    fontFamily: fontFamilyMedium,
-    fontSize: fontSizeLarge,
-  },
-
   textUserFullName: {
-    color: colorTextGreyDark,
+    color: "white",
     fontFamily: fontFamilyMedium,
     fontSize: fontSizeMedium,
   },

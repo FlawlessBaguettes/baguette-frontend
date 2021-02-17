@@ -4,10 +4,13 @@ import PropTypes from "prop-types";
 
 import ButtonStyle from "../styles/ButtonStyle";
 
-function CustomButton({ disabled, isPrimary, onPress, title }) {
+function CustomButton({ disabled, isPrimary, onPress, theme: propsTheme, title }) {
+  const theme = propsTheme ? propsTheme : 'dark';
+
   const [buttonStyle, setButtonStyle] = useState(null);
   const [buttonStyleEnabled, setButtonStyleEnabled] = useState(null);
   const [buttonStylePressed, setButtonStylePressed] = useState(null);
+  const [textTheme, setTextTheme] = useState(null);
   const [textStyle, setTextStyle] = useState(null);
   const [textStyleEnabled, setTextStyleEnabled] = useState(null);
   const [textStylePressed, setTextStylePressed] = useState(null);
@@ -15,6 +18,7 @@ function CustomButton({ disabled, isPrimary, onPress, title }) {
   useEffect(() => {
     updateButtonStyleEnabled();
     updateButtonStyle();
+    updateTextTheme();
     updateTextStyle();
     updateTextStyleEnabled();
   });
@@ -23,7 +27,7 @@ function CustomButton({ disabled, isPrimary, onPress, title }) {
     !isPrimary
       ? setTextStylePressed(ButtonStyle.textButtonSecondaryPressed)
       : setTextStylePressed(null);
-      
+
     isPrimary ? setButtonStylePressed(ButtonStyle.buttonPrimaryPressed) : null;
   };
 
@@ -41,17 +45,19 @@ function CustomButton({ disabled, isPrimary, onPress, title }) {
   };
 
   const updateButtonStyle = () => {
-    const style = isPrimary ? ButtonStyle.buttonPrimary : null;
+    isPrimary ? setButtonStyle(ButtonStyle.buttonPrimary) : null;
+  };
 
-    setButtonStyle(style);
+  const updateTextTheme = () => {
+    if (!isPrimary) {
+      theme === 'dark' ? setTextTheme(ButtonStyle.textButtonSecondaryDark) : setTextTheme(ButtonStyle.textButtonSecondaryLight)
+    }
   };
 
   const updateTextStyle = () => {
-    const style = isPrimary
-      ? ButtonStyle.textButtonPrimary
-      : ButtonStyle.textButtonSecondary;
-
-    setTextStyle(style);
+    isPrimary
+      ? setTextStyle(ButtonStyle.textButtonPrimary)
+      : setTextStyle(ButtonStyle.textButtonSecondary);
   };
 
   const updateTextStyleEnabled = () => {
@@ -70,7 +76,7 @@ function CustomButton({ disabled, isPrimary, onPress, title }) {
       onPressOut={onPressOut}
       style={[buttonStyle, buttonStyleEnabled, buttonStylePressed]}
     >
-      <Text style={[textStyle, textStyleEnabled, textStylePressed]}>
+      <Text style={[textStyle, textStyleEnabled, textStylePressed, textTheme]}>
         {title}
       </Text>
     </Pressable>
