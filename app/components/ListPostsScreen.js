@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
   FlatList,
@@ -20,26 +20,39 @@ import useFetch from "../utils/useFetch";
 const ListPostsScreen = ({ route, navigation }) => {
   const insets = useSafeAreaInsets();
   const postHeight = SCREEN_HEIGHT - useHeaderHeight() - insets.bottom;
-  
+
   const url =
     route.params === undefined
       ? GET_POSTS_ENDPOINT
       : GET_REPLIES_ENDPOINT + "/" + route.params.postId;
 
-  const onViewRef = useRef((viewableItems, changed) => {
-    console.log("Visible items are", viewableItems);
-    console.log("Changed in this iteration", changed);
-  })
-  const viewConfigRef = useRef({ viewAreaCoveragePercentThreshold: 50 })
-
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [posts, setPosts] = useState(null);
+  const [visibilePost, setVisiblePost] = useState(null);
+
   const [response, isLoading, hasError, refetch] = useFetch(url);
+
+  const onViewRef = useRef((viewableItems) => {
+    console.log(viewableItems.viewableItems)
+  })
+  
+  const viewConfigRef = useRef({ viewAreaCoveragePercentThreshold: 50, waitForInteraction: false, })
 
 
   useEffect(() => {
+    let isMounted = true;
     updatePosts();
-  });
+
+    return () => { isMounted = false }; 
+  }, [url]);
+
+  const getItemLayout = useCallback((data, index) => ({
+    length: postHeight,
+    offset: postHeight * index,
+    index,
+  }), [])
+
+  const keyExtractor = useCallback((item) => item.id, [])
 
   const onRefresh = async () => {
     setIsRefreshing(true);
@@ -47,18 +60,19 @@ const ListPostsScreen = ({ route, navigation }) => {
     setIsRefreshing(false);
   };
 
-  const renderItem = ({ item }) => (
+  const renderItem = useCallback(({ item }) =>
     <PostCard
       contentPostedTime={item.content.posted_time}
       contentUrl={item.content.url}
       id={item.id}
+      isActive={visibilePost === item.index}
       navigation={navigation}
       numberOfReplies={item.number_of_replies}
       title={item.title}
       userFullName={item.user.full_name}
       postHeight={postHeight}
     />
-  );
+  , []);
 
   const updatePosts = () => {
     if (response) {
@@ -85,8 +99,9 @@ const ListPostsScreen = ({ route, navigation }) => {
       <FlatList
         data={posts}
         decelerationRate={'fast'}
+        getItemLayout={getItemLayout}
         initialNumToRender={3} // items to render in initial batch
-        keyExtractor={(item) => item.id}
+        keyExtractor={keyExtractor}
         maxToRenderPerBatch={3} // number of additional items rendered on every scroll
         onRefresh={onRefresh}
         onViewableItemsChanged={onViewRef.current}
@@ -99,7 +114,7 @@ const ListPostsScreen = ({ route, navigation }) => {
         snapToInterval={postHeight}
         updateCellsBatchingPeriod={50} // delay in ms between batch renders, left as default
         viewabilityConfig={viewConfigRef.current}
-        windowSize={11} // unit here is 1 viewport height
+        windowSize={3} // unit here is 1 viewport height
       />
     </SafeAreaView>
   );

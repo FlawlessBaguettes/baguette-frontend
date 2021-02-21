@@ -2,8 +2,9 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 import { Video } from "expo-av";
 
-function PostPreview({ isMuted: propsIsMuted, uri }) {
+function PostPreview({ shouldPlay: propsShouldPlay, isMuted: propsIsMuted, uri }) {
   const isMuted = propsIsMuted ? propsIsMuted : true;
+  const shoudPlay = propsShouldPlay ? propsShouldPlay : true;
   
   return (
     <View style={styles.container}>
@@ -13,7 +14,7 @@ function PostPreview({ isMuted: propsIsMuted, uri }) {
         volume={1.0}
         isMuted={isMuted}
         resizeMode={Video.RESIZE_MODE_COVER}
-        shouldPlay={true}
+        shouldPlay={shoudPlay}
         isLooping={true}
         style={styles.container}
       />

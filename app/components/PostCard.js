@@ -35,6 +35,12 @@ const PostCard = ({
     .then(res => setUri(res.request.files.hls.cdns[res.request.files.hls.default_cdn].url));
 
   useEffect(() => {
+    let isMounted = true;
+    
+    return () => { isMounted = false };
+  })
+  
+    useEffect(() => {
     setTimeout(() => { headerFadeOut() }, headerFadeOutTimeout);
   }, [headerFadeAnim])
 
