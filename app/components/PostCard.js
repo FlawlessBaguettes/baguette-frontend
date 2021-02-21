@@ -8,17 +8,14 @@ import PostPreview from "./PostPreview";
 
 import PostStyle from "../styles/PostStyle";
 
-import { GET_REPLIES_ENDPOINT } from "../api/constants";
-
 const PostCard = ({
   contentPostedTime,
-  contentUrl,
   id,
   navigation,
   numberOfReplies,
+  postHeight,
   title,
   userFullName,
-  postHeight,
 }) => {
   const headerFadeAnim = useRef(new Animated.Value(1)).current;
   const headerFadeOutTimeout = 3000;
@@ -36,11 +33,11 @@ const PostCard = ({
 
   useEffect(() => {
     let isMounted = true;
-    
+
     return () => { isMounted = false };
   })
-  
-    useEffect(() => {
+
+  useEffect(() => {
     setTimeout(() => { headerFadeOut() }, headerFadeOutTimeout);
   }, [headerFadeAnim])
 
@@ -80,37 +77,37 @@ const PostCard = ({
   const fullPostCard = () => {
     return (
       <Pressable onPress={onVideoPressIn}>
-      <View style={[PostStyle.container, { height: postHeight }]}>
+        <View style={[PostStyle.container, { height: postHeight }]}>
           <View style={PostStyle.containerVideo}>
             <PostPreview isMuted={true} uri={uri} />
           </View>
 
-        <Animated.View style={[PostStyle.containerHeader, { opacity: headerFadeAnim }]}>
-          <View style={PostStyle.containerTitle}>
-            <Text style={PostStyle.textTitle}>{title}</Text>
-            <Text style={PostStyle.textPostedTime}>{contentPostedTime}</Text>
+          <Animated.View style={[PostStyle.containerHeader, { opacity: headerFadeAnim }]}>
+            <View style={PostStyle.containerTitle}>
+              <Text style={PostStyle.textTitle}>{title}</Text>
+              <Text style={PostStyle.textPostedTime}>{contentPostedTime}</Text>
+            </View>
+
+            <Text style={PostStyle.textUserFullName}>{userFullName}</Text>
+          </Animated.View>
+
+          <View style={PostStyle.containerFooter}>
+            <CustomButton
+              isPrimary={false}
+              onPress={onPressReply}
+              title={"Reply"}
+              theme={"light"}
+            />
+
+            <CustomButton
+              disabled={isSeeRepliesButtonDisabled}
+              isPrimary={false}
+              onPress={onPressSeeReplies}
+              title={seeRepliesButtonTitle}
+              theme={"light"}
+            />
           </View>
-
-          <Text style={PostStyle.textUserFullName}>{userFullName}</Text>
-        </Animated.View>
-
-        <View style={PostStyle.containerFooter}>
-          <CustomButton
-            isPrimary={false}
-            onPress={onPressReply}
-            title={"Reply"}
-            theme={"light"}
-          />
-
-          <CustomButton
-            disabled={isSeeRepliesButtonDisabled}
-            isPrimary={false}
-            onPress={onPressSeeReplies}
-            title={seeRepliesButtonTitle}
-            theme={"light"}
-          />
         </View>
-      </View>
       </Pressable>
     );
   };

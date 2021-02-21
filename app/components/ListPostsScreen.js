@@ -35,16 +35,17 @@ const ListPostsScreen = ({ route, navigation }) => {
   const onViewRef = useRef((viewableItems) => {
     console.log(viewableItems.viewableItems)
   })
-  
+
   const viewConfigRef = useRef({ viewAreaCoveragePercentThreshold: 50, waitForInteraction: false, })
 
 
   useEffect(() => {
     let isMounted = true;
+
     updatePosts();
 
-    return () => { isMounted = false }; 
-  }, [url]);
+    return () => { isMounted = false };
+  }, [response]);
 
   const getItemLayout = useCallback((data, index) => ({
     length: postHeight,
@@ -65,14 +66,13 @@ const ListPostsScreen = ({ route, navigation }) => {
       contentPostedTime={item.content.posted_time}
       contentUrl={item.content.url}
       id={item.id}
-      isActive={visibilePost === item.index}
       navigation={navigation}
       numberOfReplies={item.number_of_replies}
+      postHeight={postHeight}
       title={item.title}
       userFullName={item.user.full_name}
-      postHeight={postHeight}
     />
-  , []);
+    , []);
 
   const updatePosts = () => {
     if (response) {
@@ -114,7 +114,7 @@ const ListPostsScreen = ({ route, navigation }) => {
         snapToInterval={postHeight}
         updateCellsBatchingPeriod={50} // delay in ms between batch renders, left as default
         viewabilityConfig={viewConfigRef.current}
-        windowSize={3} // unit here is 1 viewport height
+        windowSize={5} // unit here is 1 viewport height
       />
     </SafeAreaView>
   );
