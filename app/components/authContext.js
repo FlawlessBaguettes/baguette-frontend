@@ -8,50 +8,44 @@ const AuthProvider = ({ children }) => {
   const [authState, setAuthState] = useState({});
 
   useEffect(() => {
-    const bootstrapAsync = async () => {
-      let token, expiresAt, userInfo;
+    const bootstrap = async () => {
+      let token, expiryTime, userData;
       try {
         token = await AsyncStorage.getItem("token");
-        expiresAt = await AsyncStorage.getItem("expiresAt");
-        userInfo = await AsyncStorage.getItem("userInfo");
-      } catch (e) {
-        console.log(e);
+        expiryTime = await AsyncStorage.getItem("expiryTime");
+        userData = await AsyncStorage.getItem("userData");
+      } catch (error) {
+        console.log(error);
       }
 
-      if (new Date().getTime() / 1000 > JSON.parse(expiresAt)) {
-        signOut();
+      if (new Date().getTime() / 1000 > JSON.parse(expiryTime)) {
+        logOut();
       }
 
       setAuthState({
         token,
-        expiresAt,
-        userInfo: userInfo ? JSON.parse(userInfo) : {},
+        expiryTime,
+        userData: userData ? JSON.parse(userData) : {},
       });
     };
 
-    bootstrapAsync();
+    bootstrap();
   }, []);
 
-  const setStorage = async (token, expiresAt, userInfo) => {
+  const setStorage = async (token, expiryTime, userData) => {
     try {
-      console.log(
-        "in setstorage setting params..." +
-          token +
-          JSON.stringify(expiresAt) +
-          JSON.stringify(userInfo)
-      );
       await AsyncStorage.setItem("token", token);
-      await AsyncStorage.setItem("expiresAt", JSON.stringify(expiresAt));
-      await AsyncStorage.setItem("userInfo", JSON.stringify(userInfo));
+      await AsyncStorage.setItem("expiryTime", JSON.stringify(expiryTime));
+      await AsyncStorage.setItem("userData", JSON.stringify(userData));
     } catch (error) {
       console.log(error);
     }
 
-    setAuthState({ token, expiresAt, userInfo });
+    setAuthState({ token, expiryTime, userData });
   };
 
-  const signOut = async () => {
-    const keys = ["token", "expiresAt", "userInfo"];
+  const logOut = async () => {
+    const keys = ["token", "expiryTime", "userData"];
 
     try {
       await AsyncStorage.multiRemove(keys);
@@ -59,11 +53,11 @@ const AuthProvider = ({ children }) => {
       console.log(error);
     }
 
-    setAuthState({ token: null, expiresAt: null, userInfo: {} });
+    setAuthState({ token: null, expiryTime: null, userData: {} });
   };
 
   return (
-    <Provider value={{ authState, setStorage, signOut }}>{children}</Provider>
+    <Provider value={{ authState, setStorage, logOut }}>{children}</Provider>
   );
 };
 

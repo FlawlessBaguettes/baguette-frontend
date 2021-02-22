@@ -12,7 +12,7 @@ import { StatusBar } from "expo-status-bar";
 
 import NavigationHeader from "./app/components/NavigationHeader";
 
-import { AuthProvider } from "./app/components/authContext";
+import { AuthProvider } from "./app/components/AuthContext";
 
 export default App = () => {
   let [fontsLoaded] = useFonts({

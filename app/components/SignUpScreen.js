@@ -8,7 +8,7 @@ import CustomButton from "./CustomButton";
 import FormStyle from "../styles/FormStyle";
 import axios from "axios";
 
-import { POST_USERS_ENDPOINT } from "../api/constants";
+import { SIGNUP_USERS_ENDPOINT } from "../api/constants";
 
 import {
   validateDateOfBirth,
@@ -19,7 +19,7 @@ import {
   validateUsername,
 } from "../utils/FormValidation";
 
-import { AuthContext } from "./authContext";
+import { AuthContext } from "./AuthContext";
 
 function SignUpScreen({ navigation }) {
   const { setStorage } = useContext(AuthContext);
@@ -68,23 +68,23 @@ function SignUpScreen({ navigation }) {
     const isValidForm = validateForm();
 
     if (isValidForm) {
-      console.log("Signed Up!");
+      console.log("Attempting to sign up");
 
-      const { data } = await axios.post(POST_USERS_ENDPOINT, {
-        username: username,
-        password: password,
-        email: email,
-        first_name: firstName,
-        last_name: lastName,
-        date_of_birth: dateOfBirth,
-      });
-
-      const { token, expiresAt, userInfo } = data;
-      console.log(
-        "User " + userInfo.username + " with id " + userInfo.id + " created"
-      );
-
-      setStorage(token, expiresAt, userInfo);
+      try {
+        const { data } = await axios.post(SIGNUP_USERS_ENDPOINT, {
+          username: username,
+          password: password,
+          email: email,
+          first_name: firstName,
+          last_name: lastName,
+          date_of_birth: dateOfBirth,
+        });
+        console.log(data);
+        const { token, expiryTime, userData } = data;
+        setStorage(token, expiryTime, userData);
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
