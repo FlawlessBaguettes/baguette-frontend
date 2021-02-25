@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 
 import { Audio } from "expo-av";
@@ -19,7 +19,7 @@ function CameraView({ navigation }) {
   const [type, setType] = useState(Camera.Constants.Type.front);
   const [video, setVideo] = useState(null);
 
-  let cameraRef = React.createRef();
+  const cameraRef = useRef(null);
 
   useEffect(() => {
     (async () => {

@@ -2,21 +2,27 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 import { Video } from "expo-av";
 
-function PostPreview({ shouldPlay: propsShouldPlay, isMuted: propsIsMuted, uri }) {
+function PostPreview({ setVideoStatus, shouldPlay: propsShouldPlay, isMuted: propsIsMuted, uri, videoRef }) {
   const isMuted = propsIsMuted ? propsIsMuted : true;
   const shoudPlay = propsShouldPlay ? propsShouldPlay : true;
-  
+
+  const onPlaybackStatusUpdate = (status) => {    
+    setVideoStatus(status)
+  }
+
   return (
     <View style={styles.container}>
       <Video
-        source={{ uri: uri }}
-        rate={1.0}
-        volume={1.0}
+        isLooping={true}
         isMuted={isMuted}
+        rate={1.0}
+        ref={videoRef}
         resizeMode={Video.RESIZE_MODE_COVER}
         shouldPlay={shoudPlay}
-        isLooping={true}
+        source={{ uri: uri }}
         style={styles.container}
+        volume={1.0}
+        onPlaybackStatusUpdate={onPlaybackStatusUpdate}
       />
     </View>
   );

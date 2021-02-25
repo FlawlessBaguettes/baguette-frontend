@@ -28,13 +28,20 @@ const ListPostsScreen = ({ route, navigation }) => {
 
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [posts, setPosts] = useState(null);
+
   const [visibilePost, setVisiblePost] = useState(null);
 
   const [response, isLoading, hasError, refetch] = useFetch(url);
 
-  const onViewRef = useRef((viewableItems) => {
-    console.log(viewableItems.viewableItems)
-  })
+  const onViewRef = useCallback(({ viewableItems }) => {
+    setVisiblePost(() => {
+    if(viewableItems){
+      // console.log(viewableItems)
+      // console.log(viewableItems[0].index)
+      // console.log(viewableItems.viewableItems[0].index)
+      // return viewableItems[0].index;
+    }})
+  }, [])
 
   const viewConfigRef = useRef({ viewAreaCoveragePercentThreshold: 50, waitForInteraction: false, })
 
@@ -66,6 +73,7 @@ const ListPostsScreen = ({ route, navigation }) => {
       contentPostedTime={item.content.posted_time}
       contentUrl={item.content.url}
       id={item.id}
+      isActive={visibilePost}
       navigation={navigation}
       numberOfReplies={item.number_of_replies}
       postHeight={postHeight}
@@ -100,11 +108,11 @@ const ListPostsScreen = ({ route, navigation }) => {
         data={posts}
         decelerationRate={'fast'}
         getItemLayout={getItemLayout}
-        initialNumToRender={3} // items to render in initial batch
+        initialNumToRender={5} // items to render in initial batch
         keyExtractor={keyExtractor}
         maxToRenderPerBatch={3} // number of additional items rendered on every scroll
         onRefresh={onRefresh}
-        onViewableItemsChanged={onViewRef.current}
+        onViewableItemsChanged={onViewRef}
         refreshing={isRefreshing}
         removeClippedSubviews={true} // when set to true it will unmount components off the viewport
         renderItem={renderItem}
