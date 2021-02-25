@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Animated, Image, Pressable, Text, View } from "react-native";
 
+import PropTypes from 'prop-types';
+
 import CustomButton from "./CustomButton";
 import PostPreview from './PostPreview';
 
@@ -21,6 +23,8 @@ const PostCard = ({
   const videoRef = useRef(null);
   const [videoStatus, setVideoStatus] = useState(null);
   const [isVideoLoaded, setIsVideoLoaded] = useState(null);
+  const isVideoLoadedRef = useRef();
+  isVideoLoadedRef.current = isVideoLoaded; 
 
 
   const headerFadeAnim = useRef(new Animated.Value(1)).current;
@@ -32,7 +36,7 @@ const PostCard = ({
   const VIMEO_ID = '265111898';
   const url = `https://player.vimeo.com/video/${VIMEO_ID}/config`
 
-  const [response, isLoading, hasError, refetch] = useFetch(url);
+  const [response] = useFetch(url);
 
   const seeRepliesButtonTitle =
     numberOfReplies > 0 ? "See " + numberOfReplies + " Replies" : "0 Replies";
@@ -104,7 +108,11 @@ const PostCard = ({
         duration: 1000,
         useNativeDriver: true,
       })
-    ]).start()
+    ]).start(() => {
+      if(!isVideoLoadedRef.current){
+        headerFadePulse();
+      }
+    })
   }
 
   const onPressReply = () => {
@@ -176,5 +184,16 @@ const PostCard = ({
     </View>
   );
 };
+
+PostCard.propTypes = {
+  contentPostedTime: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  isActive: PropTypes.bool,
+  navigation: PropTypes.object.isRequired,
+  numberOfReplies: PropTypes.number.isRequired,
+  postHeight: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired,
+  userFullName: PropTypes.string.isRequired,
+}
 
 export default PostCard;

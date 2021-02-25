@@ -1,6 +1,10 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
+
 import { Video } from "expo-av";
+
+import PropTypes from 'prop-types';
+
 
 function PostPreview({ setVideoStatus, shouldPlay: propsShouldPlay, isMuted: propsIsMuted, uri, videoRef }) {
   const isMuted = propsIsMuted ? propsIsMuted : true;
@@ -33,5 +37,13 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
+
+PostPreview.propTypes = {
+  setVideoStatus: PropTypes.func,
+  shouldPlay: PropTypes.bool,
+  isMuted: PropTypes.bool,
+  uri: PropTypes.string,
+  videoRef: PropTypes.object,
+}
 
 export default PostPreview;
