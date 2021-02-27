@@ -20,17 +20,18 @@ const PostCard = ({
   title,
   userFullName,
 }) => {
+  console.log(title, isActive)
   const videoRef = useRef(null);
   const [videoStatus, setVideoStatus] = useState(null);
   const [isVideoLoaded, setIsVideoLoaded] = useState(null);
   const isVideoLoadedRef = useRef();
-  isVideoLoadedRef.current = isVideoLoaded; 
+  isVideoLoadedRef.current = isVideoLoaded;
 
 
   const headerFadeAnim = useRef(new Animated.Value(1)).current;
 
-  const [thumbnail, setThumbnail] = useState(null);
-  const [uri, setUri] = useState(null);
+  const [posterUri, setPosterUri] = useState(null);
+  const [videoUri, setVideoUri] = useState(null);
   const imageHeight = useRef(null);
 
   const VIMEO_ID = '265111898';
@@ -45,7 +46,7 @@ const PostCard = ({
 
   // fetch(`https://player.vimeo.com/video/${VIMEO_ID}/config`)
   //   .then(res => res.json())
-  //   .then(res => setUri(res.request.files.hls.cdns[res.request.files.hls.default_cdn].url));
+  //   .then(res => setVideoUri(res.request.files.hls.cdns[res.request.files.hls.default_cdn].url));
 
   useEffect(() => {
     let isMounted = true;
@@ -109,7 +110,7 @@ const PostCard = ({
         useNativeDriver: true,
       })
     ]).start(() => {
-      if(!isVideoLoadedRef.current){
+      if (!isVideoLoadedRef.current) {
         headerFadePulse();
       }
     })
@@ -134,8 +135,8 @@ const PostCard = ({
 
   const updateUri = () => {
     if (response) {
-      setThumbnail(response.video.thumbs['640'])
-      setUri(response.request.files.hls.cdns[response.request.files.hls.default_cdn].url)
+      setPosterUri(response.video.thumbs['640'])
+      setVideoUri(response.request.files.hls.cdns[response.request.files.hls.default_cdn].url)
     }
   }
 
@@ -144,8 +145,8 @@ const PostCard = ({
       <Pressable onPress={onVideoPressIn}>
         <View style={[PostStyle.container, { height: postHeight }]}>
           <View style={PostStyle.containerVideo}>
-            <Image source={{ uri: thumbnail }} style={{ height: imageHeight.current }} />
-            <PostPreview isMuted={true} uri={uri} videoRef={videoRef} setVideoStatus={setVideoStatus} />
+            {/* <Image source={{ uri: thumbnail }} style={{ height: imageHeight.current }} /> */}
+            <PostPreview isMuted={true} setVideoStatus={setVideoStatus} posterUri={posterUri} videoUri={videoUri} videoRef={videoRef} />
           </View>
 
           <Animated.View style={[PostStyle.containerHeader, { opacity: headerFadeAnim }]}>

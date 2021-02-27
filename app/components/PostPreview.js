@@ -6,11 +6,11 @@ import { Video } from "expo-av";
 import PropTypes from 'prop-types';
 
 
-function PostPreview({ setVideoStatus, shouldPlay: propsShouldPlay, isMuted: propsIsMuted, uri, videoRef }) {
+function PostPreview({ isMuted: propsIsMuted, posterUri, setVideoStatus, shouldPlay: propsShouldPlay, videoUri, videoRef }) {
   const isMuted = propsIsMuted ? propsIsMuted : true;
   const shoudPlay = propsShouldPlay ? propsShouldPlay : true;
 
-  const onPlaybackStatusUpdate = (status) => {    
+  const onPlaybackStatusUpdate = (status) => {
     setVideoStatus(status)
   }
 
@@ -19,14 +19,17 @@ function PostPreview({ setVideoStatus, shouldPlay: propsShouldPlay, isMuted: pro
       <Video
         isLooping={true}
         isMuted={isMuted}
+        onPlaybackStatusUpdate={onPlaybackStatusUpdate}
+        posterSource={{uri: posterUri}}
+        usePoster={true}
+        posterStyle={{resizeMode: "cover"}}
         rate={1.0}
         ref={videoRef}
         resizeMode={Video.RESIZE_MODE_COVER}
         shouldPlay={shoudPlay}
-        source={{ uri: uri }}
+        source={{ uri: videoUri }}
         style={styles.container}
         volume={1.0}
-        onPlaybackStatusUpdate={onPlaybackStatusUpdate}
       />
     </View>
   );
@@ -39,10 +42,11 @@ const styles = StyleSheet.create({
 });
 
 PostPreview.propTypes = {
+  isMuted: PropTypes.bool,
+  posterUri: PropTypes.string,
   setVideoStatus: PropTypes.func,
   shouldPlay: PropTypes.bool,
-  isMuted: PropTypes.bool,
-  uri: PropTypes.string,
+  videoUri: PropTypes.string,
   videoRef: PropTypes.object,
 }
 

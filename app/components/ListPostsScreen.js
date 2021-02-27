@@ -9,6 +9,8 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useHeaderHeight } from '@react-navigation/stack'
 
+import PropTypes from 'prop-types';
+
 import ErrorScreen from "./ErrorScreen";
 import PostCard from "./PostCard";
 
@@ -29,18 +31,22 @@ const ListPostsScreen = ({ route, navigation }) => {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [posts, setPosts] = useState(null);
 
-  const [visibilePost, setVisiblePost] = useState(null);
+  const visibilePost = useRef(null);
+  const [visiblePostIndex, setVisiblePostIndex] = useState(null);
 
   const [response, isLoading, hasError, refetch] = useFetch(url);
 
   const onViewRef = useCallback(({ viewableItems }) => {
-    setVisiblePost(() => {
-    if(viewableItems){
+    if (viewableItems) {
       // console.log(viewableItems)
       // console.log(viewableItems[0].index)
       // console.log(viewableItems.viewableItems[0].index)
       // return viewableItems[0].index;
-    }})
+      visibilePost.current = viewableItems[0]
+      // visiblePostIndex.current = viewableItems[0].index
+      setVisiblePostIndex(viewableItems[0].index)
+      console.log(visiblePostIndex)
+    }
   }, [])
 
   const viewConfigRef = useRef({ viewAreaCoveragePercentThreshold: 50, waitForInteraction: false, })
@@ -58,7 +64,7 @@ const ListPostsScreen = ({ route, navigation }) => {
     length: postHeight,
     offset: postHeight * index,
     index,
-  }), [])
+  }), [postHeight])
 
   const keyExtractor = useCallback((item) => item.id, [])
 
@@ -68,19 +74,19 @@ const ListPostsScreen = ({ route, navigation }) => {
     setIsRefreshing(false);
   };
 
-  const renderItem = useCallback(({ item }) =>
+  const renderItem = useCallback(({ item, index }) =>
     <PostCard
       contentPostedTime={item.content.posted_time}
       contentUrl={item.content.url}
       id={item.id}
-      isActive={visibilePost}
+      isActive={visiblePostIndex === index}
       navigation={navigation}
       numberOfReplies={item.number_of_replies}
       postHeight={postHeight}
       title={item.title}
       userFullName={item.user.full_name}
     />
-    , []);
+    , [postHeight, visiblePostIndex]);
 
   const updatePosts = () => {
     if (response) {
@@ -134,5 +140,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#f5f5f5",
   },
 });
+
+ListPostsScreen.propTypes = {
+  route: PropTypes.object.isRequired,
+  navigation: PropTypes.object.isRequired,
+}
 
 export default ListPostsScreen;
