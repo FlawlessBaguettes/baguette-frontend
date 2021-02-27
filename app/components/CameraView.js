@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
-import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
+
+import PropTypes from 'prop-types';
 
 import { Audio } from "expo-av";
 import { Camera } from "expo-camera";
@@ -69,7 +71,7 @@ function CameraView({ navigation }) {
 
   const renderPostPreview = () => {
     if (!showCamera && video) {
-      return <PostPreview isMuted={false} uri={video.uri} />;
+      return <PostPreview isMuted={false} videoUri={video.uri} />;
     } else {
       return null;
     }
@@ -107,7 +109,7 @@ function CameraView({ navigation }) {
   const startRecording = async () => {
     if (cameraRef.current) {
       setRecording(true);
-      const video = await cameraRef.current.recordAsync();
+      const video = await cameraRef.current.recordAsync({mirror: true});
       await setVideo(video);
       await setShowCamera(false);
     }
@@ -164,5 +166,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
+
+CameraView.propTypes = {
+  navigation: PropTypes.object.isRequired,
+}
 
 export default CameraView;

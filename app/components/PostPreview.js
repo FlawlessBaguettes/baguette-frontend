@@ -11,7 +11,9 @@ function PostPreview({ isMuted: propsIsMuted, posterUri, setVideoStatus, shouldP
   const shoudPlay = propsShouldPlay ? propsShouldPlay : true;
 
   const onPlaybackStatusUpdate = (status) => {
-    setVideoStatus(status)
+    if(setVideoStatus){
+      setVideoStatus(status)
+    }
   }
 
   return (

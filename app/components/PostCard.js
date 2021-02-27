@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Animated, Image, Pressable, Text, View } from "react-native";
+import { Animated, Pressable, Text, View } from "react-native";
 
 import PropTypes from 'prop-types';
 
@@ -32,7 +32,6 @@ const PostCard = ({
 
   const [posterUri, setPosterUri] = useState(null);
   const [videoUri, setVideoUri] = useState(null);
-  const imageHeight = useRef(null);
 
   const VIMEO_ID = '265111898';
   const url = `https://player.vimeo.com/video/${VIMEO_ID}/config`
@@ -58,10 +57,8 @@ const PostCard = ({
 
   useEffect(() => {
     if (videoStatus && videoStatus.isLoaded) {
-      imageHeight.current = null;
       setIsVideoLoaded(videoStatus.isLoaded);
     } else {
-      imageHeight.current = postHeight;
       setIsVideoLoaded(false);
     }
   }, [videoStatus])
@@ -145,7 +142,6 @@ const PostCard = ({
       <Pressable onPress={onVideoPressIn}>
         <View style={[PostStyle.container, { height: postHeight }]}>
           <View style={PostStyle.containerVideo}>
-            {/* <Image source={{ uri: thumbnail }} style={{ height: imageHeight.current }} /> */}
             <PostPreview isMuted={true} setVideoStatus={setVideoStatus} posterUri={posterUri} videoUri={videoUri} videoRef={videoRef} />
           </View>
 
