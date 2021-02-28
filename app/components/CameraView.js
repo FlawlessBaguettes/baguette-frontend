@@ -1,16 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
-import { StyleSheet, View } from "react-native";
+import React, { useEffect, useRef, useState } from 'react';
+import { StyleSheet, View } from 'react-native';
 
 import PropTypes from 'prop-types';
 
-import { Audio } from "expo-av";
-import { Camera } from "expo-camera";
-import { StatusBar } from "expo-status-bar";
+import { Audio } from 'expo-av';
+import { Camera } from 'expo-camera';
+import { StatusBar } from 'expo-status-bar';
 
-import CameraControls from "./CameraControls";
-import PostCamera from "./PostCamera";
-import PostPreview from "./PostPreview";
-import PostPreviewControls from "./PostPreviewControls";
+import CameraControls from './CameraControls';
+import PostCamera from './PostCamera';
+import PostPreview from './PostPreview';
+import PostPreviewControls from './PostPreviewControls';
 
 function CameraView({ navigation }) {
   const [cameraDisabled, setCameraDisabled] = useState(true);
@@ -93,7 +93,7 @@ function CameraView({ navigation }) {
   const requestAudioPermissions = async () => {
     const { status } = await Audio.requestPermissionsAsync();
 
-    if (status === "granted") {
+    if (status === 'granted') {
       setHasAudioPermissions(status);
     }
   };
@@ -101,7 +101,7 @@ function CameraView({ navigation }) {
   const requestCameraPermissions = async () => {
     const { status } = await Camera.requestPermissionsAsync();
 
-    if (status === "granted") {
+    if (status === 'granted') {
       setHasCameraPermissions(status);
     }
   };
@@ -109,7 +109,7 @@ function CameraView({ navigation }) {
   const startRecording = async () => {
     if (cameraRef.current) {
       setRecording(true);
-      const video = await cameraRef.current.recordAsync({mirror: true});
+      const video = await cameraRef.current.recordAsync({ mirror: true });
       await setVideo(video);
       await setShowCamera(false);
     }
@@ -122,7 +122,7 @@ function CameraView({ navigation }) {
 
   const submitVideo = () => {
     if (video) {
-      navigation.navigate("PostSubmit", {
+      navigation.navigate('PostSubmit', {
         video: video,
       });
     }
@@ -145,7 +145,7 @@ function CameraView({ navigation }) {
   };
 
   const updateCameraDisabled = () => {
-    hasCameraPermissions != "granted" || hasAudioPermissions != "granted"
+    hasCameraPermissions != 'granted' || hasAudioPermissions != 'granted'
       ? setCameraDisabled(true)
       : setCameraDisabled(false);
   };
@@ -169,6 +169,6 @@ const styles = StyleSheet.create({
 
 CameraView.propTypes = {
   navigation: PropTypes.object.isRequired,
-}
+};
 
 export default CameraView;

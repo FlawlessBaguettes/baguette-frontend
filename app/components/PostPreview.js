@@ -1,20 +1,26 @@
-import React from "react";
-import { StyleSheet, View } from "react-native";
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
 
-import { Video } from "expo-av";
+import { Video } from 'expo-av';
 
 import PropTypes from 'prop-types';
 
-
-function PostPreview({ isMuted: propsIsMuted, posterUri, setVideoStatus, shouldPlay: propsShouldPlay, videoUri, videoRef }) {
-  const isMuted = propsIsMuted ? propsIsMuted : true;
-  const shoudPlay = propsShouldPlay ? propsShouldPlay : true;
+function PostPreview({
+  isMuted: propsIsMuted,
+  posterUri,
+  setVideoStatus,
+  shouldPlay: propsShouldPlay,
+  videoUri,
+  videoRef,
+}) {
+  const isMuted = propsIsMuted !== null ? propsIsMuted : true;
+  const shoudPlay = propsShouldPlay !== null ? propsShouldPlay : true;
 
   const onPlaybackStatusUpdate = (status) => {
-    if(setVideoStatus){
-      setVideoStatus(status)
+    if (setVideoStatus) {
+      setVideoStatus(status);
     }
-  }
+  };
 
   return (
     <View style={styles.container}>
@@ -22,9 +28,9 @@ function PostPreview({ isMuted: propsIsMuted, posterUri, setVideoStatus, shouldP
         isLooping={true}
         isMuted={isMuted}
         onPlaybackStatusUpdate={onPlaybackStatusUpdate}
-        posterSource={{uri: posterUri}}
+        posterSource={{ uri: posterUri }}
         usePoster={true}
-        posterStyle={{resizeMode: "cover"}}
+        posterStyle={{ resizeMode: 'cover' }}
         rate={1.0}
         ref={videoRef}
         resizeMode={Video.RESIZE_MODE_COVER}
@@ -50,6 +56,6 @@ PostPreview.propTypes = {
   shouldPlay: PropTypes.bool,
   videoUri: PropTypes.string,
   videoRef: PropTypes.object,
-}
+};
 
 export default PostPreview;

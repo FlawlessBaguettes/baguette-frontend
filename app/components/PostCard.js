@@ -1,59 +1,53 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Animated, Pressable, Text, View } from "react-native";
+import React, { useEffect, useRef, useState } from 'react';
+import { Animated, Pressable, Text, View } from 'react-native';
 
 import PropTypes from 'prop-types';
 
-import CustomButton from "./CustomButton";
+import CustomButton from './CustomButton';
 import PostPreview from './PostPreview';
 
-import PostStyle from "../styles/PostStyle";
+import PostStyle from '../styles/PostStyle';
 
-import useFetch from "../utils/useFetch";
+import useFetch from '../utils/useFetch';
 
 const PostCard = ({
   contentPostedTime,
   id,
-  isActive,
+  index,
+  isViewable,
   navigation,
   numberOfReplies,
   postHeight,
   title,
   userFullName,
 }) => {
-  console.log(title, isActive)
+  const VIMEO_ID = index % 2 ? '265111898' : '129920646';
+  const url = `https://player.vimeo.com/video/${VIMEO_ID}/config`;
+  const [response] = useFetch(url);
+
   const videoRef = useRef(null);
   const [videoStatus, setVideoStatus] = useState(null);
   const [isVideoLoaded, setIsVideoLoaded] = useState(null);
   const isVideoLoadedRef = useRef();
   isVideoLoadedRef.current = isVideoLoaded;
 
-
   const headerFadeAnim = useRef(new Animated.Value(1)).current;
 
   const [posterUri, setPosterUri] = useState(null);
   const [videoUri, setVideoUri] = useState(null);
-
-  const VIMEO_ID = '265111898';
-  const url = `https://player.vimeo.com/video/${VIMEO_ID}/config`
-
-  const [response] = useFetch(url);
+  const [shouldPlay, setShouldPlay] = useState(isViewable);
 
   const seeRepliesButtonTitle =
-    numberOfReplies > 0 ? "See " + numberOfReplies + " Replies" : "0 Replies";
-
+    numberOfReplies > 0 ? 'See ' + numberOfReplies + ' Replies' : '0 Replies';
   const isSeeRepliesButtonDisabled = numberOfReplies > 0 ? false : true;
-
-  // fetch(`https://player.vimeo.com/video/${VIMEO_ID}/config`)
-  //   .then(res => res.json())
-  //   .then(res => setVideoUri(res.request.files.hls.cdns[res.request.files.hls.default_cdn].url));
 
   useEffect(() => {
     let isMounted = true;
 
-    updateUri();
-
-    return () => { isMounted = false };
-  }, [])
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   useEffect(() => {
     if (videoStatus && videoStatus.isLoaded) {
@@ -61,19 +55,26 @@ const PostCard = ({
     } else {
       setIsVideoLoaded(false);
     }
-  }, [videoStatus])
+  }, [videoStatus]);
 
   useEffect(() => {
-    if (isVideoLoaded) {
+    if (isVideoLoaded && isViewable) {
       headerFadeOut();
     } else {
-      headerFadePulse()
+      headerFadePulse();
     }
-  }, [isVideoLoaded])
+  }, [isVideoLoaded, isViewable]);
+
+  useEffect(() => {
+    if (!isViewable) {
+      videoRef.current.setPositionAsync(0);
+    }
+    setShouldPlay(isViewable);
+  }, [isViewable]);
 
   useEffect(() => {
     updateUri();
-  }, [response])
+  }, [response]);
 
   const headerFadeIn = () => {
     Animated.timing(headerFadeAnim, {
@@ -90,8 +91,8 @@ const PostCard = ({
         toValue: 0,
         duration: 2000,
         useNativeDriver: true,
-      })
-    ]).start()
+      }),
+    ]).start();
   };
 
   const headerFadePulse = () => {
@@ -105,47 +106,64 @@ const PostCard = ({
         toValue: 1,
         duration: 1000,
         useNativeDriver: true,
-      })
+      }),
     ]).start(() => {
       if (!isVideoLoadedRef.current) {
         headerFadePulse();
       }
-    })
-  }
+    });
+  };
 
   const onPressReply = () => {
-    navigation.navigate("CameraView");
+    navigation.navigate('CameraView');
   };
 
   const onPressSeeReplies = () => {
     if (numberOfReplies) {
-      navigation.push("ListPostsScreen", {
+      navigation.push('ListPostsScreen', {
         postId: id,
       });
     }
   };
 
-  const onVideoPressIn = () => {
-    headerFadeIn();
-    headerFadeOut();
+  const onVideoPress = () => {
+    if (shouldPlay) {
+      headerFadeIn();
+      setShouldPlay(false);
+    } else {
+      setShouldPlay(true);
+      headerFadeOut();
+    }
   };
 
   const updateUri = () => {
     if (response) {
-      setPosterUri(response.video.thumbs['640'])
-      setVideoUri(response.request.files.hls.cdns[response.request.files.hls.default_cdn].url)
+      setPosterUri(response.video.thumbs['640']);
+      setVideoUri(
+        response.request.files.hls.cdns[response.request.files.hls.default_cdn]
+          .url
+      );
     }
-  }
+  };
 
   const fullPostCard = () => {
     return (
-      <Pressable onPress={onVideoPressIn}>
+      <Pressable onPress={onVideoPress}>
         <View style={[PostStyle.container, { height: postHeight }]}>
           <View style={PostStyle.containerVideo}>
-            <PostPreview isMuted={true} setVideoStatus={setVideoStatus} posterUri={posterUri} videoUri={videoUri} videoRef={videoRef} />
+            <PostPreview
+              isMuted={true}
+              posterUri={posterUri}
+              setVideoStatus={setVideoStatus}
+              shouldPlay={shouldPlay}
+              videoRef={videoRef}
+              videoUri={videoUri}
+            />
           </View>
 
-          <Animated.View style={[PostStyle.containerHeader, { opacity: headerFadeAnim }]}>
+          <Animated.View
+            style={[PostStyle.containerHeader, { opacity: headerFadeAnim }]}
+          >
             <View style={PostStyle.containerTitle}>
               <Text style={PostStyle.textTitle}>{title}</Text>
               <Text style={PostStyle.textPostedTime}>{contentPostedTime}</Text>
@@ -158,8 +176,8 @@ const PostCard = ({
             <CustomButton
               isPrimary={false}
               onPress={onPressReply}
-              title={"Reply"}
-              theme={"light"}
+              title={'Reply'}
+              theme={'light'}
             />
 
             <CustomButton
@@ -167,7 +185,7 @@ const PostCard = ({
               isPrimary={false}
               onPress={onPressSeeReplies}
               title={seeRepliesButtonTitle}
-              theme={"light"}
+              theme={'light'}
             />
           </View>
         </View>
@@ -175,22 +193,18 @@ const PostCard = ({
     );
   };
 
-  return (
-    <View>
-      {fullPostCard()}
-    </View>
-  );
+  return <View>{fullPostCard()}</View>;
 };
 
 PostCard.propTypes = {
   contentPostedTime: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
-  isActive: PropTypes.bool,
+  isViewable: PropTypes.bool,
   navigation: PropTypes.object.isRequired,
   numberOfReplies: PropTypes.number.isRequired,
   postHeight: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   userFullName: PropTypes.string.isRequired,
-}
+};
 
 export default PostCard;

@@ -1,23 +1,23 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
   ActivityIndicator,
   FlatList,
   SafeAreaView,
   StyleSheet,
-} from "react-native";
+} from 'react-native';
 
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { useHeaderHeight } from '@react-navigation/stack'
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useHeaderHeight } from '@react-navigation/stack';
 
 import PropTypes from 'prop-types';
 
-import ErrorScreen from "./ErrorScreen";
-import PostCard from "./PostCard";
+import ErrorScreen from './ErrorScreen';
+import PostCard from './PostCard';
 
-import { GET_POSTS_ENDPOINT, GET_REPLIES_ENDPOINT } from "../api/constants";
+import { GET_POSTS_ENDPOINT, GET_REPLIES_ENDPOINT } from '../api/constants';
 
-import { SCREEN_HEIGHT } from '../utils/responsive'
-import useFetch from "../utils/useFetch";
+import { SCREEN_HEIGHT } from '../utils/responsive';
+import useFetch from '../utils/useFetch';
 
 const ListPostsScreen = ({ route, navigation }) => {
   const insets = useSafeAreaInsets();
@@ -26,7 +26,7 @@ const ListPostsScreen = ({ route, navigation }) => {
   const url =
     route.params === undefined
       ? GET_POSTS_ENDPOINT
-      : GET_REPLIES_ENDPOINT + "/" + route.params.postId;
+      : GET_REPLIES_ENDPOINT + '/' + route.params.postId;
 
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [posts, setPosts] = useState(null);
@@ -42,31 +42,37 @@ const ListPostsScreen = ({ route, navigation }) => {
       // console.log(viewableItems[0].index)
       // console.log(viewableItems.viewableItems[0].index)
       // return viewableItems[0].index;
-      visibilePost.current = viewableItems[0]
+      visibilePost.current = viewableItems[0];
       // visiblePostIndex.current = viewableItems[0].index
-      setVisiblePostIndex(viewableItems[0].index)
-      console.log(visiblePostIndex)
+      setVisiblePostIndex(viewableItems[0].index);
     }
-  }, [])
+  }, []);
 
-  const viewConfigRef = useRef({ viewAreaCoveragePercentThreshold: 50, waitForInteraction: false, })
-
+  const viewConfigRef = useRef({
+    viewAreaCoveragePercentThreshold: 50,
+    waitForInteraction: false,
+  });
 
   useEffect(() => {
     let isMounted = true;
 
     updatePosts();
 
-    return () => { isMounted = false };
+    return () => {
+      isMounted = false;
+    };
   }, [response]);
 
-  const getItemLayout = useCallback((data, index) => ({
-    length: postHeight,
-    offset: postHeight * index,
-    index,
-  }), [postHeight])
+  const getItemLayout = useCallback(
+    (data, index) => ({
+      length: postHeight,
+      offset: postHeight * index,
+      index,
+    }),
+    [postHeight]
+  );
 
-  const keyExtractor = useCallback((item) => item.id, [])
+  const keyExtractor = useCallback((item) => item.id, []);
 
   const onRefresh = async () => {
     setIsRefreshing(true);
@@ -74,27 +80,31 @@ const ListPostsScreen = ({ route, navigation }) => {
     setIsRefreshing(false);
   };
 
-  const renderItem = useCallback(({ item, index }) =>
-    <PostCard
-      contentPostedTime={item.content.posted_time}
-      contentUrl={item.content.url}
-      id={item.id}
-      isActive={visiblePostIndex === index}
-      navigation={navigation}
-      numberOfReplies={item.number_of_replies}
-      postHeight={postHeight}
-      title={item.title}
-      userFullName={item.user.full_name}
-    />
-    , [postHeight, visiblePostIndex]);
+  const renderItem = useCallback(
+    ({ item, index }) => (
+      <PostCard
+        contentPostedTime={item.content.posted_time}
+        contentUrl={item.content.url}
+        id={item.id}
+        index={index}
+        isViewable={visiblePostIndex === index}
+        navigation={navigation}
+        numberOfReplies={item.number_of_replies}
+        postHeight={postHeight}
+        title={item.title}
+        userFullName={item.user.full_name}
+      />
+    ),
+    [postHeight, visiblePostIndex]
+  );
 
   const updatePosts = () => {
     if (response) {
       const p = response.posts
         ? response.posts.posts
         : response.replies
-          ? response.replies.posts
-          : null;
+        ? response.replies.posts
+        : null;
 
       setPosts(p);
     }
@@ -137,13 +147,13 @@ const ListPostsScreen = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f5f5f5",
+    backgroundColor: '#f5f5f5',
   },
 });
 
 ListPostsScreen.propTypes = {
   route: PropTypes.object.isRequired,
   navigation: PropTypes.object.isRequired,
-}
+};
 
 export default ListPostsScreen;
