@@ -1,9 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ScrollView, View } from "react-native";
 
+import axios from "axios";
+
+import { AuthContext } from "./AuthContext";
+import CustomButton from "./CustomButton";
 import DateInput from "./DateInput";
 import FormTextInput from "./FormTextInput";
-import CustomButton from "./CustomButton";
+
+import { SIGNUP_USERS_ENDPOINT } from "../api/constants";
 
 import FormStyle from "../styles/FormStyle";
 
@@ -17,6 +22,8 @@ import {
 } from "../utils/FormValidation";
 
 function SignUpScreen({ navigation }) {
+  const { setStorage } = useContext(AuthContext);
+
   const [dateOfBirth, setDateOfBirth] = useState(null);
   const [email, setEmail] = useState(null);
   const [firstName, setFirstName] = useState(null);
@@ -57,11 +64,24 @@ function SignUpScreen({ navigation }) {
     navigation.navigate("LoginScreen");
   };
 
-  const onPressSignUp = () => {
+  const onPressSignUp = async () => {
     const isValidForm = validateForm();
 
     if (isValidForm) {
-      console.log("Signed Up!");
+      try {
+        const { data } = await axios.post(SIGNUP_USERS_ENDPOINT, {
+          username: username,
+          password: password,
+          email: email,
+          first_name: firstName,
+          last_name: lastName,
+          date_of_birth: dateOfBirth,
+        });
+        const { message, token, expiryTime, userData } = data;
+        setStorage(token, expiryTime, userData);
+      } catch (error) {
+        console.log(error.response.data.message);
+      }
     }
   };
 

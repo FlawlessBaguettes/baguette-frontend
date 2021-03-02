@@ -10,6 +10,7 @@ import {
 } from "@expo-google-fonts/poppins";
 import { StatusBar } from "expo-status-bar";
 
+import { AuthProvider } from "./app/components/AuthContext";
 import NavigationHeader from "./app/components/NavigationHeader";
 
 export default App = () => {
@@ -25,8 +26,10 @@ export default App = () => {
 
   return (
     <SafeAreaProvider>
-      <StatusBar style={'light'} />
-      <NavigationHeader />
+      <AuthProvider>
+        <StatusBar style={"light"} />
+        <NavigationHeader />
+      </AuthProvider>
     </SafeAreaProvider>
   );
 };

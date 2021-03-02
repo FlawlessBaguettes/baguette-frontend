@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Text, View } from "react-native";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
+import { AuthContext } from "./AuthContext";
 import CustomButton from "./CustomButton";
 import AccountMenuListItem, { AccountMenuItems } from "./AccountMenuListItem";
 
@@ -10,6 +11,9 @@ import AccountMenuStyle from "../styles/AccountMenuStyle";
 import FormStyle from "../styles/FormStyle";
 
 const AccountMenuScreen = ({ navigation }) => {
+  const { logOut } = useContext(AuthContext);
+  const { authState } = useContext(AuthContext);
+
   const [isLoggedIn, setIsLoggedin] = useState(false);
 
   const onPressAboutUs = () => {
@@ -22,11 +26,11 @@ const AccountMenuScreen = ({ navigation }) => {
 
   const onPressLogin = () => {
     setIsLoggedin(true);
-    // navigation.navigate("LoginScreen");
+    navigation.navigate("LoginScreen");
   };
 
   const onPressLogout = () => {
-    console.log("Log Out");
+    logOut();
     setIsLoggedin(false);
   };
 
@@ -61,6 +65,18 @@ const AccountMenuScreen = ({ navigation }) => {
   };
 
   const userDetails = () => {
+    displayName = "";
+    displayHandle = "";
+    if (
+      authState.userData.username &&
+      authState.userData.firstName &&
+      authState.userData.lastName
+    ) {
+      displayName =
+        authState.userData.firstName + " " + authState.userData.lastName;
+      displayHandle = "@" + authState.userData.username;
+    }
+
     return (
       <View style={AccountMenuStyle.containerUserDetails}>
         <View style={AccountMenuStyle.buttonUserProfilePictureBackground}>
@@ -69,8 +85,8 @@ const AccountMenuScreen = ({ navigation }) => {
             style={AccountMenuStyle.buttonUserProfilePictureIcon}
           />
         </View>
-        <Text style={AccountMenuStyle.textName}>John Doe</Text>
-        <Text style={AccountMenuStyle.textUserHandle}>@jdoe</Text>
+        <Text style={AccountMenuStyle.textName}>{displayName}</Text>
+        <Text style={AccountMenuStyle.textUserHandle}>{displayHandle}</Text>
       </View>
     );
   };
