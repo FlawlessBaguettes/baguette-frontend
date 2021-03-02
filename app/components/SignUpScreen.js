@@ -79,11 +79,11 @@ function SignUpScreen({ navigation }) {
           last_name: lastName,
           date_of_birth: dateOfBirth,
         });
-        console.log(data);
-        const { token, expiryTime, userData } = data;
+        const { message, token, expiryTime, userData } = data;
         setStorage(token, expiryTime, userData);
+        console.log(message);
       } catch (error) {
-        console.log(error);
+        console.log(error.response.data.message);
       }
     }
   };
