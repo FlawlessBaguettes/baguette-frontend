@@ -43,7 +43,6 @@ function LoginScreen({ navigation }) {
         });
         const { message, token, expiryTime, userData } = data;
         setStorage(token, expiryTime, userData);
-        console.log(message);
       } catch (error) {
         console.log(error.response.data.message);
       }
