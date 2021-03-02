@@ -10,9 +10,8 @@ import {
 } from "@expo-google-fonts/poppins";
 import { StatusBar } from "expo-status-bar";
 
-import NavigationHeader from "./app/components/NavigationHeader";
-
 import { AuthProvider } from "./app/components/AuthContext";
+import NavigationHeader from "./app/components/NavigationHeader";
 
 export default App = () => {
   let [fontsLoaded] = useFonts({

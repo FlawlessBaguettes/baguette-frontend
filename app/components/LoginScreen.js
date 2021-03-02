@@ -1,16 +1,17 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ScrollView, View } from "react-native";
 
-import FormTextInput from "./FormTextInput";
+import axios from "axios";
+
+import { AuthContext } from "./AuthContext";
 import CustomButton from "./CustomButton";
+import FormTextInput from "./FormTextInput";
+
+import { AUTH_USERS_ENDPOINT } from "../api/constants";
 
 import FormStyle from "../styles/FormStyle";
 
 import { validateEmail, validatePasswordWeak } from "../utils/FormValidation";
-
-import axios from "axios";
-import { AUTH_USERS_ENDPOINT } from "../api/constants";
-import { AuthContext } from "./AuthContext";
 
 function LoginScreen({ navigation }) {
   const { setStorage } = useContext(AuthContext);
@@ -35,8 +36,6 @@ function LoginScreen({ navigation }) {
     const isValidForm = validateForm();
 
     if (isValidForm) {
-      console.log("Attempting to login");
-
       try {
         const { data } = await axios.post(AUTH_USERS_ENDPOINT, {
           email: email,

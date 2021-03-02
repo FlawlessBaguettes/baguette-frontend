@@ -1,14 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ScrollView, View } from "react-native";
 
-import DateInput from "./DateInput";
-import FormTextInput from "./FormTextInput";
-import CustomButton from "./CustomButton";
-
-import FormStyle from "../styles/FormStyle";
 import axios from "axios";
 
+import { AuthContext } from "./AuthContext";
+import CustomButton from "./CustomButton";
+import DateInput from "./DateInput";
+import FormTextInput from "./FormTextInput";
+
 import { SIGNUP_USERS_ENDPOINT } from "../api/constants";
+
+import FormStyle from "../styles/FormStyle";
 
 import {
   validateDateOfBirth,
@@ -18,8 +20,6 @@ import {
   validatePasswordStrong,
   validateUsername,
 } from "../utils/FormValidation";
-
-import { AuthContext } from "./AuthContext";
 
 function SignUpScreen({ navigation }) {
   const { setStorage } = useContext(AuthContext);
@@ -68,8 +68,6 @@ function SignUpScreen({ navigation }) {
     const isValidForm = validateForm();
 
     if (isValidForm) {
-      console.log("Attempting to sign up");
-
       try {
         const { data } = await axios.post(SIGNUP_USERS_ENDPOINT, {
           username: username,

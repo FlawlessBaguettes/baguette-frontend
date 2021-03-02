@@ -3,13 +3,12 @@ import { Text, View } from "react-native";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
+import { AuthContext } from "./AuthContext";
 import CustomButton from "./CustomButton";
 import AccountMenuListItem, { AccountMenuItems } from "./AccountMenuListItem";
 
 import AccountMenuStyle from "../styles/AccountMenuStyle";
 import FormStyle from "../styles/FormStyle";
-
-import { AuthContext } from "./AuthContext";
 
 const AccountMenuScreen = ({ navigation }) => {
   const { logOut } = useContext(AuthContext);
@@ -31,7 +30,6 @@ const AccountMenuScreen = ({ navigation }) => {
   };
 
   const onPressLogout = () => {
-    console.log("Log Out");
     logOut();
     setIsLoggedin(false);
   };
@@ -67,8 +65,8 @@ const AccountMenuScreen = ({ navigation }) => {
   };
 
   const userDetails = () => {
-    displayName = "John Doe";
-    displayHandle = "@jdoe";
+    displayName = "";
+    displayHandle = "";
     if (
       authState.userData.username &&
       authState.userData.firstName &&
