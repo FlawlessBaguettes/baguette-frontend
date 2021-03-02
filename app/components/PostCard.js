@@ -150,7 +150,7 @@ const PostCard = ({
         <View style={[PostStyle.container, { height: postHeight }]}>
           <View style={PostStyle.containerVideo}>
             <PostPreview
-              isMuted={true}
+              isMuted={false}
               posterUri={posterUri}
               setVideoStatus={setVideoStatus}
               shouldPlay={shouldPlay}

@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useIsFocused } from '@react-navigation/native';
 import { useHeaderHeight } from '@react-navigation/stack';
 
 import PropTypes from 'prop-types';
@@ -27,14 +28,19 @@ const ListPostsScreen = ({ route, navigation }) => {
     route.params === undefined
       ? GET_POSTS_ENDPOINT
       : GET_REPLIES_ENDPOINT + '/' + route.params.postId;
+  const [response, isLoading, hasError, refetch] = useFetch(url);
+  const [posts, setPosts] = useState(null);
 
   const [isRefreshing, setIsRefreshing] = useState(false);
-  const [posts, setPosts] = useState(null);
+  const isScreenFocused = useIsFocused();
 
   const visibilePost = useRef(null);
   const [visiblePostIndex, setVisiblePostIndex] = useState(null);
 
-  const [response, isLoading, hasError, refetch] = useFetch(url);
+  const viewConfigRef = useRef({
+    viewAreaCoveragePercentThreshold: 50,
+    waitForInteraction: false,
+  });
 
   const onViewRef = useCallback(({ viewableItems }) => {
     if (viewableItems && viewableItems[0]) {
@@ -42,11 +48,6 @@ const ListPostsScreen = ({ route, navigation }) => {
       setVisiblePostIndex(viewableItems[0].index);
     }
   }, []);
-
-  const viewConfigRef = useRef({
-    viewAreaCoveragePercentThreshold: 50,
-    waitForInteraction: false,
-  });
 
   useEffect(() => {
     let isMounted = true;
@@ -82,7 +83,7 @@ const ListPostsScreen = ({ route, navigation }) => {
         contentUrl={item.content.url}
         id={item.id}
         index={index}
-        isViewable={visiblePostIndex === index}
+        isViewable={visiblePostIndex === index && isScreenFocused}
         navigation={navigation}
         numberOfReplies={item.number_of_replies}
         postHeight={postHeight}
@@ -90,7 +91,7 @@ const ListPostsScreen = ({ route, navigation }) => {
         userFullName={item.user.full_name}
       />
     ),
-    [postHeight, visiblePostIndex]
+    [isScreenFocused, postHeight, visiblePostIndex]
   );
 
   const updatePosts = () => {
