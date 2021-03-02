@@ -1,4 +1,4 @@
-export const DOMAIN = "http://127.0.0.1:5000";
+export const DOMAIN = "https://flawless-baguettes.herokuapp.com/";
 
 export const ROUTE = DOMAIN + "/baguette/api/v1.0";
 
