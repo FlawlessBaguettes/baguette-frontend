@@ -37,13 +37,8 @@ const ListPostsScreen = ({ route, navigation }) => {
   const [response, isLoading, hasError, refetch] = useFetch(url);
 
   const onViewRef = useCallback(({ viewableItems }) => {
-    if (viewableItems) {
-      // console.log(viewableItems)
-      // console.log(viewableItems[0].index)
-      // console.log(viewableItems.viewableItems[0].index)
-      // return viewableItems[0].index;
+    if (viewableItems && viewableItems[0]) {
       visibilePost.current = viewableItems[0];
-      // visiblePostIndex.current = viewableItems[0].index
       setVisiblePostIndex(viewableItems[0].index);
     }
   }, []);

@@ -30,7 +30,7 @@ function PostPreview({
         onPlaybackStatusUpdate={onPlaybackStatusUpdate}
         posterSource={{ uri: posterUri }}
         usePoster={true}
-        posterStyle={{ resizeMode: 'cover' }}
+        posterStyle={styles.posterStyle}
         rate={1.0}
         ref={videoRef}
         resizeMode={Video.RESIZE_MODE_COVER}
@@ -46,6 +46,9 @@ function PostPreview({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  posterStyle: {
+    resizeMode: 'cover',
   },
 });
 

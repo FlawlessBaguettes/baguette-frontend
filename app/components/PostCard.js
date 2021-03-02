@@ -63,14 +63,12 @@ const PostCard = ({
     } else {
       headerFadePulse();
     }
-  }, [isVideoLoaded, isViewable]);
 
-  useEffect(() => {
     if (!isViewable) {
       videoRef.current.setPositionAsync(0);
     }
     setShouldPlay(isViewable);
-  }, [isViewable]);
+  }, [isVideoLoaded, isViewable]);
 
   useEffect(() => {
     updateUri();
