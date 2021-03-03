@@ -14,7 +14,7 @@ const AccountMenuScreen = ({ navigation }) => {
   const { logOut } = useContext(AuthContext);
   const { authState } = useContext(AuthContext);
 
-  const isLoggedIn = !!authState.token;
+  const isLoggedIn = authState.token ? true : false;
 
   const onPressAboutUs = () => {
     console.log("About Us");
