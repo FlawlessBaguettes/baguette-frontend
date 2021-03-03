@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ScrollView, View } from "react-native";
+import { StackActions } from "@react-navigation/native";
 
 import axios from "axios";
 
