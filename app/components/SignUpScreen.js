@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ScrollView, View } from "react-native";
-import { StackActions } from "@react-navigation/native";
 
 import axios from "axios";
 
@@ -80,8 +79,7 @@ function SignUpScreen({ navigation }) {
         });
         const { message, token, expiryTime, userData } = data;
         setStorage(token, expiryTime, userData);
-        const popAction = StackActions.pop(2);
-        navigation.dispatch(popAction);
+        navigation.navigate("AccountMenuScreen");
       } catch (error) {
         console.log(error.response.data.message);
       }
