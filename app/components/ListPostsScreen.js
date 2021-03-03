@@ -50,13 +50,7 @@ const ListPostsScreen = ({ route, navigation }) => {
   }, []);
 
   useEffect(() => {
-    let isMounted = true;
-
     updatePosts();
-
-    return () => {
-      isMounted = false;
-    };
   }, [response]);
 
   const getItemLayout = useCallback(
@@ -83,7 +77,7 @@ const ListPostsScreen = ({ route, navigation }) => {
         contentUrl={item.content.url}
         id={item.id}
         index={index}
-        isViewable={visiblePostIndex === index && isScreenFocused}
+        isVisible={visiblePostIndex === index && isScreenFocused}
         navigation={navigation}
         numberOfReplies={item.number_of_replies}
         postHeight={postHeight}
@@ -120,21 +114,21 @@ const ListPostsScreen = ({ route, navigation }) => {
         data={posts}
         decelerationRate={'fast'}
         getItemLayout={getItemLayout}
-        initialNumToRender={5} // items to render in initial batch
+        initialNumToRender={5}
         keyExtractor={keyExtractor}
-        maxToRenderPerBatch={3} // number of additional items rendered on every scroll
+        maxToRenderPerBatch={3}
         onRefresh={onRefresh}
         onViewableItemsChanged={onViewRef}
         refreshing={isRefreshing}
-        removeClippedSubviews={true} // when set to true it will unmount components off the viewport
+        removeClippedSubviews={true}
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
         snapToAlignment={'start'}
         snapToInterval={postHeight}
-        updateCellsBatchingPeriod={50} // delay in ms between batch renders, left as default
+        updateCellsBatchingPeriod={50}
         viewabilityConfig={viewConfigRef.current}
-        windowSize={5} // unit here is 1 viewport height
+        windowSize={5}
       />
     </SafeAreaView>
   );

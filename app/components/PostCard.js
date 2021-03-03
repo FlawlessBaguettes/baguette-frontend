@@ -14,7 +14,7 @@ const PostCard = ({
   contentPostedTime,
   id,
   index,
-  isViewable,
+  isVisible,
   navigation,
   numberOfReplies,
   postHeight,
@@ -26,28 +26,21 @@ const PostCard = ({
   const [response] = useFetch(url);
 
   const videoRef = useRef(null);
+  const isVideoLoadedRef = useRef(null);
+
   const [videoStatus, setVideoStatus] = useState(null);
   const [isVideoLoaded, setIsVideoLoaded] = useState(null);
-  const isVideoLoadedRef = useRef();
   isVideoLoadedRef.current = isVideoLoaded;
 
   const headerFadeAnim = useRef(new Animated.Value(1)).current;
 
   const [posterUri, setPosterUri] = useState(null);
   const [videoUri, setVideoUri] = useState(null);
-  const [shouldPlay, setShouldPlay] = useState(isViewable);
+  const [shouldPlay, setShouldPlay] = useState(isVisible);
 
   const seeRepliesButtonTitle =
     numberOfReplies > 0 ? 'See ' + numberOfReplies + ' Replies' : '0 Replies';
   const isSeeRepliesButtonDisabled = numberOfReplies > 0 ? false : true;
-
-  useEffect(() => {
-    let isMounted = true;
-
-    return () => {
-      isMounted = false;
-    };
-  }, []);
 
   useEffect(() => {
     if (videoStatus && videoStatus.isLoaded) {
@@ -58,17 +51,17 @@ const PostCard = ({
   }, [videoStatus]);
 
   useEffect(() => {
-    if (isVideoLoaded && isViewable) {
+    if (isVideoLoaded && isVisible) {
       headerFadeOut();
     } else {
       headerFadePulse();
     }
 
-    if (!isViewable) {
+    if (!isVisible) {
       videoRef.current.setPositionAsync(0);
     }
-    setShouldPlay(isViewable);
-  }, [isVideoLoaded, isViewable]);
+    setShouldPlay(isVisible);
+  }, [isVideoLoaded, isVisible]);
 
   useEffect(() => {
     updateUri();
@@ -197,7 +190,7 @@ const PostCard = ({
 PostCard.propTypes = {
   contentPostedTime: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
-  isViewable: PropTypes.bool,
+  isVisible: PropTypes.bool,
   navigation: PropTypes.object.isRequired,
   numberOfReplies: PropTypes.number.isRequired,
   postHeight: PropTypes.number.isRequired,
