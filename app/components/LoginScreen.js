@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ScrollView, View } from "react-native";
+import { StackActions } from "@react-navigation/native";
 
 import axios from "axios";
 
@@ -43,7 +44,8 @@ function LoginScreen({ navigation }) {
         });
         const { message, token, expiryTime, userData } = data;
         setStorage(token, expiryTime, userData);
-        navigation.navigate("AccountMenuScreen");
+        const popAction = StackActions.pop(2);
+        navigation.dispatch(popAction);
       } catch (error) {
         console.log(error.response.data.message);
       }
