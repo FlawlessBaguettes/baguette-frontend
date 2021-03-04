@@ -83,6 +83,7 @@ const ListPostsScreen = ({ route, navigation }) => {
         postHeight={postHeight}
         title={item.title}
         userFullName={item.user.full_name}
+        vimeo_id={item.content.external_id}
       />
     ),
     [isScreenFocused, postHeight, visiblePostIndex]

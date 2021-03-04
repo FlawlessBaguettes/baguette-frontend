@@ -13,16 +13,15 @@ import useFetch from '../utils/useFetch';
 const PostCard = ({
   contentPostedTime,
   id,
-  index,
   isVisible,
   navigation,
   numberOfReplies,
   postHeight,
   title,
   userFullName,
+  vimeo_id,
 }) => {
-  const VIMEO_ID = index % 2 ? '265111898' : '129920646';
-  const url = `https://player.vimeo.com/video/${VIMEO_ID}/config`;
+  const url = `https://player.vimeo.com/video/${vimeo_id}/config`;
   const [response] = useFetch(url);
 
   const videoRef = useRef(null);
@@ -196,6 +195,7 @@ PostCard.propTypes = {
   postHeight: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   userFullName: PropTypes.string.isRequired,
+  vimeo_id: PropTypes.string.isRequired,
 };
 
 export default PostCard;
