@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { Text, View } from 'react-native';
+
+import PropTypes from 'prop-types';
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
+import { AuthContext } from './AuthContext';
 import CustomButton from './CustomButton';
 import AccountMenuListItem, { AccountMenuItems } from './AccountMenuListItem';
 
@@ -10,7 +13,10 @@ import AccountMenuStyle from '../styles/AccountMenuStyle';
 import FormStyle from '../styles/FormStyle';
 
 const AccountMenuScreen = ({ navigation }) => {
-  const [isLoggedIn, setIsLoggedin] = useState(false);
+  const { logOut } = useContext(AuthContext);
+  const { authState } = useContext(AuthContext);
+
+  const isLoggedIn = authState.token ? true : false;
 
   const onPressAboutUs = () => {
     console.log('About Us');
@@ -21,13 +27,11 @@ const AccountMenuScreen = ({ navigation }) => {
   };
 
   const onPressLogin = () => {
-    setIsLoggedin(true);
-    // navigation.navigate("LoginScreen");
+    navigation.navigate('LoginScreen');
   };
 
   const onPressLogout = () => {
-    console.log('Log Out');
-    setIsLoggedin(false);
+    logOut();
   };
 
   const onPressSignUp = () => {
@@ -38,7 +42,7 @@ const AccountMenuScreen = ({ navigation }) => {
     return (
       <View style={FormStyle.containerDisclaimer}>
         <Text style={FormStyle.textDisclaimerHeader}>
-          Hey!{'\n'} Looks like you don't have an account
+          Hey!{'\n'} Looks like you don&apos;t have an account
         </Text>
         <Text style={FormStyle.textDisclaimerDescription}>
           Sign up to join the community
@@ -61,6 +65,18 @@ const AccountMenuScreen = ({ navigation }) => {
   };
 
   const userDetails = () => {
+    let displayName = '';
+    let displayHandle = '';
+    if (
+      authState.userData.username &&
+      authState.userData.firstName &&
+      authState.userData.lastName
+    ) {
+      displayName =
+        authState.userData.firstName + ' ' + authState.userData.lastName;
+      displayHandle = '@' + authState.userData.username;
+    }
+
     return (
       <View style={AccountMenuStyle.containerUserDetails}>
         <View style={AccountMenuStyle.buttonUserProfilePictureBackground}>
@@ -69,8 +85,8 @@ const AccountMenuScreen = ({ navigation }) => {
             style={AccountMenuStyle.buttonUserProfilePictureIcon}
           />
         </View>
-        <Text style={AccountMenuStyle.textName}>John Doe</Text>
-        <Text style={AccountMenuStyle.textUserHandle}>@jdoe</Text>
+        <Text style={AccountMenuStyle.textName}>{displayName}</Text>
+        <Text style={AccountMenuStyle.textUserHandle}>{displayHandle}</Text>
       </View>
     );
   };
@@ -99,6 +115,10 @@ const AccountMenuScreen = ({ navigation }) => {
       </View>
     </View>
   );
+};
+
+AccountMenuScreen.propTypes = {
+  navigation: PropTypes.object.isRequired,
 };
 
 export default AccountMenuScreen;
