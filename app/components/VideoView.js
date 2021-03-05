@@ -5,7 +5,7 @@ import { Video } from 'expo-av';
 
 import PropTypes from 'prop-types';
 
-function PostPreview({
+function VideoView({
   isMuted: propsIsMuted,
   posterUri,
   setVideoStatus,
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   },
 });
 
-PostPreview.propTypes = {
+VideoView.propTypes = {
   isMuted: PropTypes.bool,
   posterUri: PropTypes.string,
   setVideoStatus: PropTypes.func,
@@ -61,4 +61,4 @@ PostPreview.propTypes = {
   videoRef: PropTypes.object,
 };
 
-export default PostPreview;
+export default VideoView;

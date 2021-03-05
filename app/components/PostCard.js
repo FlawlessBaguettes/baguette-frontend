@@ -4,7 +4,7 @@ import { Animated, Pressable, Text, View } from 'react-native';
 import PropTypes from 'prop-types';
 
 import CustomButton from './CustomButton';
-import PostPreview from './PostPreview';
+import VideoView from './VideoView';
 
 import PostStyle from '../styles/PostStyle';
 
@@ -141,7 +141,7 @@ const PostCard = ({
       <Pressable onPress={onVideoPress}>
         <View style={[PostStyle.container, { height: postHeight }]}>
           <View style={PostStyle.containerVideo}>
-            <PostPreview
+            <VideoView
               isMuted={false}
               posterUri={posterUri}
               setVideoStatus={setVideoStatus}

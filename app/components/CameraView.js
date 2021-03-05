@@ -9,7 +9,7 @@ import { StatusBar } from 'expo-status-bar';
 
 import CameraControls from './CameraControls';
 import PostCamera from './PostCamera';
-import PostPreview from './PostPreview';
+import VideoView from './VideoView';
 import PostPreviewControls from './PostPreviewControls';
 
 function CameraView({ navigation }) {
@@ -71,7 +71,7 @@ function CameraView({ navigation }) {
 
   const renderPostPreview = () => {
     if (!showCamera && video) {
-      return <PostPreview isMuted={false} videoUri={video.uri} />;
+      return <VideoView isMuted={false} videoUri={video.uri} />;
     } else {
       return null;
     }
