@@ -1,10 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { Pressable, Text, View } from "react-native";
-import PropTypes from "prop-types";
+import React, { useEffect, useState } from 'react';
+import { Pressable, Text, View } from 'react-native';
+import PropTypes from 'prop-types';
 
-import ButtonStyle from "../styles/ButtonStyle";
+import ButtonStyle from '../styles/ButtonStyle';
 
-function CustomButton({ disabled, isPrimary, onPress, theme: propsTheme, title }) {
+function CustomButton({
+  disabled,
+  isPrimary,
+  onPress,
+  theme: propsTheme,
+  title,
+}) {
   const theme = propsTheme ? propsTheme : 'dark';
 
   const [buttonStyle, setButtonStyle] = useState(null);
@@ -24,11 +30,11 @@ function CustomButton({ disabled, isPrimary, onPress, theme: propsTheme, title }
   });
 
   const onPressIn = () => {
-    !isPrimary
-      ? setTextStylePressed(ButtonStyle.textButtonSecondaryPressed)
-      : setTextStylePressed(null);
-
-    isPrimary ? setButtonStylePressed(ButtonStyle.buttonPrimaryPressed) : null;
+    if (isPrimary) {
+      setButtonStylePressed(ButtonStyle.buttonPrimaryPressed);
+    } else {
+      setTextStylePressed(ButtonStyle.textButtonSecondaryPressed);
+    }
   };
 
   const onPressOut = () => {
@@ -50,7 +56,9 @@ function CustomButton({ disabled, isPrimary, onPress, theme: propsTheme, title }
 
   const updateTextTheme = () => {
     if (!isPrimary) {
-      theme === 'dark' ? setTextTheme(ButtonStyle.textButtonSecondaryDark) : setTextTheme(ButtonStyle.textButtonSecondaryLight)
+      theme === 'dark'
+        ? setTextTheme(ButtonStyle.textButtonSecondaryDark)
+        : setTextTheme(ButtonStyle.textButtonSecondaryLight);
     }
   };
 

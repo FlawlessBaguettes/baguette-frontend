@@ -14,7 +14,7 @@ function VideoView({
   videoRef,
 }) {
   const isMuted = propsIsMuted !== null ? propsIsMuted : true;
-  const shoudPlay = propsShouldPlay !== null ? propsShouldPlay : true;
+  const shouldPlay = propsShouldPlay !== null ? propsShouldPlay : true;
 
   const onPlaybackStatusUpdate = (status) => {
     if (setVideoStatus) {
@@ -34,7 +34,7 @@ function VideoView({
         rate={1.0}
         ref={videoRef}
         resizeMode={Video.RESIZE_MODE_COVER}
-        shouldPlay={shoudPlay}
+        shouldPlay={shouldPlay}
         source={{ uri: videoUri }}
         style={styles.container}
         volume={1.0}
