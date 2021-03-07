@@ -1,14 +1,16 @@
-import React, { useContext, useState } from "react";
-import { Text, View } from "react-native";
+import React, { useContext } from 'react';
+import { Text, View } from 'react-native';
 
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import PropTypes from 'prop-types';
 
-import { AuthContext } from "./AuthContext";
-import CustomButton from "./CustomButton";
-import AccountMenuListItem, { AccountMenuItems } from "./AccountMenuListItem";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-import AccountMenuStyle from "../styles/AccountMenuStyle";
-import FormStyle from "../styles/FormStyle";
+import { AuthContext } from './AuthContext';
+import CustomButton from './CustomButton';
+import AccountMenuListItem, { AccountMenuItems } from './AccountMenuListItem';
+
+import AccountMenuStyle from '../styles/AccountMenuStyle';
+import FormStyle from '../styles/FormStyle';
 
 const AccountMenuScreen = ({ navigation }) => {
   const { logOut } = useContext(AuthContext);
@@ -17,15 +19,15 @@ const AccountMenuScreen = ({ navigation }) => {
   const isLoggedIn = authState.token ? true : false;
 
   const onPressAboutUs = () => {
-    console.log("About Us");
+    console.log('About Us');
   };
 
   const onPressHelp = () => {
-    console.log("Help");
+    console.log('Help');
   };
 
   const onPressLogin = () => {
-    navigation.navigate("LoginScreen");
+    navigation.navigate('LoginScreen');
   };
 
   const onPressLogout = () => {
@@ -33,14 +35,14 @@ const AccountMenuScreen = ({ navigation }) => {
   };
 
   const onPressSignUp = () => {
-    navigation.navigate("SignUpScreen");
+    navigation.navigate('SignUpScreen');
   };
 
   const registrationDisclaimer = () => {
     return (
       <View style={FormStyle.containerDisclaimer}>
         <Text style={FormStyle.textDisclaimerHeader}>
-          Hey!{"\n"} Looks like you don't have an account
+          Hey!{'\n'} Looks like you don&apos;t have an account
         </Text>
         <Text style={FormStyle.textDisclaimerDescription}>
           Sign up to join the community
@@ -49,13 +51,13 @@ const AccountMenuScreen = ({ navigation }) => {
           <CustomButton
             isPrimary={true}
             onPress={onPressSignUp}
-            title={"Sign Up"}
+            title={'Sign Up'}
           />
 
           <CustomButton
             isPrimary={false}
             onPress={onPressLogin}
-            title={"Login"}
+            title={'Login'}
           />
         </View>
       </View>
@@ -63,16 +65,16 @@ const AccountMenuScreen = ({ navigation }) => {
   };
 
   const userDetails = () => {
-    displayName = "";
-    displayHandle = "";
+    let displayName = '';
+    let displayHandle = '';
     if (
       authState.userData.username &&
       authState.userData.firstName &&
       authState.userData.lastName
     ) {
       displayName =
-        authState.userData.firstName + " " + authState.userData.lastName;
-      displayHandle = "@" + authState.userData.username;
+        authState.userData.firstName + ' ' + authState.userData.lastName;
+      displayHandle = '@' + authState.userData.username;
     }
 
     return (
@@ -113,6 +115,10 @@ const AccountMenuScreen = ({ navigation }) => {
       </View>
     </View>
   );
+};
+
+AccountMenuScreen.propTypes = {
+  navigation: PropTypes.object.isRequired,
 };
 
 export default AccountMenuScreen;
