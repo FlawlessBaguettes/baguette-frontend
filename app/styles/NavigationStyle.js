@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
 
 import {
   colorBackgroundHeader,
@@ -7,7 +7,7 @@ import {
   fontButtonSize,
   fontFamilyMedium,
   fontSizeExtraLarge,
-} from "./constants.js";
+} from './constants.js';
 
 const NavigationStyle = StyleSheet.create({
   containerHeaderItem: {
@@ -30,10 +30,11 @@ const NavigationStyle = StyleSheet.create({
 
   header: {
     backgroundColor: colorBackgroundHeader,
+    shadowColor: 'transparent',
   },
 
   textHeader: {
-    alignSelf: "center",
+    alignSelf: 'center',
     fontFamily: fontFamilyMedium,
     fontSize: fontSizeExtraLarge,
     color: colorTextLight,
