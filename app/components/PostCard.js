@@ -57,7 +57,9 @@ const PostCard = ({
     }
 
     if (!isVisible) {
-      videoRef.current.setPositionAsync(0);
+      if (videoRef.current) {
+        videoRef.current.setPositionAsync(0);
+      }
     }
     setShouldPlay(isVisible);
   }, [isVideoLoaded, isVisible]);
