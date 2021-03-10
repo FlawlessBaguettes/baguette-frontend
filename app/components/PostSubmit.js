@@ -1,3 +1,4 @@
+import { CommonActions } from '@react-navigation/native';
 import React, { useContext, useEffect, useState } from "react";
 import { ScrollView, View } from "react-native";
 
@@ -13,7 +14,7 @@ import { validatePostTitle } from "../utils/FormValidation";
 
 import { POST_POSTS_ENDPOINT } from "../api/constants";
 
-function PostSubmit({ route }) {
+function PostSubmit({ navigation, route }) {
   const { authState } = useContext(AuthContext);
   const [isPostButtonDisabled, setIsPostButtonDisabled] = useState(true);
   const [title, setTitle] = useState(null);
@@ -59,6 +60,17 @@ function PostSubmit({ route }) {
     axios(config)
       .then(function (response) {
         console.log(response);
+
+        console.log("POP THE STACK HEEEEEEREEEEEEEEEE");
+
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 1,
+            routes: [
+              { name: 'ListPostsScreen' }
+            ],
+          })
+        );
       })
       .catch(function (response) {
         console.log(response);
