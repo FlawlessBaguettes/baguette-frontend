@@ -61,8 +61,6 @@ function PostSubmit({ navigation, route }) {
       .then(function (response) {
         console.log(response);
 
-        console.log("POP THE STACK HEEEEEEREEEEEEEEEE");
-
         navigation.dispatch(
           CommonActions.reset({
             index: 1,
