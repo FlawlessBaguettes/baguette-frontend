@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ScrollView, View } from "react-native";
 
 import axios from "axios";
@@ -32,8 +32,7 @@ function PostSubmit({ route }) {
     const uriParts = uri.split("/");
     const fileName = uriParts[uriParts.length - 1];
     const fileNameParts = fileName.split(".");
-    const fileType = fileName[fileName.length - 1];
-    const userId = authState.userData.id;
+    const fileType = fileNameParts[fileNameParts.length - 1];
 
     const bodyFormData = new FormData();
     bodyFormData.append("video", {
@@ -43,10 +42,10 @@ function PostSubmit({ route }) {
     });
 
     bodyFormData.append("title", title);
-    bodyFormData.append("userId", userId);
 
     const headers = {
       "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${authState.token}`
     };
 
     let config = {
