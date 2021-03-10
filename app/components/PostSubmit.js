@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ScrollView, View } from "react-native";
 
 import axios from "axios";
 
+import { AuthContext } from "./AuthContext";
 import FormTextInput from "./FormTextInput";
 import CustomButton from "./CustomButton";
 
@@ -13,63 +14,63 @@ import { validatePostTitle } from "../utils/FormValidation";
 import { POST_POSTS_ENDPOINT } from "../api/constants";
 
 function PostSubmit({ route }) {
+  const { authState } = useContext(AuthContext);
+
   const [isPostButtonDisabled, setIsPostButtonDisabled] = useState(true);
   const [title, setTitle] = useState(null);
   const [video, setVideo] = useState(route.params.video);
 
   useEffect(() => {
-    updatePostButton()
-  })
+    updatePostButton();
+  });
 
   const handleTitle = (text) => {
-    setTitle(text)
+    setTitle(text);
   };
 
-  onPress = () => {
+  const onPress = async () => {
     const uri = video.uri;
     const uriParts = uri.split("/");
     const fileName = uriParts[uriParts.length - 1];
     const fileNameParts = fileName.split(".");
-    const fileType = fileName[fileName.length - 1];
-
-    const bodyFormData = new FormData();
-    bodyFormData.append("video", {
-      uri: uri,
-      name: fileName,
-      type: `video/${fileType}`,
-    });
-
-    bodyFormData.append("title", title);
+    const fileType = fileNameParts[fileNameParts.length - 1];
+    console.log("uri: " + uri);
+    console.log("uriParts: " + uriParts);
+    console.log("fileName: " + fileName);
+    console.log("fileNameParts: " + fileNameParts);
+    console.log("fileType: " + fileType);
+    console.log(`authorization header: Bearer ${authState.token}`);
 
     const headers = {
-      "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${authState.token}`,
     };
 
-    let config = {
-      method: "post",
-      url: POST_POSTS_ENDPOINT,
-      headers: headers,
-      data: bodyFormData,
-    };
+    console.log(`authorization header: ${headers.Authorization}`);
 
-    axios(config)
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (response) {
-        console.log(response);
+    try {
+      const video = { uri: uri, filename: fileName, type: `video/${fileType}` };
+      const response = await axios.post(POST_POSTS_ENDPOINT, {
+        headers: headers,
+        video: video,
+        title: title,
       });
+      console.log(response.data.msg);
+    } catch (error) {
+      console.log(error.response.data.msg);
+    }
   };
 
   const updatePostButton = () => {
     const isValidForm = validateForm();
 
-    isValidForm ? setIsPostButtonDisabled(false) : setIsPostButtonDisabled(true);
-  }
+    isValidForm
+      ? setIsPostButtonDisabled(false)
+      : setIsPostButtonDisabled(true);
+  };
 
   const validateForm = () => {
     return validatePostTitle(title) === true;
-  }
+  };
 
   return (
     <ScrollView contentContainerStyle={FormStyle.container}>
