@@ -42,6 +42,7 @@ function PostSubmit({ route }) {
     });
 
     bodyFormData.append("title", title);
+    bodyFormData.append("parent_id", route.params.parentId)
 
     const headers = {
       "Content-Type": "multipart/form-data",

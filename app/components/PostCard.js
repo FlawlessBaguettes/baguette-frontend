@@ -107,7 +107,9 @@ const PostCard = ({
   };
 
   const onPressReply = () => {
-    navigation.navigate('CameraView');
+    navigation.navigate('CameraView', {
+      parentId: id
+    });
   };
 
   const onPressSeeReplies = () => {
