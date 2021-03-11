@@ -13,8 +13,8 @@ function VideoView({
   videoUri,
   videoRef,
 }) {
-  const isMuted = propsIsMuted !== null ? propsIsMuted : true;
-  const shouldPlay = propsShouldPlay !== null ? propsShouldPlay : true;
+  const isMuted = propsIsMuted !== undefined ? propsIsMuted : true;
+  const shouldPlay = propsShouldPlay !== undefined ? propsShouldPlay : true;
 
   const onPlaybackStatusUpdate = (status) => {
     if (setVideoStatus) {
