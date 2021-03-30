@@ -1,91 +1,128 @@
-import React from "react";
+import React from 'react';
 
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
-import AccountMenuScreen from "./AccountMenuScreen";
-import CameraView from "./CameraView";
-import HeaderButton, { HeaderButtonType } from "./HeaderButton";
-import ListPostsScreen from "./ListPostsScreen";
-import LoginScreen from "./LoginScreen";
-import PostSubmit from "./PostSubmit";
-import SignUpScreen from "./SignUpScreen";
+import AccountMenuScreen from './AccountMenuScreen';
+import CameraView from './CameraView';
+import HeaderButton, { HeaderButtonType } from './HeaderButton';
+import ListPostsScreen from './ListPostsScreen';
+import LoginScreen from './LoginScreen';
+import PostSubmit from './PostSubmit';
+import SignUpScreen from './SignUpScreen';
 
-import NavigationStyle from "../styles/NavigationStyle";
+import NavigationStyle from '../styles/NavigationStyle';
 
 const NavigationHeader = () => {
-  const Stack = createStackNavigator();
+  const AccountStack = createStackNavigator();
+  const HomeStack = createStackNavigator();
+  const PostStack = createStackNavigator();
+  const Tab = createBottomTabNavigator();
 
-  const backButton = () => {
-    return <HeaderButton headerButtonType={HeaderButtonType.BACK} />;
+  const AccountMenuScreenStack = () => {
+    return (
+      <AccountStack.Navigator>
+        <AccountStack.Screen
+          name="AccountMenuScreen"
+          component={AccountMenuScreen}
+          options={{
+            title: 'Account Menu',
+            headerLeft: backButton,
+            headerStyle: NavigationStyle.header,
+            headerTitleStyle: NavigationStyle.textHeader,
+          }}
+        />
+        <AccountStack.Screen
+          name="LoginScreen"
+          component={LoginScreen}
+          options={{
+            title: 'Login',
+            headerLeft: backButton,
+            headerStyle: NavigationStyle.header,
+            headerTitleStyle: NavigationStyle.textHeader,
+          }}
+        />
+        <AccountStack.Screen
+          name="SignUpScreen"
+          component={SignUpScreen}
+          options={{
+            title: 'Sign Up',
+            headerLeft: backButton,
+            headerStyle: NavigationStyle.header,
+            headerTitleStyle: NavigationStyle.textHeader,
+          }}
+        />
+      </AccountStack.Navigator>
+    );
   };
 
-  const accountMenuButton = () => {
-    return <HeaderButton headerButtonType={HeaderButtonType.ACCOUNT_MENU} />;
-  };
-
-  return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="ListPostsScreen">
-        <Stack.Screen
+  const HomeScreenStack = () => {
+    return (
+      <HomeStack.Navigator>
+        <HomeStack.Screen
+          name="ListPostsScreen"
+          component={ListPostsScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <HomeStack.Screen
           name="CameraView"
           component={CameraView}
           options={{
             headerShown: false,
           }}
         />
-        <Stack.Screen
-          name="ListPostsScreen"
-          component={ListPostsScreen}
-          options={{
-            title: "Baguette",
-            headerLeft: backButton,
-            headerRight: accountMenuButton,
-            headerStyle: NavigationStyle.header,
-            headerTitleStyle: NavigationStyle.textHeader,
-          }}
-        />
-        <Stack.Screen
-          name="AccountMenuScreen"
-          component={AccountMenuScreen}
-          options={{
-            title: "Account Menu",
-            headerLeft: backButton,
-            headerStyle: NavigationStyle.header,
-            headerTitleStyle: NavigationStyle.textHeader,
-          }}
-        />
-        <Stack.Screen
-          name="SignUpScreen"
-          component={SignUpScreen}
-          options={{
-            title: "Sign Up",
-            headerLeft: backButton,
-            headerStyle: NavigationStyle.header,
-            headerTitleStyle: NavigationStyle.textHeader,
-          }}
-        />
-        <Stack.Screen
-          name="LoginScreen"
-          component={LoginScreen}
-          options={{
-            title: "Login",
-            headerLeft: backButton,
-            headerStyle: NavigationStyle.header,
-            headerTitleStyle: NavigationStyle.textHeader,
-          }}
-        />
-        <Stack.Screen
+        <HomeStack.Screen
           name="PostSubmit"
           component={PostSubmit}
           options={{
-            title: "Post",
+            title: 'Post',
             headerLeft: backButton,
             headerStyle: NavigationStyle.header,
             headerTitleStyle: NavigationStyle.textHeader,
           }}
         />
-      </Stack.Navigator>
+      </HomeStack.Navigator>
+    );
+  };
+
+  const PostScreenStack = () => {
+    return (
+      <PostStack.Navigator>
+        <PostStack.Screen
+          name="CameraView"
+          component={() => <CameraView canGoBack={false} />}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <PostStack.Screen
+          name="PostSubmit"
+          component={PostSubmit}
+          options={{
+            title: 'Post',
+            headerLeft: backButton,
+            headerStyle: NavigationStyle.header,
+            headerTitleStyle: NavigationStyle.textHeader,
+          }}
+        />
+      </PostStack.Navigator>
+    );
+  };
+
+  const backButton = () => {
+    return <HeaderButton headerButtonType={HeaderButtonType.BACK} />;
+  };
+
+  return (
+    <NavigationContainer>
+      <Tab.Navigator>
+        <Tab.Screen name="Home" component={HomeScreenStack} />
+        <Tab.Screen name="Post" component={PostScreenStack} />
+        <Tab.Screen name="Account" component={AccountMenuScreenStack} />
+      </Tab.Navigator>
     </NavigationContainer>
   );
 };

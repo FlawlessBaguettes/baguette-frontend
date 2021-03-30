@@ -2,27 +2,34 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
   ActivityIndicator,
   FlatList,
+  Pressable,
   SafeAreaView,
   StyleSheet,
+  Text,
+  View,
 } from 'react-native';
 
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { useIsFocused } from '@react-navigation/native';
-import { useHeaderHeight } from '@react-navigation/stack';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import PropTypes from 'prop-types';
+
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import ErrorScreen from './ErrorScreen';
 import PostCard from './PostCard';
 
 import { GET_POSTS_ENDPOINT, GET_REPLIES_ENDPOINT } from '../api/constants';
 
+import CameraStyle from '../styles/CameraStyle';
+
 import { SCREEN_HEIGHT } from '../utils/responsive';
 import useFetch from '../utils/useFetch';
 
 const ListPostsScreen = ({ route, navigation }) => {
   const insets = useSafeAreaInsets();
-  const postHeight = SCREEN_HEIGHT - useHeaderHeight() - insets.bottom;
+  const postHeight = SCREEN_HEIGHT - useBottomTabBarHeight(); // - insets.bottom;
 
   const url =
     route.params === undefined
@@ -70,6 +77,22 @@ const ListPostsScreen = ({ route, navigation }) => {
     setIsRefreshing(false);
   };
 
+  const renderGoBackButton = () => {
+    return (
+      <Pressable
+        style={CameraStyle.buttonTopLeft}
+        onPress={() => {
+          navigation.goBack;
+        }}
+      >
+        <MaterialCommunityIcons
+          name="keyboard-backspace"
+          style={CameraStyle.buttonIcon}
+        />
+      </Pressable>
+    );
+  };
+
   const renderItem = useCallback(
     ({ item, index }) => (
       <PostCard
@@ -110,7 +133,10 @@ const ListPostsScreen = ({ route, navigation }) => {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
+      {/* <SafeAreaView style={{ position: 'absolute', flexDirection: 'row' }}>
+        {renderGoBackButton()}
+      </SafeAreaView> */}
       <FlatList
         data={posts}
         decelerationRate={'fast'}
@@ -131,7 +157,7 @@ const ListPostsScreen = ({ route, navigation }) => {
         viewabilityConfig={viewConfigRef.current}
         windowSize={5}
       />
-    </SafeAreaView>
+    </View>
   );
 };
 

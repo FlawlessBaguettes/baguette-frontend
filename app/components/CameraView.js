@@ -12,8 +12,11 @@ import PostCamera from './PostCamera';
 import VideoView from './VideoView';
 import PostPreviewControls from './PostPreviewControls';
 
-function CameraView({ navigation }) {
-  const [cameraDisabled, setCameraDisabled] = useState(true);
+function CameraView({ canGoBack: propsCanGoBack, navigation }) {
+  const canGoBack =
+    propsCanGoBack !== undefined ? propsCanGoBack : navigation.canGoBack();
+
+  const [isCameraDisabled, setIsCameraDisabled] = useState(true);
   const [hasAudioPermissions, setHasAudioPermissions] = useState(null);
   const [hasCameraPermissions, setHasCameraPermissions] = useState(null);
   const [recording, setRecording] = useState(false);
@@ -44,7 +47,8 @@ function CameraView({ navigation }) {
     if (showCamera && !recording) {
       return (
         <CameraControls
-          cameraDisabled={cameraDisabled}
+          isCameraDisabled={isCameraDisabled}
+          canGoBack={canGoBack}
           goBack={goBack}
           toggleCameraType={toggleCameraType}
         />
@@ -58,7 +62,7 @@ function CameraView({ navigation }) {
     if (showCamera) {
       return (
         <PostCamera
-          cameraDisabled={cameraDisabled}
+          cameraDisabled={isCameraDisabled}
           cameraRef={cameraRef}
           toggleRecording={toggleRecording}
           type={type}
@@ -146,8 +150,8 @@ function CameraView({ navigation }) {
 
   const updateCameraDisabled = () => {
     hasCameraPermissions != 'granted' || hasAudioPermissions != 'granted'
-      ? setCameraDisabled(true)
-      : setCameraDisabled(false);
+      ? setIsCameraDisabled(true)
+      : setIsCameraDisabled(false);
   };
 
   return (
@@ -168,6 +172,7 @@ const styles = StyleSheet.create({
 });
 
 CameraView.propTypes = {
+  canGoBack: PropTypes.bool,
   navigation: PropTypes.object.isRequired,
 };
 

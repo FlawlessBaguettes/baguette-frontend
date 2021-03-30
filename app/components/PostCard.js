@@ -138,8 +138,8 @@ const PostCard = ({
     }
   };
 
-  const fullPostCard = () => {
-    return (
+  return (
+    <View>
       <Pressable onPress={onVideoPress}>
         <View style={[PostStyle.container, { height: postHeight }]}>
           <View style={PostStyle.containerVideo}>
@@ -182,10 +182,8 @@ const PostCard = ({
           </View>
         </View>
       </Pressable>
-    );
-  };
-
-  return <View>{fullPostCard()}</View>;
+    </View>
+  );
 };
 
 PostCard.propTypes = {
