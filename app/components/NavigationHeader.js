@@ -93,7 +93,10 @@ const NavigationHeader = () => {
       <PostStack.Navigator>
         <PostStack.Screen
           name="CameraView"
-          component={() => <CameraView canGoBack={false} />}
+          component={CameraView}
+          // component={() => (
+          //   <CameraView canGoBack={false} navigation={Tab.navigation} />
+          // )}
           options={{
             headerShown: false,
           }}
