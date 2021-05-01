@@ -4,6 +4,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+
 import AccountMenuScreen from './AccountMenuScreen';
 import CameraView from './CameraView';
 import HeaderButton, { HeaderButtonType } from './HeaderButton';
@@ -122,9 +124,40 @@ const NavigationHeader = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator>
-        <Tab.Screen name="Home" component={HomeScreenStack} />
-        <Tab.Screen name="Post" component={PostScreenStack} />
-        <Tab.Screen name="Account" component={AccountMenuScreenStack} />
+        <Tab.Screen
+          name="Home"
+          component={HomeScreenStack}
+          options={{
+            tabBarLabel: 'Home',
+            tabBarIcon: ({ color, size }) => (
+              <MaterialCommunityIcons name="home" color={color} size={size} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Post"
+          component={PostScreenStack}
+          options={{
+            tabBarLabel: 'Post',
+            tabBarIcon: ({ color, size }) => (
+              <MaterialCommunityIcons name="camera" color={color} size={size} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Account"
+          component={AccountMenuScreenStack}
+          options={{
+            tabBarLabel: 'Account',
+            tabBarIcon: ({ color, size }) => (
+              <MaterialCommunityIcons
+                name="account"
+                color={color}
+                size={size}
+              />
+            ),
+          }}
+        />
       </Tab.Navigator>
     </NavigationContainer>
   );
