@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 
 import { Audio } from 'expo-av';
 import { Camera } from 'expo-camera';
-import { StatusBar } from 'expo-status-bar';
 
 import CameraControls from './CameraControls';
 import PostCamera from './PostCamera';
@@ -156,7 +155,6 @@ function CameraView({ canGoBack: propsCanGoBack, navigation }) {
 
   return (
     <View style={styles.container}>
-      <StatusBar hidden={true} translucent={true} />
       {renderPostCamera()}
       {renderCameraControls()}
       {renderPostPreview()}

@@ -117,21 +117,28 @@ const NavigationHeader = () => {
     );
   };
 
+  const tabBarIcon = (color, icon) => {
+    return <MaterialCommunityIcons name={icon} color={color} size={35} />;
+  };
+
   const backButton = () => {
     return <HeaderButton headerButtonType={HeaderButtonType.BACK} />;
   };
 
   return (
     <NavigationContainer>
-      <Tab.Navigator>
+      <Tab.Navigator
+        tabBarOptions={{
+          activeTintColor: '#f72585',
+          showLabel: false,
+        }}
+      >
         <Tab.Screen
           name="Home"
           component={HomeScreenStack}
           options={{
             tabBarLabel: 'Home',
-            tabBarIcon: ({ color, size }) => (
-              <MaterialCommunityIcons name="home" color={color} size={size} />
-            ),
+            tabBarIcon: ({ color }) => tabBarIcon(color, 'home'),
           }}
         />
         <Tab.Screen
@@ -139,9 +146,7 @@ const NavigationHeader = () => {
           component={PostScreenStack}
           options={{
             tabBarLabel: 'Post',
-            tabBarIcon: ({ color, size }) => (
-              <MaterialCommunityIcons name="camera" color={color} size={size} />
-            ),
+            tabBarIcon: ({ color }) => tabBarIcon(color, 'camera'),
           }}
         />
         <Tab.Screen
@@ -149,13 +154,7 @@ const NavigationHeader = () => {
           component={AccountMenuScreenStack}
           options={{
             tabBarLabel: 'Account',
-            tabBarIcon: ({ color, size }) => (
-              <MaterialCommunityIcons
-                name="account"
-                color={color}
-                size={size}
-              />
-            ),
+            tabBarIcon: ({ color }) => tabBarIcon(color, 'account'),
           }}
         />
       </Tab.Navigator>

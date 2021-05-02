@@ -27,7 +27,7 @@ export default App = () => {
   return (
     <SafeAreaProvider>
       <AuthProvider>
-        <StatusBar style={'dark'} />
+        <StatusBar hidden={false} transparent={true} style={'light'} />
         <NavigationHeader />
       </AuthProvider>
     </SafeAreaProvider>
