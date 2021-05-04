@@ -13,21 +13,13 @@ const PostStyle = StyleSheet.create({
     flex: 1,
   },
 
-  containerHeader: {
+  containerPostDetails: {
     flex: 1,
-    paddingHorizontal: 10,
-    paddingVertical: 15,
-    position: 'absolute',
-    width: '100%',
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0,
+    paddingVertical: 10,
   },
 
   containerFooter: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: 'column',
     paddingBottom: 15,
     paddingHorizontal: 10,
     position: 'absolute',
@@ -35,10 +27,15 @@ const PostStyle = StyleSheet.create({
     bottom: 0,
   },
 
-  containerTitle: {
-    alignItems: 'center',
+  containerFooterButtons: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+
+  containerName: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    // justifyContent: 'space-between',
   },
 
   containerVideo: {
@@ -48,7 +45,7 @@ const PostStyle = StyleSheet.create({
   textPostedTime: {
     color: colorTextLight,
     fontFamily: fontFamilyMedium,
-    fontSize: fontSizeSmall,
+    fontSize: fontSizeMedium,
   },
 
   textTitle: {

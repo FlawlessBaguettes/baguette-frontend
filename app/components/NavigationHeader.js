@@ -14,6 +14,7 @@ import LoginScreen from './LoginScreen';
 import PostSubmit from './PostSubmit';
 import SignUpScreen from './SignUpScreen';
 
+import { palettePersianRose } from '../styles/constants';
 import NavigationStyle from '../styles/NavigationStyle';
 
 const NavigationHeader = () => {
@@ -95,10 +96,7 @@ const NavigationHeader = () => {
       <PostStack.Navigator>
         <PostStack.Screen
           name="CameraView"
-          component={CameraView}
-          // component={() => (
-          //   <CameraView canGoBack={false} navigation={Tab.navigation} />
-          // )}
+          component={cameraView}
           options={{
             headerShown: false,
           }}
@@ -117,19 +115,23 @@ const NavigationHeader = () => {
     );
   };
 
-  const tabBarIcon = (color, icon) => {
-    return <MaterialCommunityIcons name={icon} color={color} size={35} />;
-  };
+  const cameraView = (navigation) => (
+    <CameraView canGoBack={false} navigation={navigation} />
+  );
 
   const backButton = () => {
     return <HeaderButton headerButtonType={HeaderButtonType.BACK} />;
+  };
+
+  const tabBarIcon = (color, icon) => {
+    return <MaterialCommunityIcons name={icon} color={color} size={30} />;
   };
 
   return (
     <NavigationContainer>
       <Tab.Navigator
         tabBarOptions={{
-          activeTintColor: '#f72585',
+          activeTintColor: palettePersianRose,
           showLabel: false,
         }}
       >

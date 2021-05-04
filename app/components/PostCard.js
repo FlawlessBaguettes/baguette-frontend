@@ -1,11 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Animated, Pressable, Text, View } from 'react-native';
+import { Animated, Pressable, SafeAreaView, Text, View } from 'react-native';
 
 import PropTypes from 'prop-types';
+
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import CustomButton from './CustomButton';
 import VideoView from './VideoView';
 
+import CameraStyle from '../styles/CameraStyle';
 import PostStyle from '../styles/PostStyle';
 
 import useFetch from '../utils/useFetch';
@@ -128,6 +131,24 @@ const PostCard = ({
     }
   };
 
+  const renderGoBackButton = () => {
+    if (navigation.canGoBack()) {
+      return (
+        <Pressable
+          style={CameraStyle.buttonTopLeft}
+          onPress={() => {
+            navigation.goBack();
+          }}
+        >
+          <MaterialCommunityIcons
+            name="keyboard-backspace"
+            style={CameraStyle.buttonIcon}
+          />
+        </Pressable>
+      );
+    }
+  };
+
   const updateUri = () => {
     if (response) {
       setPosterUri(response.video.thumbs['640']);
@@ -140,48 +161,58 @@ const PostCard = ({
 
   return (
     <View>
-      <Pressable onPress={onVideoPress}>
-        <View style={[PostStyle.container, { height: postHeight }]}>
-          <View style={PostStyle.containerVideo}>
-            <VideoView
-              isMuted={false}
-              posterUri={posterUri}
-              setVideoStatus={setVideoStatus}
-              shouldPlay={shouldPlay}
-              videoRef={videoRef}
-              videoUri={videoUri}
-            />
-          </View>
-
-          <Animated.View
-            style={[PostStyle.containerHeader, { opacity: headerFadeAnim }]}
-          >
-            <View style={PostStyle.containerTitle}>
-              <Text style={PostStyle.textTitle}>{title}</Text>
-              <Text style={PostStyle.textPostedTime}>{contentPostedTime}</Text>
+      <View>
+        <Pressable onPress={onVideoPress}>
+          <View style={[PostStyle.container, { height: postHeight }]}>
+            <View style={PostStyle.containerVideo}>
+              <VideoView
+                isMuted={false}
+                posterUri={posterUri}
+                setVideoStatus={setVideoStatus}
+                shouldPlay={shouldPlay}
+                videoRef={videoRef}
+                videoUri={videoUri}
+              />
             </View>
 
-            <Text style={PostStyle.textUserFullName}>{userFullName}</Text>
-          </Animated.View>
+            <View style={PostStyle.containerFooter}>
+              <Animated.View
+                style={[
+                  PostStyle.containerPostDetails,
+                  { opacity: headerFadeAnim },
+                ]}
+              >
+                <View style={PostStyle.containerName}>
+                  <Text style={PostStyle.textUserFullName}>
+                    {userFullName} • {contentPostedTime}
+                  </Text>
+                </View>
+                <Text style={PostStyle.textTitle}>{title}</Text>
+              </Animated.View>
 
-          <View style={PostStyle.containerFooter}>
-            <CustomButton
-              isPrimary={false}
-              onPress={onPressReply}
-              title={'Reply'}
-              theme={'light'}
-            />
+              <View style={PostStyle.containerFooterButtons}>
+                <CustomButton
+                  isPrimary={false}
+                  onPress={onPressReply}
+                  title={'Reply'}
+                  theme={'light'}
+                />
 
-            <CustomButton
-              disabled={isSeeRepliesButtonDisabled}
-              isPrimary={false}
-              onPress={onPressSeeReplies}
-              title={seeRepliesButtonTitle}
-              theme={'light'}
-            />
+                <CustomButton
+                  disabled={isSeeRepliesButtonDisabled}
+                  isPrimary={false}
+                  onPress={onPressSeeReplies}
+                  title={seeRepliesButtonTitle}
+                  theme={'light'}
+                />
+              </View>
+            </View>
           </View>
-        </View>
-      </Pressable>
+        </Pressable>
+      </View>
+      <SafeAreaView style={{ position: 'absolute' }}>
+        <View style={CameraStyle.container}>{renderGoBackButton()}</View>
+      </SafeAreaView>
     </View>
   );
 };

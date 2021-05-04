@@ -13,7 +13,7 @@ import { StatusBar } from 'expo-status-bar';
 import { AuthProvider } from './app/components/AuthContext';
 import NavigationHeader from './app/components/NavigationHeader';
 
-export default App = () => {
+const App = () => {
   let [fontsLoaded] = useFonts({
     Poppins_400Regular,
     Poppins_500Medium,
@@ -33,3 +33,5 @@ export default App = () => {
     </SafeAreaProvider>
   );
 };
+
+export default App;
