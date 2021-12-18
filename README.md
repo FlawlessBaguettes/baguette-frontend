@@ -3,7 +3,7 @@ Frontend of the Baguette social media platform.
 
 
 
-# Setting Up Environemnt
+# Setting Up Environment
 
 ### Setup Node
 
