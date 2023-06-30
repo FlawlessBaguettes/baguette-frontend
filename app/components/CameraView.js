@@ -12,7 +12,7 @@ import PostCamera from './PostCamera';
 import VideoView from './VideoView';
 import PostPreviewControls from './PostPreviewControls';
 
-function CameraView({ navigation }) {
+function CameraView({ navigation, route }) {
   const [cameraDisabled, setCameraDisabled] = useState(true);
   const [hasAudioPermissions, setHasAudioPermissions] = useState(null);
   const [hasCameraPermissions, setHasCameraPermissions] = useState(null);
@@ -124,6 +124,7 @@ function CameraView({ navigation }) {
     if (video) {
       navigation.navigate('PostSubmit', {
         video: video,
+        parentId: route.params.parentId
       });
     }
   };

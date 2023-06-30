@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ScrollView, View } from "react-native";
+import { CommonActions } from '@react-navigation/native';
 
 import axios from "axios";
 
+import { AuthContext } from "./AuthContext";
 import FormTextInput from "./FormTextInput";
 import CustomButton from "./CustomButton";
 
@@ -12,7 +14,8 @@ import { validatePostTitle } from "../utils/FormValidation";
 
 import { POST_POSTS_ENDPOINT } from "../api/constants";
 
-function PostSubmit({ route }) {
+function PostSubmit({ navigation, route }) {
+  const { authState } = useContext(AuthContext);
   const [isPostButtonDisabled, setIsPostButtonDisabled] = useState(true);
   const [title, setTitle] = useState(null);
   const [video, setVideo] = useState(route.params.video);
@@ -30,7 +33,7 @@ function PostSubmit({ route }) {
     const uriParts = uri.split("/");
     const fileName = uriParts[uriParts.length - 1];
     const fileNameParts = fileName.split(".");
-    const fileType = fileName[fileName.length - 1];
+    const fileType = fileNameParts[fileNameParts.length - 1];
 
     const bodyFormData = new FormData();
     bodyFormData.append("video", {
@@ -40,9 +43,11 @@ function PostSubmit({ route }) {
     });
 
     bodyFormData.append("title", title);
+    bodyFormData.append("parent_id", route.params.parentId)
 
     const headers = {
       "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${authState.token}`
     };
 
     let config = {
@@ -55,6 +60,15 @@ function PostSubmit({ route }) {
     axios(config)
       .then(function (response) {
         console.log(response);
+
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 1,
+            routes: [
+              { name: 'ListPostsScreen' }
+            ],
+          })
+        );
       })
       .catch(function (response) {
         console.log(response);
